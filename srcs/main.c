@@ -6,13 +6,17 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:48:49 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/06/29 19:01:40 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/01 15:48:05 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fdf.h"
+#include "fdf.h"
 #include "mlx.h"
+#include "libft.h"
+#include <limits.h>
+#include <errno.h>
 #include <stdio.h>
+
 
 typedef struct s_data
 {
@@ -215,47 +219,47 @@ void draw_algorithm_4(int *start, int *end, t_data *img, int color)
 
 
 
+t_map	*map_init()
+{
+	t_map	*map;
+
+	map = (t_map *)malloc(sizeof(t_map));
+	if(!map) 
+		terminate(ERR_MAP_INIT);
+	ft_bzero(map, sizeof(t_map));
+	map->width = WIDTH;
+	map->height = HEIGHT;
+	map->coords_arr = NULL;
+	map->colors_arr = NULL;
+	map->z_min = INT_MAX;
+	map->z_max = INT_MIN;
+	map->z_range = 0;
+	return (map);
+}
+
+
 int main(void)
 {
 	void *mlx;
 	void *mlx_win;
 	t_data img;
 
+	// MAP
+	// t_map	*map;
+	// map = map_init();
+
+	
+	
+
 	mlx = mlx_init();
 	mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");
 	img.img = mlx_new_image(mlx, 1920, 1080);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 								 &img.endian);
-	// printf("image data bpp = %d", img.bits_per_pixel);
-	// my_mlx_pixel_put(&img, 900, 540, 0x00FF0000);
-	// my_mlx_pixel_put(&img, 900, 541, 0x00FF0000);
-	// my_mlx_pixel_put(&img, 900, 542, 0x00FF0000);
-	// int *node_1 = {0,960};
-	// int *node_2 = {200,960};
-	// int *node_3 = {0,1160};
-	// int *node_4 = {200,1160};
-	// int **nodes = {node_1,node_2,node_3,node_4};
 
-	// int **edge_1 = {node_1,node_2};
-	// int **edge_2 = {node_1,node_3};
-	// int **edge_2 = {node_2,node_4};
-	// int **edge_2 = {node_3,node_4};
-
-	// int x_start = 1920 / 2;
-	// int y_start = 0;
-	// int y_end = 1080;
-	// draw_vline(&img,x_start,y_start,y_end,0x00FF0000);
-	// draw_hline(&img,1080/2,0,1920,0x00FF0000);
-	// draw_algorithm(0,0,1920,1080,&img,0x00FF0000);
-	// draw_algorithm(0,1080,1920,0,&img,0x00FF0000);
 	int node_1[2] = {200,200};
 	int node_2[2] = {800,200};
-	// int node_3[2] = {200,800};
-	// int node_4[2] = {800,800};
-	// int line1[2][2] = {node_1,node_2};
-	// int line2[2][2] = {node_1,node_2};
-	// int line3[2][2] = {node_1,node_2};
-	// int line4[2][2] = {node_1,node_2};
+
 
 	draw_algorithm_4(node_1,node_2,&img,0x00FF0000);
 	draw_algorithm_3(200,800,800,800,&img,0x00FF0000);
@@ -267,3 +271,5 @@ int main(void)
 	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
 	mlx_loop(mlx);
 }
+
+// 	while (y_start < y_end)

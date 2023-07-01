@@ -6,7 +6,7 @@
 #    By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/12 10:34:59 by ppimchan          #+#    #+#              #
-#    Updated: 2023/06/17 12:28:51 by ppimchan         ###   ########.fr        #
+#    Updated: 2023/07/01 15:52:26 by ppimchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 NAME					= fdf
 CC						= gcc
 FLAGS					= -Wall -Wextra -Werror -O3
-ALL_HEADERS				= -I$(HEADERS_DIRECTORY)  -I$(LIBFT_DIRECTORY) -I$(MINI_LIBX_DIRECTORY)
+ALL_HEADERS				= -I$(FDF_HEADERS_DIRECTORY)  -I$(LIBFT_DIRECTORY) -I$(MINI_LIBX_DIRECTORY)
 ALL_LIBS 				= -lmlx -lm -lft -L$(LIBFT_DIRECTORY) -L$(MINI_LIBX_DIRECTORY) -framework OpenGL -framework AppKit
 
 # LIBFT
@@ -34,7 +34,7 @@ FDF_HEADERS				= $(addprefix $(FDF_HEADERS_DIRECTORY), $(FDF_HEADERS_FILES))
 
 # SOURCE
 SRCS_DIRECTORY			= ./srcs/
-SRCS_FILES				= main.c
+SRCS_FILES				= main.c error.c 
 SRCS					= $(addprefix $(SRCS_DIRECTORY) $(SRCS_FILES))
 
 # OBJECT
