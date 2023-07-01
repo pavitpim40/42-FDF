@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/01 15:50:36 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/01 22:03:36 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <math.h>
+
+typedef enum
+{
+	ISOMETRIC,
+	PARALLEL
+}	t_projection;
+
+// MAP Detail
 typedef struct s_map	
 {
 	int		width;
@@ -34,6 +42,30 @@ typedef struct s_map
 	int		z_max;
 	int		z_range;
 }		t_map;
+
+// fdf detail
+typedef struct s_fdf
+{
+	void		*mlx;
+	void		*win;
+
+	void		*img;
+	char		*data_addr;
+	int			bits_per_pixel;
+	int			size_line;
+	int			endian;
+
+	t_map		*map;
+	// t_camera	*camera;
+	// t_mouse		*mouse;
+}				t_fdf;
+// Coordinate Height
+typedef struct 			s_coordinate
+{
+	int					z;
+	int					color;
+	struct s_coord_val	*next;
+}						t_coordinate;
 
 // Prototypes
 void terminate(char *msg);
