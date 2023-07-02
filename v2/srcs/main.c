@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:48:49 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 03:43:27 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/03 04:04:06 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int main(void)
 	printf("coordinate address in main  : %p\n\n", map->coordinate_map);
 
 	int fd;
-	fd = open("maps/test.fdf", O_RDONLY);
+	fd = open("maps/1-row.fdf", O_RDONLY);
 	read_map(fd, map);
 
 	t_coordinate **coordinate = map->coordinate_map;
@@ -103,7 +103,7 @@ int main(void)
 	// print_map(map, head);
 
 	// cal appropriate cell width and height in square
-	int cell_width = (WIDTH - 300) / map->width;
+	int cell_width = (WIDTH - 100) / map->width;
 	int cell_height = (HEIGHT - 300) / map->height;
 	int cell_size = cell_width < cell_height ? cell_width : cell_height;
 	printf("cell_size : %d\n", cell_size);
@@ -114,42 +114,38 @@ int main(void)
 	printf("map->height : %d\n", map->height);
 	while (j < map->height)
 	{
-		while (i < map->width)
+		while (i < map->width && head->next != NULL)
 		{
+			// extract z from head
+			int z = (head->z)*100;
+			printf("z : %d\n", z);
 			// draw horizontal line each grid
-			t_node start = duplicate_node(100 + (cell_size * i), 100 + (cell_size * j), 0, 0x00FF0000);
-			t_node end = duplicate_node(100 + (cell_size * (i + 1)), 100 + (cell_size * j), 0, 0x00FF0000);
+			t_node start = project_isometric(duplicate_node(100 + (cell_size * i), 100 + (cell_size * j), z, 0x00FF0000));
+			head = head->next;
+			z = (head->z)*100;
+			t_node end = project_isometric( duplicate_node(100 + (cell_size * (i + 1)), 100 + (cell_size * j), z, 0x00FF0000));
 			draw_algorithm_3(start.x, start.y, end.x, end.y, &canvas, 0x00FF0000);
 
 			// instant draw vertical line each grid
 			if (j != map->height - 1)
 			{
-				t_node end = duplicate_node(100 + (cell_size * i), 100 + (cell_size * (j + 1)), 0, 0x00FF0000);
+				t_node end = project_isometric(duplicate_node(100 + (cell_size * i), 100 + (cell_size * (j + 1)), 0, 0x00FF0000));
 				draw_algorithm_3(start.x, start.y, end.x, end.y, &canvas, 0x00FF0000);
 			}
 			i++;
 			if (j != map->height - 1)
 			{
-				start = duplicate_node(100 + (cell_size * i), 100 + (cell_size * j), 0, 0x00FF0000);
-				end = duplicate_node(100 + (cell_size * i), 100 + (cell_size * (j + 1)), 0, 0x00FF0000);
+				start = project_isometric(duplicate_node(100 + (cell_size * i), 100 + (cell_size * j), 0, 0x00FF0000));
+				end = project_isometric( duplicate_node(100 + (cell_size * i), 100 + (cell_size * (j + 1)), 0, 0x00FF0000));
 				draw_algorithm_3(start.x, start.y, end.x, end.y, &canvas, 0x00FF0000);
 			}
+			// head = head->next;
 		}
 
 		i = 0;
 		j++;
 	}
-	// while (i < map->width)
-	// {
-	// 	t_node start = duplicate_node(100, 100, 0, 0x00FF0000);
-	// 	t_node end = duplicate_node(100 + (cell_size * (i+1)), 100, 0, 0x00FF0000);
-	// 	draw_algorithm_3(start.x, start.y, end.x, end.y, &canvas, 0x00FF0000);
-	// 	i++;
-	// }
-	// t_node start = duplicate_node(100, 100, 0, 0x00FF0000);
-	// t_node end = duplicate_node(100+cell_size, 100, 0, 0x00FF0000);
-
-	// draw_algorithm_3(start.x, start.y, start.x, start.y, &canvas, 0x00FF0000);
+	
 	// test_demo(&canvas);
 
 	mlx_put_image_to_window(mlx, mlx_win, canvas.img, 0, 0);

@@ -6,11 +6,11 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 01:56:30 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 01:56:51 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/03 03:49:24 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../includes/fdf.h"
 
 // Generalize Draw line Algorithm
 void draw_algorithm_3(int x0, int y0, int xn, int yn, t_canvas *img, int color)

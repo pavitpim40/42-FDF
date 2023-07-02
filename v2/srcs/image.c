@@ -6,11 +6,11 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 01:59:15 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 01:59:41 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/03 03:49:38 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../includes/fdf.h"
 
 void my_mlx_pixel_put(t_canvas *canvas, int x, int y, int color)
 {
