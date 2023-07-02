@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/02 13:59:08 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/02 23:28:29 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,22 @@ typedef enum
 	PARALLEL
 }	t_projection;
 
+typedef struct 			s_coordinate
+{
+	int					x;
+	int					y;
+	int					z;
+	int					color;
+	struct s_coordinate	*next;
+
+}						t_coordinate;
+
 // MAP Detail
 typedef struct s_map	
 {
 	int		width;
 	int		height;
-	int		*coords_arr;
+	t_coordinate		**coordinate_map;
 	int		*colors_arr;
 	int		z_min;
 	int		z_max;
@@ -60,14 +70,6 @@ typedef struct s_fdf
 	// t_mouse		*mouse;
 }				t_fdf;
 // Coordinate Height
-typedef struct 			s_coordinate
-{
-	int					x;
-	int					y;
-	int					z;
-	int					color;
-	struct s_coord_val	*next;
-}						t_coordinate;
 
 // Prototypes
 void terminate(char *msg);

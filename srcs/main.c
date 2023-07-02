@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:48:49 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/02 15:48:10 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/02 23:31:59 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,7 +277,7 @@ t_map *map_init()
 	ft_bzero(map, sizeof(t_map));
 	map->width = 0;
 	map->height = 0;
-	map->coords_arr = NULL;
+	map->coordinate_map = NULL;
 	map->colors_arr = NULL;
 	map->z_min = INT_MAX; // why ?
 	map->z_max = INT_MIN; // why ?
@@ -355,74 +355,117 @@ t_node project_isometric(t_node node)
 	return node;
 }
 
-/*
-** function for read map
-*/
 
-// void push_coordinate(t_coordinate **row, t_coordinate *new)
-// {
-// 	t_coordinate *tmp;
 
-// 	if (!*row)
-// 		*row = new;
-// 	else
-// 	{
-// 		tmp = *row;
-// 		while (tmp->next)
-// 			tmp = tmp->next;
-// 		tmp->next = new;
-// 	}
-// }
-
-void read_map (int fd)
+t_coordinate *new_coordinate(int x, int y, int z)
 {
-	// int		i;
-	// int		j;
-	char	*line;
-	// char	**split_line;
-	// t_coordinate	*coordinate;
-	// t_coordinate	**coord_stack;
+	t_coordinate *new;
 
-	// i = 0;
-	// coord_stack = NULL;
-	// coordinate = NULL;
-	line = get_next_line(fd);
-	// printf("line : %s\n", line);
-	while (line)
-	{
-		printf("line : %s\n", line);
-		free(line);
-		line = get_next_line(fd);
-	}
-	// {
-	// 	j = 0;
-	// 	split_line = ft_split(line, ' ');
-	// 	while (split_line[j])
-	// 	{
-	// 		// coordinate = new_coord(i, j, ft_atoi(split_line[j]));
-	// 		// push_coordinate(&coord_stack, coordinate);
-
-	// 		j++;
-	// 	}
-	// 	printf("line : %s\n", split_line[i]);
-	// 	// free_split_line(split_line);
-	// 	// free(line);
-	// 	i++;
-	// }
-	// map->height = i;
-	// map->width = j;
-	// map->coords_arr = (int *)malloc(sizeof(int) * map->width * map->height);
-	// map->colors_arr = (int *)malloc(sizeof(int) * map->width * map->height);
-	// i = 0;
-	// while (coord_stack)
-	// {
-	// 	// coordinate = pop(&coord_stack);
-	// 	map->coords_arr[i] = coordinate->z;
-	// 	map->colors_arr[i] = coordinate->color;
-	// 	free(coordinate);
-	// 	i++;
-	// }
+	new = (t_coordinate *)malloc(sizeof(t_coordinate));
+	if (!new)
+		terminate(ERR_MAP_INIT);
+	new->x = x;
+	new->y = y;
+	new->z = z;
+	new->next = NULL;
+	
+	return new;
 }
+
+void free_split_line(char **split_line)
+{
+	int i;
+
+	i = 0;
+	while (split_line[i])
+	{
+		free(split_line[i]);
+		i++;
+	}
+	free(split_line);
+}
+void print_map(t_coordinate **coordinate_map , int width)
+{
+	t_coordinate *current;
+	int ordinate;
+
+	ordinate = 0;
+	current = *coordinate_map;
+	while(current)
+	{
+		while (ordinate < width) 
+		{
+			printf("%d ",current->z);
+			current = current->next;
+			ordinate++;
+		}
+		printf("\n");
+		ordinate = 0;
+		
+	}
+	printf("\n");
+}
+
+void read_map (int fd, t_map *map)
+{
+	int		axis;
+	int		ordinate;
+	// int 	altitude;
+	char	*axis_string;
+
+	t_coordinate	*coordinate;
+	
+	char	**axis_array;
+	t_coordinate	**coordinate_map;
+	t_coordinate	*head;
+	
+
+	axis = 0;
+	coordinate_map = NULL;
+	coordinate = NULL;
+	axis_string = get_next_line(fd);
+	
+	
+	while (axis_string)
+	{
+		axis_array = ft_split(axis_string, ' ');
+		ordinate = 0;
+		printf("-----------------------------axis : %d\n", axis);
+		while (axis_array[ordinate])
+		{
+			if(axis == 0 && ordinate == 0)
+			{
+				head = new_coordinate(ordinate, axis, ft_atoi(axis_array[ordinate]));
+				coordinate_map = &head;
+				coordinate = head;
+			}
+			else
+			{
+				coordinate->next = new_coordinate(ordinate, axis, ft_atoi(axis_array[ordinate]));
+				coordinate = coordinate->next;
+			}
+			
+			ordinate++;
+		}
+		printf("ordinate : %d\n", ordinate);
+		if(map->width == 0)
+			map->width = ordinate;
+		else if(map->width != ordinate)
+			terminate(ERR_MAP_INIT);
+		free_split_line(axis_array);
+		free(axis_string);
+		axis++;
+		axis_string = get_next_line(fd);
+	}
+	map->height = axis;
+	map->coordinate_map = coordinate_map;
+	// coordinate_map = start;
+	// print coordinate map
+	print_map(coordinate_map, map->width);
+
+}
+
+
 
 int main(void)
 {
@@ -431,13 +474,13 @@ int main(void)
 	t_canvas canvas;
 
 	// MAP
-	// t_map	*map;
-	// map = map_init();
+	t_map	*map;
+	map = map_init();
 
 	// ReadMAP
 	int fd;
-	fd = open("maps/42.fdf", O_RDONLY);
-	read_map(fd);
+	fd = open("maps/test.fdf", O_RDONLY);
+	read_map(fd, map);
 
 	// t_coordinate *coordinate_stack;
 	// coordinate_stack = NULL;
