@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:48:49 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/02 23:31:59 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/03 01:52:00 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,7 @@ void draw_algorithm_3(int x0, int y0, int xn, int yn, t_canvas *img, int color)
 		secondary_k = primary_k == x0 ? y0 : yn;
 		if (secondary_k > cal_min(y0, yn))
 			step = -1;
-		printf("X dominate\n");
+		// printf("X dominate\n");
 	}
 	else
 	{
@@ -178,11 +178,11 @@ void draw_algorithm_3(int x0, int y0, int xn, int yn, t_canvas *img, int color)
 		secondary_k = primary_k == y0 ? x0 : xn;
 		if (secondary_k > cal_min(x0, xn))
 			step = -1;
-		printf("Y dominate\n");
+		// printf("Y dominate\n");
 	}
-	printf("primary_k : %d\n", primary_k);
-	printf("primary_n : %d\n", primary_n);
-	printf("secondary_k : %d\n", secondary_k);
+	// printf("primary_k : %d\n", primary_k);
+	// printf("primary_n : %d\n", primary_n);
+	// printf("secondary_k : %d\n", secondary_k);
 
 	int decision_parameter = 2 * ds - dp;
 
@@ -212,7 +212,7 @@ void draw_algorithm_3(int x0, int y0, int xn, int yn, t_canvas *img, int color)
 			secondary_k += step; // ***change
 		}
 	}
-	printf("endline-------------------\n");
+	// printf("endline-------------------\n");
 }
 
 void draw_algorithm_4(int *start, int *end, t_canvas *canvas, int color)
@@ -347,7 +347,7 @@ t_node project_isometric(t_node node)
 	rotate_x(&node.y, &node.z, alpha);
 	rotate_y(&node.x, &node.z, beta);
 	rotate_z(&node.x, &node.y, gamma);
-	printf("node.x , node.y , node.z : (%d, %d, %d)\n", node.x, node.y, node.z);
+	// printf("node.x , node.y , node.z : (%d, %d, %d)\n", node.x, node.y, node.z);
 	iso(&node.x, &node.y, node.z);
 	// add offset for x and y
 	node.x += WIDTH / 2;
@@ -384,27 +384,39 @@ void free_split_line(char **split_line)
 	}
 	free(split_line);
 }
-void print_map(t_coordinate **coordinate_map , int width)
+void print_map(t_map *map, t_coordinate *head_real)
 {
-	t_coordinate *current;
-	int ordinate;
+	// t_coordinate **coordinate = map->coordinate_map;
+	// access head from map struct
+	
+    t_coordinate *head;
+	head = *(map->coordinate_map);
+	printf("address of MAP in  PRINT : %p\n", map);
+    // printf("address of coordinate in print map  : %p\n", coordinate);
+	// printf("address of map->coord in print map  : %p\n", map->coordinate_map);
+    printf("head in print map: %p\n", head);
+	printf("head from main in print map: %p\n\n", head_real);
 
-	ordinate = 0;
-	current = *coordinate_map;
-	while(current)
-	{
-		while (ordinate < width) 
-		{
-			printf("%d ",current->z);
-			current = current->next;
-			ordinate++;
-		}
-		printf("\n");
-		ordinate = 0;
-		
-	}
-	printf("\n");
+    // Access map->width
+    int width = map->width;
+    printf("Width in print map: %d\n\n", width);
+	// t_coordinate *temp = head;
+	// int ordinate = 0;
+	// while(temp)
+	// {
+	// 	while(ordinate < map->width)
+	// 	{
+	// 		printf("x : %d, y : %d, z : %d\n", temp->x, temp->y, temp->z);
+	// 		temp = temp->next;
+	// 		ordinate++;
+	// 	}
+	// 	ordinate = 0;
+	// 	printf("\n");
+	// }
+	
+
 }
+
 
 void read_map (int fd, t_map *map)
 {
@@ -430,7 +442,7 @@ void read_map (int fd, t_map *map)
 	{
 		axis_array = ft_split(axis_string, ' ');
 		ordinate = 0;
-		printf("-----------------------------axis : %d\n", axis);
+	
 		while (axis_array[ordinate])
 		{
 			if(axis == 0 && ordinate == 0)
@@ -447,7 +459,6 @@ void read_map (int fd, t_map *map)
 			
 			ordinate++;
 		}
-		printf("ordinate : %d\n", ordinate);
 		if(map->width == 0)
 			map->width = ordinate;
 		else if(map->width != ordinate)
@@ -459,10 +470,28 @@ void read_map (int fd, t_map *map)
 	}
 	map->height = axis;
 	map->coordinate_map = coordinate_map;
-	// coordinate_map = start;
-	// print coordinate map
-	print_map(coordinate_map, map->width);
+	// print_map(coordinate_map, map->width);
+	printf("address of MAP in READ MAP : %p\n", map);
+	printf("address of coordinate_map in READ MAP : %p\n", coordinate_map);
+	printf("address of map->coord in read map  : %p\n", map->coordinate_map);
+	printf("head in read map: %p\n\n", head);
 
+	// print_map(map);
+
+	// t_coordinate *temp;
+	// temp = *coordinate_map;
+	// ordinate = 0;
+	// while(temp)
+	// {
+	// 	while(ordinate < map->width)
+	// 	{
+	// 		// printf("x : %d, y : %d, z : %d\n", temp->x, temp->y, temp->z);
+	// 		temp = temp->next;
+	// 		ordinate++;
+	// 	}
+	// 	ordinate = 0;
+	// 	// printf("\n");
+	// }
 }
 
 
@@ -476,11 +505,36 @@ int main(void)
 	// MAP
 	t_map	*map;
 	map = map_init();
+	printf("coordinate address in main  : %p\n\n", map->coordinate_map);
 
-	// ReadMAP
 	int fd;
 	fd = open("maps/test.fdf", O_RDONLY);
 	read_map(fd, map);
+
+	t_coordinate **coordinate = map->coordinate_map;
+	t_coordinate *head = *map->coordinate_map;
+	printf("address of MAP in  MAIN : %p\n", map);
+	printf("address of coordinate_map in main : %p\n", coordinate);
+	printf("address of map->coord in main  : %p\n",map->coordinate_map );
+	printf("head in main: %p\n\n", head);
+
+	print_map(map,head);
+	// print_map(head);
+	// print_map(head);
+	// t_coordinate *temp = head;
+	// int ordinate = 0;
+	// while(temp)
+	// {
+	// 	while(ordinate < map->width)
+	// 	{
+	// 		printf("x : %d, y : %d, z : %d\n", temp->x, temp->y, temp->z);
+	// 		temp = temp->next;
+	// 		ordinate++;
+	// 	}
+	// 	ordinate = 0;
+	// 	printf("\n");
+	// }
+
 
 	// t_coordinate *coordinate_stack;
 	// coordinate_stack = NULL;
@@ -495,10 +549,12 @@ int main(void)
 	canvas.img = mlx_new_image(mlx, 1920, 1080);
 	canvas.addr = mlx_get_data_addr(canvas.img, &canvas.bits_per_pixel, &canvas.line_length,
 									&canvas.endian);
-	printf("bits_per_pixel : %d\n", canvas.bits_per_pixel);
-	printf("line_length : %d\n", canvas.line_length);
-	printf("endian : %d\n", canvas.endian);
+	// printf("bits_per_pixel : %d\n", canvas.bits_per_pixel);
+	// printf("line_length : %d\n", canvas.line_length);
+	// printf("endian : %d\n", canvas.endian);
 
+	// print mapdetail
+	
 	int x0 = 200;
 	int xn = 800;
 	int y0 = 200;
@@ -514,32 +570,32 @@ int main(void)
 	// for Top line - RED
 	t_node p1 = project_isometric(duplicate_node(node_1.x, node_1.y, node_1.z, 0x00FF0000));
 	t_node p2 = project_isometric(duplicate_node(node_2.x, node_2.y, node_2.z, 0x00FF0000));
-	printf("p1 : (%d,%d)\n", p1.x, p1.y);
-	printf("p2 : (%d,%d)\n", p2.x, p2.y);
+	// printf("p1 : (%d,%d)\n", p1.x, p1.y);
+	// printf("p2 : (%d,%d)\n", p2.x, p2.y);
 	draw_algorithm_3(p1.x, p1.y, p2.x, p2.y, &canvas, 0x00FF0000);
 	draw_algorithm_3(node_1.x, node_1.y, node_2.x, node_2.y, &canvas, 0x00FF0000);
 
 	// for Right Line - ORANGE
 	t_node p3 = project_isometric(duplicate_node(node_2.x, node_2.y, node_2.z, 0x00FF0000));
 	t_node p4 = project_isometric(duplicate_node(node_3.x, node_3.y, node_3.z, 0x00FF0000));
-	printf("p3 : (%d,%d)\n", p3.x, p3.y);
-	printf("p4 : (%d,%d)\n", p4.x, p4.y);
+	// printf("p3 : (%d,%d)\n", p3.x, p3.y);
+	// printf("p4 : (%d,%d)\n", p4.x, p4.y);
 	draw_algorithm_3(p3.x, p3.y, p4.x, p4.y, &canvas, 0x00FFA500);
 	draw_algorithm_3(node_2.x, node_2.y, node_3.x, node_3.y, &canvas, 0x00FFA500);
 
 	// for Bottom Line - GREEN
 	t_node p5 = project_isometric(duplicate_node(node_3.x, node_3.y, node_3.z, 0x0000FF00));
 	t_node p6 = project_isometric(duplicate_node(node_4.x, node_4.y, node_4.z, 0x0000FF00));
-	printf("p5 : (%d,%d)\n", p5.x, p5.y);
-	printf("p6 : (%d,%d)\n", p6.x, p6.y);
+	// printf("p5 : (%d,%d)\n", p5.x, p5.y);
+	// printf("p6 : (%d,%d)\n", p6.x, p6.y);
 	draw_algorithm_3(p5.x, p5.y, p6.x, p6.y, &canvas, 0x0000FF00);
 	draw_algorithm_3(node_3.x, node_3.y, node_4.x, node_4.y, &canvas, 0x0000FF00);
 
 	// for Left Line - BLUE
 	t_node p7 = project_isometric(duplicate_node(node_4.x, node_4.y, node_4.z, 0x000000FF));
 	t_node p8 = project_isometric(duplicate_node(node_1.x, node_1.y, node_1.z, 0x000000FF));
-	printf("p7 : (%d,%d)\n", p7.x, p7.y);
-	printf("p8 : (%d,%d)\n", p8.x, p8.y);
+	// printf("p7 : (%d,%d)\n", p7.x, p7.y);
+	// printf("p8 : (%d,%d)\n", p8.x, p8.y);
 	draw_algorithm_3(p7.x, p7.y, p8.x, p8.y, &canvas, 0x000000FF);
 	draw_algorithm_3(node_4.x, node_4.y, node_1.x, node_1.y, &canvas, 0x000000FF);
 
