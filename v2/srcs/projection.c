@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 02:02:02 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 02:04:18 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/03 05:07:21 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,6 @@ static void rotate_z(int *x, int *y, double gamma)
 	*y = previous_x * sin(gamma) + previous_y * cos(gamma);
 }
 
-// function for duplicate t_node
-t_node duplicate_node(int x, int y, int z, int color)
-{
-
-	t_node new_node;
-	new_node.x = x;
-	new_node.y = y;
-	new_node.z = z;
-	new_node.color = color;
-	return new_node;
-}
 // function for iso
 void iso(int *x, int *y, int z)
 {
@@ -63,6 +52,20 @@ void iso(int *x, int *y, int z)
 	*x = (previous_x - previous_y) * cos(0.523599);
 	*y = -z + (previous_x + previous_y) * sin(0.523599);
 }
+
+// function for duplicate t_node
+t_node duplicate_node(int x, int y, int z, int color)
+{
+
+	t_node new_node;
+	new_node.x = x;
+	new_node.y = y;
+	new_node.z = z;
+	new_node.color = color;
+	iso(&new_node.x, &new_node.y, new_node.z);
+	return new_node;
+}
+
 
 // function for project isometric from node
 t_node project_isometric(t_node node)
