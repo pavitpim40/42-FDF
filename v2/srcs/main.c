@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:48:49 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 04:44:39 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/03 05:05:57 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int main(void)
 	printf("coordinate address in main  : %p\n\n", map->coordinate_map);
 
 	int fd;
-	fd = open("maps/1-row.fdf", O_RDONLY);
+	fd = open("maps/42.fdf", O_RDONLY);
 	read_map(fd, map);
 
 	t_coordinate **coordinate = map->coordinate_map;
@@ -117,15 +117,16 @@ int main(void)
 	int prev_height[map->width];
 	while (axis < map->height)
 	{
-		while (ordinate < map->width && head->next != NULL)
+		while (ordinate < map->width-1 && head->next != NULL)
 		{
 
 			// start node of horizontal line
-
+			printf("ordinate : %d\n", ordinate);
 			int x = 100 + (cell_size * ordinate);
+			printf("x : %d\n", x);
 			int y = 100 + (cell_size * axis);
 			int z = (head->z) * 100;
-			t_node start = project_isometric(duplicate_node(x, y, z, 0x00FF0000));
+			t_node start = duplicate_node(x, y, z, 0x00FF0000);
 			printf("z1 : %d\n", z);
 			arr_height[ordinate] = z;
 
@@ -134,7 +135,7 @@ int main(void)
 			x += cell_size;
 			z = (head->z) * 100;
 			arr_height[ordinate + 1] = z;
-			t_node end = project_isometric(duplicate_node(x, y, z, 0x00FF0000));
+			t_node end = duplicate_node(x, y, z, 0x00FF0000);
 			printf("z2 : %d\n", z);
 			arr_height[ordinate + 1] = z;
 
@@ -144,13 +145,30 @@ int main(void)
 			// draw back for vertical line to prev row
 			if (axis != 0)
 			{
+			
+
 				x -= cell_size;
 				y -= cell_size;
 				z = prev_height[ordinate];
 				printf("z3 : %d\n", z);
-				end = project_isometric(duplicate_node(x, y, z, 0x00FF0000));
+				end = duplicate_node(x, y, z, 0x00FF0000);
 				draw_algorithm_3(start.x, start.y, end.x, end.y, &canvas, 0x00FF0000);
-			}
+
+				if(ordinate += 1 ==  map->width) 
+				{
+					x += cell_size;
+				printf("ordinate + 1 : %d\n", ordinate + 1);
+				z = prev_height[ordinate + 1];
+				end = duplicate_node(x, y, z, 0x00FF0000);
+				// draw_algorithm_3(start.x, start.y, end.x, end.y, &canvas, 0x00FF0000);
+
+					y += cell_size;
+					z = arr_height[ordinate + 1];
+					start = duplicate_node(x, y, z, 0x00FF0000);
+					draw_algorithm_3(start.x, start.y, end.x, end.y, &canvas, 0x00FF0000);
+				}
+				
+			}	
 
 			// instant draw vertical line each grid
 			// if (axis != map->height - 1)
