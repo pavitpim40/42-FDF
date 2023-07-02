@@ -17,7 +17,8 @@ ADDC_TO_MEM = ft_itoa.c
 ADDC_PUT = ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c
 ADDC = ${ADDC_STR_MEM} ${ADDC_STR_MEM_ITER} ${ADDC_STR_ITER} ${ADDC_TO_MEM} ${ADDC_PUT}
 
-SRCS = $(LIBC) $(ADDC)
+GNL = get_next_line.c get_next_line_utils.c
+SRCS = $(LIBC) $(ADDC) $(GNL)
 OBJS = $(SRCS:.c=.o)
 
 # bonus part

@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/01 22:03:36 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/02 13:59:08 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ typedef struct s_fdf
 // Coordinate Height
 typedef struct 			s_coordinate
 {
+	int					x;
+	int					y;
 	int					z;
 	int					color;
 	struct s_coord_val	*next;

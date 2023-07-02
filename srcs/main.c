@@ -6,11 +6,12 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:48:49 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/02 03:29:03 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/02 15:48:10 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include "get_next_line.h"
 #include "mlx.h"
 #include "libft.h"
 #include <limits.h>
@@ -38,8 +39,11 @@ void my_mlx_pixel_put(t_canvas *canvas, int x, int y, int color)
 {
 	char *pos;
 
-	pos = canvas->addr + (y * canvas->line_length + x * (canvas->bits_per_pixel / 8));
-	*(unsigned int *)pos = color;
+	if (x >= 0 && x < 1920 && y >= 0 && y < 1080)
+	{
+		pos = canvas->addr + (y * canvas->line_length + x * (canvas->bits_per_pixel / 8));
+		*(unsigned int *)pos = color;
+	}
 
 	// hex for ornage : 0x00FFA500
 }
@@ -181,21 +185,22 @@ void draw_algorithm_3(int x0, int y0, int xn, int yn, t_canvas *img, int color)
 	printf("secondary_k : %d\n", secondary_k);
 
 	int decision_parameter = 2 * ds - dp;
-	
+
 	while (primary_k <= primary_n)
 	{ // change** yk <= yn
-		
+
 		if (dx >= dy)
 		{
 			// printf("Pair : (%d,%d)\n", primary_k, secondary_k);
 			my_mlx_pixel_put(img, primary_k, secondary_k, color);
 		}
 
-		else{
+		else
+		{
 			my_mlx_pixel_put(img, secondary_k, primary_k, color);
 			// printf("Pair : (%d,%d)\n", primary_k, secondary_k);
 		}
-			
+
 		primary_k += 1; // ***change
 		if (decision_parameter < 0)
 		{
@@ -330,7 +335,6 @@ void iso(int *x, int *y, int z)
 	previous_y = *y;
 	*x = (previous_x - previous_y) * cos(0.523599);
 	*y = -z + (previous_x + previous_y) * sin(0.523599);
-
 }
 
 // function for project isometric from node
@@ -346,9 +350,78 @@ t_node project_isometric(t_node node)
 	printf("node.x , node.y , node.z : (%d, %d, %d)\n", node.x, node.y, node.z);
 	iso(&node.x, &node.y, node.z);
 	// add offset for x and y
-	node.x += 600;
+	node.x += WIDTH / 2;
 	node.y += 0;
 	return node;
+}
+
+/*
+** function for read map
+*/
+
+// void push_coordinate(t_coordinate **row, t_coordinate *new)
+// {
+// 	t_coordinate *tmp;
+
+// 	if (!*row)
+// 		*row = new;
+// 	else
+// 	{
+// 		tmp = *row;
+// 		while (tmp->next)
+// 			tmp = tmp->next;
+// 		tmp->next = new;
+// 	}
+// }
+
+void read_map (int fd)
+{
+	// int		i;
+	// int		j;
+	char	*line;
+	// char	**split_line;
+	// t_coordinate	*coordinate;
+	// t_coordinate	**coord_stack;
+
+	// i = 0;
+	// coord_stack = NULL;
+	// coordinate = NULL;
+	line = get_next_line(fd);
+	// printf("line : %s\n", line);
+	while (line)
+	{
+		printf("line : %s\n", line);
+		free(line);
+		line = get_next_line(fd);
+	}
+	// {
+	// 	j = 0;
+	// 	split_line = ft_split(line, ' ');
+	// 	while (split_line[j])
+	// 	{
+	// 		// coordinate = new_coord(i, j, ft_atoi(split_line[j]));
+	// 		// push_coordinate(&coord_stack, coordinate);
+
+	// 		j++;
+	// 	}
+	// 	printf("line : %s\n", split_line[i]);
+	// 	// free_split_line(split_line);
+	// 	// free(line);
+	// 	i++;
+	// }
+	// map->height = i;
+	// map->width = j;
+	// map->coords_arr = (int *)malloc(sizeof(int) * map->width * map->height);
+	// map->colors_arr = (int *)malloc(sizeof(int) * map->width * map->height);
+	// i = 0;
+	// while (coord_stack)
+	// {
+	// 	// coordinate = pop(&coord_stack);
+	// 	map->coords_arr[i] = coordinate->z;
+	// 	map->colors_arr[i] = coordinate->color;
+	// 	free(coordinate);
+	// 	i++;
+	// }
 }
 
 int main(void)
@@ -362,8 +435,9 @@ int main(void)
 	// map = map_init();
 
 	// ReadMAP
-	// int fd;
-	// fd = open("maps/42.fdf", O_RDONLY);
+	int fd;
+	fd = open("maps/42.fdf", O_RDONLY);
+	read_map(fd);
 
 	// t_coordinate *coordinate_stack;
 	// coordinate_stack = NULL;
@@ -427,26 +501,6 @@ int main(void)
 	draw_algorithm_3(node_4.x, node_4.y, node_1.x, node_1.y, &canvas, 0x000000FF);
 
 
-	// hex for ornage : 0x00FFA500
-	// for Top Line
-	// t_node p5 = project_isometric(duplicate_node(node_3.x, node_3.y, node_3.z, 0x00FF0000));
-	// t_node p6 = project_isometric(duplicate_node(node_4.x, node_4.y, node_4.z, 0x00FF0000));
-	// printf("p5.x : %d\n", p5.x);
-	// printf("p5.y : %d\n", p5.y);
-	// printf("p6.x : %d\n", p6.x);
-	// printf("p6.y : %d\n", p6.y);
-	// draw_algorithm_3(p5.x, p5.y, p6.x, p6.y, &canvas, 0x00FF0000);
-	// draw_algorithm_3(node_3.x,node_3.y,node_4.x,node_4.y,&canvas,0x00FF0000);
-	// draw left line
-	// draw_algorithm_3(node_4.x,node_4.y,node_1.x,node_1.y,&canvas,0x00FF0000);
-
-	// draw_algorithm_4(node_1,node_2,&canvas,0x00FF0000);
-
-	// Bottom line
-	// draw_algorithm_3(x0,yn,xn,yn,&canvas,0x00FF0000);
-
-	// draw_algorithm_3(200,200,200,800,&canvas,0x00FF0000);
-	// draw_algorithm_3(800,200,800,800,&canvas,0x00FFA500);
 
 	mlx_put_image_to_window(mlx, mlx_win, canvas.img, 0, 0);
 	mlx_loop(mlx);
