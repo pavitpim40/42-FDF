@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:48:49 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 02:22:56 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/03 03:43:27 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #include <limits.h>
 #include <errno.h>
 #include <stdio.h>
-
 
 void test_demo(t_canvas *canvas)
 {
@@ -65,18 +64,28 @@ void test_demo(t_canvas *canvas)
 	// printf("p8 : (%d,%d)\n", p8.x, p8.y);
 	draw_algorithm_3(p7.x, p7.y, p8.x, p8.y, canvas, 0x000000FF);
 	draw_algorithm_3(node_4.x, node_4.y, node_1.x, node_1.y, canvas, 0x000000FF);
-
 }
-
 
 int main(void)
 {
+	// MINI LIBX
 	void *mlx;
 	void *mlx_win;
 	t_canvas canvas;
 
+	// FOR START MLX
+	mlx = mlx_init();
+
+	// FOR START WINDOW
+	mlx_win = mlx_new_window(mlx, 1920, 1080, "FDF");
+
+	// FOR START IMAGE
+	canvas.img = mlx_new_image(mlx, 1920, 1080);
+	canvas.addr = mlx_get_data_addr(canvas.img, &canvas.bits_per_pixel, &canvas.line_length,
+									&canvas.endian);
+
 	// MAP
-	t_map	*map;
+	t_map *map;
 	map = map_init();
 	printf("coordinate address in main  : %p\n\n", map->coordinate_map);
 
@@ -88,42 +97,61 @@ int main(void)
 	t_coordinate *head = *map->coordinate_map;
 	printf("address of MAP in  MAIN : %p\n", map);
 	printf("address of coordinate_map in main : %p\n", coordinate);
-	printf("address of map->coord in main  : %p\n",map->coordinate_map );
+	printf("address of map->coord in main  : %p\n", map->coordinate_map);
 	printf("head in main: %p\n\n", head);
 
-	print_map(map,head);
+	// print_map(map, head);
 
-	// print_map(head);
-	// print_map(head);
-	// t_coordinate *temp = head;
-	// int ordinate = 0;
-	// while(temp)
+	// cal appropriate cell width and height in square
+	int cell_width = (WIDTH - 300) / map->width;
+	int cell_height = (HEIGHT - 300) / map->height;
+	int cell_size = cell_width < cell_height ? cell_width : cell_height;
+	printf("cell_size : %d\n", cell_size);
+	// draw map just one row
+	int i = 0;
+	int j = 0;
+	printf("map->width : %d\n", map->width);
+	printf("map->height : %d\n", map->height);
+	while (j < map->height)
+	{
+		while (i < map->width)
+		{
+			// draw horizontal line each grid
+			t_node start = duplicate_node(100 + (cell_size * i), 100 + (cell_size * j), 0, 0x00FF0000);
+			t_node end = duplicate_node(100 + (cell_size * (i + 1)), 100 + (cell_size * j), 0, 0x00FF0000);
+			draw_algorithm_3(start.x, start.y, end.x, end.y, &canvas, 0x00FF0000);
+
+			// instant draw vertical line each grid
+			if (j != map->height - 1)
+			{
+				t_node end = duplicate_node(100 + (cell_size * i), 100 + (cell_size * (j + 1)), 0, 0x00FF0000);
+				draw_algorithm_3(start.x, start.y, end.x, end.y, &canvas, 0x00FF0000);
+			}
+			i++;
+			if (j != map->height - 1)
+			{
+				start = duplicate_node(100 + (cell_size * i), 100 + (cell_size * j), 0, 0x00FF0000);
+				end = duplicate_node(100 + (cell_size * i), 100 + (cell_size * (j + 1)), 0, 0x00FF0000);
+				draw_algorithm_3(start.x, start.y, end.x, end.y, &canvas, 0x00FF0000);
+			}
+		}
+
+		i = 0;
+		j++;
+	}
+	// while (i < map->width)
 	// {
-	// 	while(ordinate < map->width)
-	// 	{
-	// 		printf("x : %d, y : %d, z : %d\n", temp->x, temp->y, temp->z);
-	// 		temp = temp->next;
-	// 		ordinate++;
-	// 	}
-	// 	ordinate = 0;
-	// 	printf("\n");
+	// 	t_node start = duplicate_node(100, 100, 0, 0x00FF0000);
+	// 	t_node end = duplicate_node(100 + (cell_size * (i+1)), 100, 0, 0x00FF0000);
+	// 	draw_algorithm_3(start.x, start.y, end.x, end.y, &canvas, 0x00FF0000);
+	// 	i++;
 	// }
+	// t_node start = duplicate_node(100, 100, 0, 0x00FF0000);
+	// t_node end = duplicate_node(100+cell_size, 100, 0, 0x00FF0000);
 
+	// draw_algorithm_3(start.x, start.y, start.x, start.y, &canvas, 0x00FF0000);
+	// test_demo(&canvas);
 
-	// t_coordinate *coordinate_stack;
-	// coordinate_stack = NULL;
-
-	// FOR START MLX
-	mlx = mlx_init();
-
-	// FOR START WINDOW
-	mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");
-
-	// FOR START IMAGE
-	canvas.img = mlx_new_image(mlx, 1920, 1080);
-	canvas.addr = mlx_get_data_addr(canvas.img, &canvas.bits_per_pixel, &canvas.line_length,
-									&canvas.endian);
-	test_demo(&canvas);
 	mlx_put_image_to_window(mlx, mlx_win, canvas.img, 0, 0);
 	mlx_loop(mlx);
 }

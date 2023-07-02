@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 02:05:22 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 02:22:29 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/03 03:14:45 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,13 +115,13 @@ void read_map (int fd, t_map *map)
 		{
 			if(axis == 0 && ordinate == 0)
 			{
-				head = new_coordinate(ordinate, axis, ft_atoi(axis_array[ordinate]));
+				head = new_coordinate(axis, ordinate, ft_atoi(axis_array[ordinate]));
 				coordinate_map = &head;
 				coordinate = head;
 			}
 			else
 			{
-				coordinate->next = new_coordinate(ordinate, axis, ft_atoi(axis_array[ordinate]));
+				coordinate->next = new_coordinate(axis, ordinate, ft_atoi(axis_array[ordinate]));
 				coordinate = coordinate->next;
 			}
 			
@@ -138,6 +138,8 @@ void read_map (int fd, t_map *map)
 	}
 	map->height = axis;
 	map->coordinate_map = coordinate_map;
+	printf("axis : %d\n", axis);
+	printf("ordinate : %d\n", ordinate);
 	// print_map(coordinate_map, map->width);
 	printf("address of MAP in READ MAP : %p\n", map);
 	printf("address of coordinate_map in READ MAP : %p\n", coordinate_map);
