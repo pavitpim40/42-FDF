@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 02:05:22 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 02:07:32 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/03 02:22:29 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,35 +65,22 @@ void free_split_line(char **split_line)
 	}
 	free(split_line);
 }
-void print_map(t_map *map, t_coordinate *head_real)
+void print_map(t_map *map, t_coordinate *head)
 {
-	// t_coordinate **coordinate = map->coordinate_map;
-	// access head from map struct
-	
-    t_coordinate *head;
-	head = *(map->coordinate_map);
-	printf("address of MAP in  PRINT : %p\n", map);
-    // printf("address of coordinate in print map  : %p\n", coordinate);
-	// printf("address of map->coord in print map  : %p\n", map->coordinate_map);
-    printf("head in print map: %p\n", head);
-	printf("head from main in print map: %p\n\n", head_real);
 
-    // Access map->width
-    int width = map->width;
-    printf("Width in print map: %d\n\n", width);
-	// t_coordinate *temp = head;
-	// int ordinate = 0;
-	// while(temp)
-	// {
-	// 	while(ordinate < map->width)
-	// 	{
-	// 		printf("x : %d, y : %d, z : %d\n", temp->x, temp->y, temp->z);
-	// 		temp = temp->next;
-	// 		ordinate++;
-	// 	}
-	// 	ordinate = 0;
-	// 	printf("\n");
-	// }
+	t_coordinate *temp = head;
+	int ordinate = 0;
+	while(temp)
+	{
+		while(ordinate < map->width)
+		{
+			printf("x : %d, y : %d, z : %d\n", temp->x, temp->y, temp->z);
+			temp = temp->next;
+			ordinate++;
+		}
+		ordinate = 0;
+		printf("\n");
+	}
 	
 
 }

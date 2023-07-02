@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:48:49 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 02:14:15 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/03 02:22:56 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void test_demo(t_canvas *canvas)
 
 }
 
+
 int main(void)
 {
 	void *mlx;
@@ -91,6 +92,7 @@ int main(void)
 	printf("head in main: %p\n\n", head);
 
 	print_map(map,head);
+
 	// print_map(head);
 	// print_map(head);
 	// t_coordinate *temp = head;
