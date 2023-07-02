@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:48:49 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 04:04:06 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/03 04:44:39 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,48 +104,84 @@ int main(void)
 
 	// cal appropriate cell width and height in square
 	int cell_width = (WIDTH - 100) / map->width;
-	int cell_height = (HEIGHT - 300) / map->height;
+	int cell_height = (HEIGHT - 100) / map->height;
 	int cell_size = cell_width < cell_height ? cell_width : cell_height;
 	printf("cell_size : %d\n", cell_size);
 	// draw map just one row
-	int i = 0;
-	int j = 0;
+	int axis = 0;
+	int ordinate = 0;
 	printf("map->width : %d\n", map->width);
 	printf("map->height : %d\n", map->height);
-	while (j < map->height)
+
+	int arr_height[map->width];
+	int prev_height[map->width];
+	while (axis < map->height)
 	{
-		while (i < map->width && head->next != NULL)
+		while (ordinate < map->width && head->next != NULL)
 		{
-			// extract z from head
-			int z = (head->z)*100;
-			printf("z : %d\n", z);
-			// draw horizontal line each grid
-			t_node start = project_isometric(duplicate_node(100 + (cell_size * i), 100 + (cell_size * j), z, 0x00FF0000));
+
+			// start node of horizontal line
+
+			int x = 100 + (cell_size * ordinate);
+			int y = 100 + (cell_size * axis);
+			int z = (head->z) * 100;
+			t_node start = project_isometric(duplicate_node(x, y, z, 0x00FF0000));
+			printf("z1 : %d\n", z);
+			arr_height[ordinate] = z;
+
+			// end node of horizontal line
 			head = head->next;
-			z = (head->z)*100;
-			t_node end = project_isometric( duplicate_node(100 + (cell_size * (i + 1)), 100 + (cell_size * j), z, 0x00FF0000));
+			x += cell_size;
+			z = (head->z) * 100;
+			arr_height[ordinate + 1] = z;
+			t_node end = project_isometric(duplicate_node(x, y, z, 0x00FF0000));
+			printf("z2 : %d\n", z);
+			arr_height[ordinate + 1] = z;
+
+			// draw horizontal line each
 			draw_algorithm_3(start.x, start.y, end.x, end.y, &canvas, 0x00FF0000);
 
+			// draw back for vertical line to prev row
+			if (axis != 0)
+			{
+				x -= cell_size;
+				y -= cell_size;
+				z = prev_height[ordinate];
+				printf("z3 : %d\n", z);
+				end = project_isometric(duplicate_node(x, y, z, 0x00FF0000));
+				draw_algorithm_3(start.x, start.y, end.x, end.y, &canvas, 0x00FF0000);
+			}
+
 			// instant draw vertical line each grid
-			if (j != map->height - 1)
-			{
-				t_node end = project_isometric(duplicate_node(100 + (cell_size * i), 100 + (cell_size * (j + 1)), 0, 0x00FF0000));
-				draw_algorithm_3(start.x, start.y, end.x, end.y, &canvas, 0x00FF0000);
-			}
-			i++;
-			if (j != map->height - 1)
-			{
-				start = project_isometric(duplicate_node(100 + (cell_size * i), 100 + (cell_size * j), 0, 0x00FF0000));
-				end = project_isometric( duplicate_node(100 + (cell_size * i), 100 + (cell_size * (j + 1)), 0, 0x00FF0000));
-				draw_algorithm_3(start.x, start.y, end.x, end.y, &canvas, 0x00FF0000);
-			}
+			// if (axis != map->height - 1)
+			// {
+			// 	t_node end = project_isometric(duplicate_node(100 + (cell_size * ordinate), 100 + (cell_size * (axis + 1)), 0, 0x00FF0000));
+			// 	draw_algorithm_3(start.x, start.y, end.x, end.y, &canvas, 0x00FF0000);
+			// }
+			ordinate++;
+
+			// ### END COLUMN
+			// if (axis != map->height - 1)
+			// {
+			// 	start = project_isometric(duplicate_node(100 + (cell_size * ordinate), 100 + (cell_size * axis), 0, 0x00FF0000));
+			// 	end = project_isometric( duplicate_node(100 + (cell_size * ordinate), 100 + (cell_size * (axis + 1)), 0, 0x00FF0000));
+			// 	draw_algorithm_3(start.x, start.y, end.x, end.y, &canvas, 0x00FF0000);
+			// }
 			// head = head->next;
 		}
+		
+		// print array of height
+		int i = 0;
+		while (i < map->width)
+		{
+			prev_height[i] = arr_height[i];
+			i++;
+		}
+		ordinate = 0;
 
-		i = 0;
-		j++;
+		axis++;
 	}
-	
+
 	// test_demo(&canvas);
 
 	mlx_put_image_to_window(mlx, mlx_win, canvas.img, 0, 0);
