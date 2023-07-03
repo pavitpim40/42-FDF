@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 17:42:48 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/03 18:01:26 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,13 @@ void print_map(t_map *map, t_coordinate *head);
 int cal_abs(int x, int y);
 int cal_max(int x, int y);
 int cal_min(int x, int y);
+
+// geometry
+void rotate_x(int *y, int *z, double alpha);
+void rotate_y(int *x, int *z, double beta);
+void rotate_z(int *x, int *y, double gamma);
+void iso(int *x, int *y, int z);
+
 int get_altitude_color(t_map *map,int z );
 t_node duplicate_node(int x, int y, int z, int color);
 t_node create_render_node(int x, int y,int z,int color,int altitude, t_map *map);
