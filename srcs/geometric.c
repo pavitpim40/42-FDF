@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 17:59:43 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 18:00:50 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/03 22:36:37 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void rotate_z(int *x, int *y, double gamma)
 	*y = previous_x * sin(gamma) + previous_y * cos(gamma);
 }
 
-// function for iso
 void iso(int *x, int *y, int z)
 {
 	int previous_x;
