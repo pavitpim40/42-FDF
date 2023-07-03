@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 23:09:51 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/03 23:34:38 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,8 @@ int get_altitude_color(t_map *map,int z );
 int get_pixel_color(t_node start, t_node end, t_bresenham *b, int pixel);
 
 
-t_node create_render_node(int x, int y,int z,int color,int altitude, t_map *map);
+// t_node create_render_node(int x, int y,int z,int color,int altitude, t_map *map);
+t_node create_render_node(t_node,int color,int altitude, t_map *map);
 
 void pixel_put(t_canvas *canvas, int x, int y, int color);
 void draw_line(t_node start,t_node end, t_canvas *img);
