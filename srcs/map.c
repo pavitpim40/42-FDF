@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 02:05:22 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 23:09:45 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/04 00:48:17 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void print_map(t_map *map, t_coordinate *head)
 }
 
 
-void read_map (int fd, t_map *map)
+void read_map (char *filename, t_map *map)
 {
 	int		axis;
 	int		ordinate;
@@ -96,7 +96,10 @@ void read_map (int fd, t_map *map)
 	t_coordinate	**coordinate_map;
 	t_coordinate	*head;
 	
-
+	int fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		terminate(ERR_MAP_INIT);
+	
 	axis = 0;
 	coordinate_map = NULL;
 	coordinate = NULL;
@@ -144,6 +147,6 @@ void read_map (int fd, t_map *map)
 	map->height = axis;
 	map->z_range = map->z_max - map->z_min;
 	map->coordinate_map = coordinate_map;
-
+	close(fd);
 }
 
