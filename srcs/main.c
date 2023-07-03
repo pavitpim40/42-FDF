@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:48:49 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 15:10:09 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/03 17:43:23 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@ int main(int ac, char **av)
 	canvas.addr = mlx_get_data_addr(canvas.img, &canvas.bits_per_pixel, &canvas.line_length,
 									&canvas.endian);
 
+	printf("canvas.addr : %p\n", canvas.addr);
+	printf("sizeof canvas.addr : %lu\n", sizeof(canvas.addr));
+	printf("canvas->endian : %d\n", canvas.endian);	
+
 	// MAP
 	t_map *map;
 	map = map_init();
@@ -65,7 +69,7 @@ int main(int ac, char **av)
 	
 	while (axis < map->height)
 	{
-
+		// Iteration for each t_coordinate 
 		while (ordinate < map->width && head)
 		{	
 			// Draw horizontal line - start 
@@ -101,7 +105,8 @@ int main(int ac, char **av)
 				z = prev_height[ordinate];
 				color = get_altitude_color(map, z/10);
 
-				end = duplicate_node(x, y, z, color);
+				// end = duplicate_node(x, y, z, color);
+				end = create_render_node(x, y, z, color , z/10, map);
 				// draw_algorithm_3(start.x, start.y, end.x, end.y, &canvas, color);
 				draw_line(start, end, &canvas);
 

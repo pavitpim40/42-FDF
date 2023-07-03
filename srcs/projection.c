@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 02:02:02 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 05:07:21 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/03 17:39:08 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,20 @@ t_node duplicate_node(int x, int y, int z, int color)
 	return new_node;
 }
 
+// function for duplicate t_node
+t_node create_render_node(int x, int y,int z,int color,int altitude, t_map *map)
+{
+
+	t_node new_node;
+	new_node.x = x;
+	new_node.y = y;
+	new_node.z = z;
+	new_node.color = color;
+	new_node.altitude = altitude;
+	new_node.percent = (double)(altitude - map->z_min) / map->z_range;
+	iso(&new_node.x, &new_node.y, new_node.z);
+	return new_node;
+}
 
 // function for project isometric from node
 t_node project_isometric(t_node node)

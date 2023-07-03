@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 01:56:30 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 15:59:59 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/03 17:22:29 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int get_gradient_color(t_node start,t_node end, t_node current, int dx,int dy)
 	green = get_light((start.color >> 8) & 0xFF, (end.color >> 8) & 0xFF, percentage);
 	blue = get_light(start.color & 0xFF, end.color & 0xFF, percentage);
 	return ((red << 16) | (green << 8) | blue);
+	// return (blue | (green << 8) | (red << 16));
 
 }
 

@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 14:01:36 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/03 17:42:48 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ typedef struct s_node
 	int y;
 	int z;
 	int color;
+	int altitude;
+	double percent;
 } 	t_node;
 
 typedef enum
@@ -106,6 +108,8 @@ int cal_max(int x, int y);
 int cal_min(int x, int y);
 int get_altitude_color(t_map *map,int z );
 t_node duplicate_node(int x, int y, int z, int color);
+t_node create_render_node(int x, int y,int z,int color,int altitude, t_map *map);
+
 t_node project_isometric(t_node node);
 void my_mlx_pixel_put(t_canvas *canvas, int x, int y, int color);
 void draw_line(t_node start,t_node end, t_canvas *img);

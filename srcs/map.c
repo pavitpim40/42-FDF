@@ -6,13 +6,13 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 02:05:22 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 14:21:05 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/03 16:33:42 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
-#include "get_next_line.h"
-#include "libft.h"
+#include "../libft/get_next_line.h"
+#include "../libft/libft.h"
 
 
 t_map *map_init()
