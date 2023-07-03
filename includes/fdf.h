@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/04 01:02:57 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/04 01:14:37 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ void rotate_y(int *x, int *z, double beta);
 void rotate_z(int *x, int *y, double gamma);
 void iso(int *x, int *y, int z);
 
-void draw_image (t_map *map, t_coordinate *head, t_canvas *canvas);
+void draw_image (t_fdf *fdf);
 int get_altitude_color(t_map *map,int z );
 // int get_pixel_color(t_node start, t_node end, int pixel_range, int pixel, int start_pixel);
 int get_pixel_color(t_node start, t_node end, t_bresenham *b, int pixel);

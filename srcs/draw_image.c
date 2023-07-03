@@ -50,8 +50,11 @@ t_node draw_right(t_map *m, t_canvas *c, t_node *t, t_coordinate *h, int *arr_h)
 **   while traverse left to right
 */
 
-void draw_image (t_map *map, t_coordinate *head, t_canvas *canvas)
+void draw_image (t_fdf *fdf)
 {
+	t_map *map = fdf->map;
+	t_coordinate *head = fdf->head;
+	t_canvas *canvas = fdf->canvas;
 	int axis = 0;
 	int ordinate = 0;
 	int arr_height[map->width];

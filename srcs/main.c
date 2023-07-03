@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:48:49 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/04 01:06:21 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/04 01:14:57 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,6 @@ t_canvas *init_canvas(void *mlx)
 	canvas->img = mlx_new_image(mlx, 1920, 1080);
 	canvas->addr = mlx_get_data_addr(canvas->img, &(canvas->bits_per_pixel), &(canvas->line_length),
 									&(canvas->endian));
-	printf("canvas->img : %p\n", canvas->img);
-	printf("canvas->addr : %p\n", canvas->addr);
-	printf("canvas->bits_per_pixel : %d\n", canvas->bits_per_pixel);
-	printf("canvas->line_length : %d\n", canvas->line_length);
-	printf("canvas->endian : %d\n", canvas->endian);
-	
 	return (canvas);
 }
 
@@ -59,6 +53,10 @@ void free_fdf(t_fdf *f)
 	free(f->win);
 	free(f);
 }
+void render_image(t_fdf *f)
+{
+	mlx_put_image_to_window(f->mlx, f->win, f->canvas->img, 0, 0);
+}
 
 int main(int ac, char **av)
 {
@@ -66,13 +64,12 @@ int main(int ac, char **av)
 	
 	if(ac != 2)
 		terminate("usage: ./fdf <map>");
-	// Init
 	f = init_mlx_and_window();
 	f->canvas = init_canvas(f->mlx);
 	f->map =  init_map();
 	f->head = read_map(av[1], f->map);
-	draw_image(f->map, f->head, f->canvas);
-	mlx_put_image_to_window(f->mlx, f->win, f->canvas->img, 0, 0);
+	draw_image(f);
+	render_image(f);
 	mlx_loop(f->mlx);
 	free_fdf(f);
 }
