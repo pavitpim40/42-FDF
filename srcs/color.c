@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 11:31:07 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 15:56:50 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/03 21:06:15 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,44 +16,12 @@
 #include "libft.h"
 
 
-t_node *create_current_node (t_node *start, t_node *end, int x, int y,int prime_k,int dx, int dy, t_map *map)
-{	
-	int placement; 
-	int span;
-	double percent;
-	t_node *current;
 
-	if(dx > dy) {
-		placement =cal_min(start->x,end->x) + prime_k;
-		span = cal_abs(start->x,end->x);
-		percent = placement / span;
-	} else {
-		placement = cal_min(start->y,end->y) + prime_k;
-		span = cal_abs(start->y,end->y);
-		percent = placement / span;
-	}
-
-	current = (t_node *)malloc(sizeof(t_node));
-	if (!current)
-		terminate(ERR_MAP_INIT);
-	current->x = x;
-	current->y = y;
-	current->z = percent *(map->z_range) + map->z_min;
-	return(current);
-
-}
 int get_altitude_color(t_map *map,int z )
 {
 	int color;
 	double percentage;
 
-	// if (map->z_range == 0)
-	// 	return (DEFAULT_COLOR);
-	// printf("------------------\n");
-	// printf("z : %d\n", z);
-	// printf("diff : %d\n", z- map->z_min);
-	// printf("z_min : %d\n", map->z_min);
-	// printf("z_range : %d\n", map->z_range);
 
 	percentage = (double)(z - map->z_min) / map->z_range;
 	if (percentage < 0.2)
@@ -66,36 +34,45 @@ int get_altitude_color(t_map *map,int z )
 		color = COLOR_JAFFA;
 	else
 		color = COLOR_SAFFRON;
+
+
 	return (color);
 }
 
-static int ft_isspace(char c)
+
+int get_light(int start, int end, double percentage)
 {
-	if (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f')
-		return (1);
-	return (0);
+	return ((int)((percentage) * start + (1-percentage) * end));
 }
 
-int ft_atoi_base(const char *str, int str_base)
+int get_pixel_color(t_node start, t_node end, int pixel_range, int pixel, int start_pixel)
 {
-	int i;
-	int sign;
-	int result;
+	double percentage;
+	
+	percentage = (double)(pixel - start_pixel) / pixel_range;
+	// printf("percentage : %f\n", percentage);
+	if(start.altitude == end.altitude)
+		return (start.color);
+	if (start.altitude < end.altitude) {
+		// percentage = (double)pixel / pixel_range;
+		printf("percentage : %f\n", percentage);
 
-	i = 0;
-	sign = 1;
-	result = 0;
-	while (ft_isspace(str[i]))
-		i++;
-	if (str[i] == '-')
-	{
-		sign = -1;
-		i++;
+		// return color as bit sd
+		int red = get_light((start.color >> 16) & 0xFF, (end.color >> 16) & 0xFF, percentage);
+		int green = get_light((start.color >> 8) & 0xFF, (end.color >> 8) & 0xFF, percentage);
+		int blue = get_light(start.color & 0xFF, end.color & 0xFF, percentage);
+		return ((red << 16) | (green << 8) | blue);
+		
 	}
-	while (str[i] != '\0' && ft_isdigit(str[i]))
-	{
-		result = result * str_base + str[i] - '0';
-		i++;
+		
+	else {
+		printf("percentage : %f\n", percentage);
+		// return color as bit shift
+		int red = get_light((end.color >> 16) & 0xFF, (start.color >> 16) & 0xFF, percentage);
+		int green = get_light((end.color >> 8) & 0xFF, (start.color >> 8) & 0xFF, percentage);
+		int blue = get_light(end.color & 0xFF, start.color & 0xFF, percentage);
+		return ((red << 16) | (green << 8) | blue);
 	}
-	return (result * sign);
+		
 }
+

@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 18:01:26 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/03 21:06:22 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,8 @@ void rotate_z(int *x, int *y, double gamma);
 void iso(int *x, int *y, int z);
 
 int get_altitude_color(t_map *map,int z );
-t_node duplicate_node(int x, int y, int z, int color);
+int get_pixel_color(t_node start, t_node end, int pixel_range, int pixel, int start_pixel);
+
 t_node create_render_node(int x, int y,int z,int color,int altitude, t_map *map);
 
 t_node project_isometric(t_node node);
