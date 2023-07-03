@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 02:05:22 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/04 01:39:12 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/04 02:24:15 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,75 +90,80 @@ void update_altitude(t_fdf *f, int altitude)
 		f->map->z_max = altitude;
 }
 
-void extract_line (char **axis_array, t_fdf *f, int axis, int ordinate)
+void extract_line(char *axis_string, t_fdf *f, int axis,t_coordinate **coordinate)
 {
-	int altitude = ft_atoi(axis_array[ordinate]);
-	if (axis == 0 && ordinate == 0)
+	char **axis_array;
+	int ordinate;
+	int altitude;
+
+	axis_array = ft_split(axis_string, ' ');
+	ordinate = 0;
+
+	while (axis_array[ordinate])
 	{
-		f->head = new_coordinate(axis, ordinate, altitude);
-		f->coordinate_map = &f->head;
+		altitude = ft_atoi(axis_array[ordinate]);
+		if (axis == 0 && ordinate == 0)
+		{
+			*coordinate = new_coordinate(axis, ordinate, altitude);
+			f->coordinate_map = coordinate;
+			f->head = *coordinate;
+		}
+		else
+		{
+			(*coordinate)->next = new_coordinate(axis, ordinate, altitude);
+			*coordinate = (*coordinate)->next;
+		}
+		update_altitude(f, altitude);
+		ordinate++;
 	}
-	else
+	if (f->map->width == 0)
+		f->map->width = ordinate;
+
+	else if(f->map->width != ordinate)
+		terminate(ERR_MAP_INIT);
+	free_split_line(axis_array);
+	free(axis_string);
+
+}
+
+int list_count(t_coordinate *head)
+{
+	int count = 0;
+	t_coordinate *temp = head;
+	while (temp)
 	{
-		(*f->coordinate_map)->next = new_coordinate(axis, ordinate, altitude);
-		*f->coordinate_map = (*f->coordinate_map)->next;
+		count++;
+		temp = temp->next;
 	}
-	update_altitude(f, altitude);
+	return (count);
 }
 
 t_coordinate *read_map(char *filename, t_fdf *f)
 {
-	int axis;
-	int ordinate;
-	char *axis_string;
-	t_coordinate *coordinate;
-	char **axis_array;
+	int 			axis;
+	char 			*axis_string;
+	t_coordinate 	**coordinate;
+	int				fd;
+	
+	coordinate = malloc(sizeof(t_coordinate *));
+	if (!coordinate)
+		terminate(ERR_MAP_INIT);
 
-	t_coordinate *head;
-
-	int fd = open(filename, O_RDONLY);
+	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		terminate(ERR_MAP_INIT);
 
 	axis = 0;
-	coordinate = NULL;
 	axis_string = get_next_line(fd);
-
 	while (axis_string)
 	{
-		axis_array = ft_split(axis_string, ' ');
-		ordinate = 0;
-
-		while (axis_array[ordinate])
-		{
-			int altitude = ft_atoi(axis_array[ordinate]);
-			if (axis == 0 && ordinate == 0)
-			{
-				head = new_coordinate(axis, ordinate, altitude);
-				f->coordinate_map = &head;
-				coordinate = head;
-			}
-			else
-			{
-				coordinate->next = new_coordinate(axis, ordinate, altitude);
-				coordinate = coordinate->next;
-			}
-			update_altitude(f, altitude);
-			ordinate++;
-		}
-		if (f->map->width == 0)
-			f->map->width = ordinate;
-
-		// else if(map->width != ordinate)
-		// 	terminate(ERR_MAP_INIT);
-		free_split_line(axis_array);
-		free(axis_string);
+		extract_line(axis_string, f, axis, coordinate);
 		axis++;
 		axis_string = get_next_line(fd);
 	}
 	f->map->height = axis;
 	f->map->z_range = f->map->z_max - f->map->z_min;
-	// f->coordinate_map = coordinate_map;
+	printf("list count : %d\n", list_count(f->head));
 	close(fd);
-	return (head);
+	return (f->head);
 }
