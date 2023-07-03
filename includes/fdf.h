@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/04 00:45:54 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/04 01:02:57 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ typedef struct s_fdf
 	// int			size_line;
 	// int			endian;
 	t_map		*map;
+	t_coordinate	*head;
 	// t_camera	*camera;
 	// t_mouse		*mouse;
 }				t_fdf;
@@ -113,11 +114,11 @@ typedef struct s_fdf
 
 void terminate(char *msg);
 
-t_map *map_init();
+t_map *init_map();
 t_coordinate *new_coordinate(int x, int y, int z);
 void free_split_line(char **split_line);
-// void read_map(int fd, t_map *map);
-void read_map (char *filename, t_map *map);
+
+t_coordinate *read_map (char *filename, t_map *map);
 void print_map(t_map *map, t_coordinate *head);
 
 int cal_abs(int x, int y);

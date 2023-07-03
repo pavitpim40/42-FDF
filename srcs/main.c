@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:48:49 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/04 00:53:03 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/04 01:06:21 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <stdio.h>
 
 
-t_fdf * fdf_int()
+t_fdf *init_mlx_and_window()
 {
 	t_fdf *fdf;
 	fdf = malloc(sizeof(t_fdf));
@@ -30,14 +30,14 @@ t_fdf * fdf_int()
 	return (fdf);
 }
 
-t_canvas *image_int(t_fdf *f)
+t_canvas *init_canvas(void *mlx)
 {
 	t_canvas *canvas;
 	
 	canvas = malloc(sizeof(t_canvas));
 	if(!canvas)
 		terminate("canvas init failed");
-	canvas->img = mlx_new_image(f->mlx, 1920, 1080);
+	canvas->img = mlx_new_image(mlx, 1920, 1080);
 	canvas->addr = mlx_get_data_addr(canvas->img, &(canvas->bits_per_pixel), &(canvas->line_length),
 									&(canvas->endian));
 	printf("canvas->img : %p\n", canvas->img);
@@ -49,28 +49,30 @@ t_canvas *image_int(t_fdf *f)
 	return (canvas);
 }
 
+// NEED TO Review
+void free_fdf(t_fdf *f)
+{
+	free(f->canvas);
+	free(f->map);
+	free(f->head);
+	free(f->mlx);
+	free(f->win);
+	free(f);
+}
+
 int main(int ac, char **av)
 {
 	t_fdf *f;
-	t_coordinate *head;
 	
 	if(ac != 2)
 		terminate("usage: ./fdf <map>");
 	// Init
-	f = fdf_int();
-	f->canvas = image_int(f);
-	f->map =  map_init();
-
-	// parse map
-	read_map(av[1], f->map);
-	head = *f->map->coordinate_map;
-	// print_map(map, head);
-
-
-	draw_image(f->map, head, f->canvas);
-
+	f = init_mlx_and_window();
+	f->canvas = init_canvas(f->mlx);
+	f->map =  init_map();
+	f->head = read_map(av[1], f->map);
+	draw_image(f->map, f->head, f->canvas);
 	mlx_put_image_to_window(f->mlx, f->win, f->canvas->img, 0, 0);
 	mlx_loop(f->mlx);
+	free_fdf(f);
 }
-
-// 	while (y_start < y_end)

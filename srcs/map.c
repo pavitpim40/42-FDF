@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 02:05:22 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/04 00:48:17 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/04 01:02:22 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "../libft/libft.h"
 
 
-t_map *map_init()
+t_map *init_map()
 {
 	t_map *map;
 
@@ -83,7 +83,7 @@ void print_map(t_map *map, t_coordinate *head)
 }
 
 
-void read_map (char *filename, t_map *map)
+t_coordinate *read_map (char *filename, t_map *map)
 {
 	int		axis;
 	int		ordinate;
@@ -148,5 +148,6 @@ void read_map (char *filename, t_map *map)
 	map->z_range = map->z_max - map->z_min;
 	map->coordinate_map = coordinate_map;
 	close(fd);
+	return (head);
 }
 
