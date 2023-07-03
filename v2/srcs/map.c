@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 02:05:22 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 11:21:17 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/03 14:21:05 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void read_map (int fd, t_map *map)
 	{
 		axis_array = ft_split(axis_string, ' ');
 		ordinate = 0;
-	
+
 		while (axis_array[ordinate])
 		{
 			int altitude = ft_atoi(axis_array[ordinate]);
@@ -132,7 +132,11 @@ void read_map (int fd, t_map *map)
 			ordinate++;
 		}
 		if(map->width == 0)
+		{
+			printf("ordinate : %d\n", ordinate);
 			map->width = ordinate;
+		}
+			
 		// else if(map->width != ordinate)
 		// 	terminate(ERR_MAP_INIT);
 		free_split_line(axis_array);

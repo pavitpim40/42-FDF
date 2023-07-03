@@ -6,15 +6,51 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 01:56:30 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 13:39:49 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/03 14:06:50 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
+double percent(int start, int end, int current)
+{
+    double placement;
+    double distance;
+
+    placement = current - start;
+    distance = end - start;
+    return ((distance == 0) ? 1.0 : (placement / distance));
+}
+
+int get_light(int start, int end, double percentage)
+{
+    return ((int)((1 - percentage) * start + percentage * end));
+}
+
+// get_gradient_color
+int get_gradient_color(t_node start,t_node end, t_node current, int dx,int dy)
+{
+	double percentage;
+	int red;
+	int green;
+	int blue;
+
+	if(current.color == end.color)
+		return (current.color);
+	if (dx > dy)
+		percentage = percent(start.x, end.x, current.x);
+	else
+		percentage = percent(start.y, end.y, current.y);
+
+	red = get_light((start.color >> 16) & 0xFF, (end.color >> 16) & 0xFF, percentage);
+	green = get_light((start.color >> 8) & 0xFF, (end.color >> 8) & 0xFF, percentage);
+	blue = get_light(start.color & 0xFF, end.color & 0xFF, percentage);
+	return ((red << 16) | (green << 8) | blue);
+
+}
 
 // Generalize Draw line Algorithm
-void draw_line(t_node start,t_node end, t_canvas *img, int color)
+void draw_line(t_node start,t_node end, t_canvas *img)
 {
 	int dx = cal_abs(start.x, end.x);
 	int dy = cal_abs(start.y, end.y);
@@ -27,8 +63,7 @@ void draw_line(t_node start,t_node end, t_canvas *img, int color)
 	int dp = cal_max(dx, dy);
 	int ds = cal_min(dx, dy);
 
-	// printf("dx : %d\n", dx);
-	// printf("dy : %d\n", dy);
+	
 
 	if (dx >= dy)
 	{
@@ -56,12 +91,12 @@ void draw_line(t_node start,t_node end, t_canvas *img, int color)
 
 		if (dx >= dy)
 		{
-			my_mlx_pixel_put(img, primary_k, secondary_k, color);
+			my_mlx_pixel_put(img, primary_k, secondary_k, get_gradient_color(start, end, duplicate_node(primary_k, secondary_k, 0, 0), dx, dy));
 		}
 
 		else
 		{
-			my_mlx_pixel_put(img, secondary_k, primary_k, color);
+			my_mlx_pixel_put(img, secondary_k, primary_k, get_gradient_color(start, end, duplicate_node(primary_k, secondary_k, 0, 0), dx, dy));
 		}
 
 		primary_k += 1; // ***change
