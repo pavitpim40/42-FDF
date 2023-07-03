@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:57:52 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 23:16:21 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/03 23:23:47 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,57 +37,64 @@ void draw_image (t_map *map, t_coordinate *head, t_canvas *canvas)
 	int prev_height[map->width];
 	int cell_size = cal_cell_size(map);
 	cell_size = 50;
+	t_node t;
 	
-
 	while (axis < map->height)
 	{
 		while (ordinate < map->width && head)
 		{	
 			// Draw horizontal line - start 
-			int x = 700 + (cell_size * ordinate);
-			int y = -50 + (cell_size * axis);
-			int z = (head->z) * 10;
+			t.x = 700 + (cell_size * ordinate);
+			t.y = -50 + (cell_size * axis);
+			t.z = (head->z) * 10;
+			
 			int color = get_altitude_color(map, head->z);
-			t_node start = create_render_node(x, y, z, color , z/10, map);
-			arr_height[ordinate] = z;
+			t_node start = create_render_node(t.x, t.y, t.z, color , t.z/10, map);
+			arr_height[ordinate] = t.z;
 
 			// Draw horizontal line - end
 			if (head->next)
 				head = head->next;
-			x += cell_size;
-			z = (head->z) * 10;
-			arr_height[ordinate + 1] = z;
+			t.x += cell_size;
+			t.z = (head->z) * 10;
+		
+			arr_height[ordinate + 1] = t.z;
 			color = get_altitude_color(map, head->z);
-			t_node end = create_render_node(x, y, z, color , z/10, map);
+			t_node end = create_render_node(t.x, t.y, t.z, color , t.z/10, map);
 	
-			arr_height[ordinate + 1] = z;
+			arr_height[ordinate + 1] = t.z;
 
 		
 			if(ordinate != map->width - 1)
 				draw_line(start, end, canvas);
 			if (axis != 0)
 			{
-				x -= cell_size;
-				y -= cell_size;
-				z = prev_height[ordinate];
-				color = get_altitude_color(map, z/10);
+				t.x -= cell_size;
+				t.y -= cell_size;
+				t.z = prev_height[ordinate];
+				
+				color = get_altitude_color(map, t.z/10);
 
-				end = create_render_node(x, y, z, color , z/10, map);
+				end = create_render_node(t.x, t.y, t.z, color , t.z/10, map);
 				draw_line(start, end, canvas);
 
 				// วาดเส้นขอบขวาสุด
 				if (ordinate += 1 == map->width)
 				{
-					x += cell_size;
-					z = prev_height[ordinate + 1];
-					color = get_altitude_color(map, z/10);
+					t.x += cell_size;
+					t.z = prev_height[ordinate + 1];
 
-					end = create_render_node(x, y, z, color , z/10, map);
+				
+					color = get_altitude_color(map, t.z/10);
 
-					y += cell_size;
-					z = arr_height[ordinate + 1];
-					color = get_altitude_color(map, z/10);
-					start = create_render_node(x, y, z, color , z/10, map);
+					end = create_render_node(t.x, t.y, t.z, color , t.z/10, map);
+
+					t.y += cell_size;
+					t.z = arr_height[ordinate + 1];
+					
+				
+					color = get_altitude_color(map, t.z/10);
+					start = create_render_node(t.x, t.y, t.z, color , t.z/10, map);
 				if(ordinate != map->width - 1)
 					// draw_algorithm_3(start.x, start.y, end.x, end.y, &canvas, color);
 					draw_line(start, end, canvas);
