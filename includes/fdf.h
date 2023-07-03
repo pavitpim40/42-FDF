@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/04 01:29:07 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/04 02:31:19 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ t_map *init_map();
 t_coordinate *new_coordinate(int x, int y, int z);
 void free_split_line(char **split_line);
 
-t_coordinate *read_map (char *filename,t_fdf *f);
+t_coordinate *process_map (char *filename,t_fdf *f);
 void print_map(t_map *map, t_coordinate *head);
 
 int cal_abs(int x, int y);
