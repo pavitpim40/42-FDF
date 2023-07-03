@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:48:49 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 12:59:43 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/03 13:39:21 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,8 @@ int main(void)
 
 		
 			if(ordinate != map->width - 1)
-				draw_algorithm_3(start.x, start.y, end.x, end.y, &canvas, color);
+				draw_line(start, end, &canvas, color);
+				// draw_algorithm_3(start.x, start.y, end.x, end.y, &canvas, color);
 
 			
 			if (axis != 0)
@@ -146,7 +147,8 @@ int main(void)
 				color = get_altitude_color(map, z);
 
 				end = duplicate_node(x, y, z, color);
-				draw_algorithm_3(start.x, start.y, end.x, end.y, &canvas, color);
+				// draw_algorithm_3(start.x, start.y, end.x, end.y, &canvas, color);
+				draw_line(start, end, &canvas, color);
 
 				if (ordinate += 1 == map->width)
 				{
@@ -161,7 +163,8 @@ int main(void)
 					color = get_altitude_color(map, z);
 					start = duplicate_node(x, y, z, color);
 				if(ordinate != map->width - 1)
-					draw_algorithm_3(start.x, start.y, end.x, end.y, &canvas, color);
+					// draw_algorithm_3(start.x, start.y, end.x, end.y, &canvas, color);
+					draw_line(start, end, &canvas, color);
 				}
 			}
 

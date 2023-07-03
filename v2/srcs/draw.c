@@ -6,17 +6,18 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 01:56:30 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 03:49:24 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/03 13:39:49 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
+
 // Generalize Draw line Algorithm
-void draw_algorithm_3(int x0, int y0, int xn, int yn, t_canvas *img, int color)
+void draw_line(t_node start,t_node end, t_canvas *img, int color)
 {
-	int dx = cal_abs(x0, xn);
-	int dy = cal_abs(y0, yn);
+	int dx = cal_abs(start.x, end.x);
+	int dy = cal_abs(start.y, end.y);
 	int step = 1;
 
 	// #2 Calc step
@@ -31,25 +32,22 @@ void draw_algorithm_3(int x0, int y0, int xn, int yn, t_canvas *img, int color)
 
 	if (dx >= dy)
 	{
-		primary_k = cal_min(x0, xn);
-		primary_n = cal_max(x0, xn);
-		secondary_k = primary_k == x0 ? y0 : yn;
-		if (secondary_k > cal_min(y0, yn))
+		primary_k = cal_min(start.x, end.x);
+		primary_n = cal_max(start.x, end.x);
+		secondary_k = primary_k == start.x ? start.y : end.y;
+		if (secondary_k > cal_min(start.y, end.y))
 			step = -1;
-		// printf("X dominate\n");
+	
 	}
 	else
 	{
-		primary_k = cal_min(y0, yn);
-		primary_n = cal_max(y0, yn);
-		secondary_k = primary_k == y0 ? x0 : xn;
-		if (secondary_k > cal_min(x0, xn))
+		primary_k = cal_min(start.y, end.y);
+		primary_n = cal_max(start.y, end.y);
+		secondary_k = primary_k == start.y ? start.x : end.x;
+		if (secondary_k > cal_min(start.x, end.x))
 			step = -1;
-		// printf("Y dominate\n");
+	
 	}
-	// printf("primary_k : %d\n", primary_k);
-	// printf("primary_n : %d\n", primary_n);
-	// printf("secondary_k : %d\n", secondary_k);
 
 	int decision_parameter = 2 * ds - dp;
 
@@ -58,14 +56,12 @@ void draw_algorithm_3(int x0, int y0, int xn, int yn, t_canvas *img, int color)
 
 		if (dx >= dy)
 		{
-			// printf("Pair : (%d,%d)\n", primary_k, secondary_k);
 			my_mlx_pixel_put(img, primary_k, secondary_k, color);
 		}
 
 		else
 		{
 			my_mlx_pixel_put(img, secondary_k, primary_k, color);
-			// printf("Pair : (%d,%d)\n", primary_k, secondary_k);
 		}
 
 		primary_k += 1; // ***change
@@ -79,5 +75,4 @@ void draw_algorithm_3(int x0, int y0, int xn, int yn, t_canvas *img, int color)
 			secondary_k += step; // ***change
 		}
 	}
-	// printf("endline-------------------\n");
 }
