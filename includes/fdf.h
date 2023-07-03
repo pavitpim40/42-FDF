@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 22:37:30 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/03 23:09:51 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,9 @@ typedef struct 			s_coordinate
 	int					x;
 	int					y;
 	int					z;
+	// int  			    axis;
+	// int					ordinate;
+	// int					altitude;
 	int					color;
 	struct s_coordinate	*next;
 
@@ -82,7 +85,7 @@ typedef struct s_map
 	int		width;
 	int		height;
 	t_coordinate		**coordinate_map;
-	int		*colors_arr;
+	int		cell_size;
 	int		z_min;
 	int		z_max;
 	int		z_range;
@@ -126,6 +129,7 @@ void rotate_y(int *x, int *z, double beta);
 void rotate_z(int *x, int *y, double gamma);
 void iso(int *x, int *y, int z);
 
+void draw_image (t_map *map, t_coordinate *head, t_canvas *canvas);
 int get_altitude_color(t_map *map,int z );
 // int get_pixel_color(t_node start, t_node end, int pixel_range, int pixel, int start_pixel);
 int get_pixel_color(t_node start, t_node end, t_bresenham *b, int pixel);
