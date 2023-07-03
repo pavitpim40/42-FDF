@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:48:49 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 11:05:50 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/03 11:07:55 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ int main(void)
 	int prev_height[map->width];
 	while (axis < map->height)
 	{
-		int c = 0;
 
 		while (ordinate < map->width && head)
 		{			
@@ -167,7 +166,6 @@ int main(void)
 		int i = 0;
 		while (i < map->width)
 		{
-			// printf("%d", arr_height[i]);
 			prev_height[i] = arr_height[i];
 			i++;
 		}
