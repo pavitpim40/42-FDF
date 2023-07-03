@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:48:49 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 05:20:28 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/03 11:05:50 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,94 +87,83 @@ int main(void)
 	// MAP
 	t_map *map;
 	map = map_init();
-	printf("coordinate address in main  : %p\n\n", map->coordinate_map);
 
 	int fd;
 	fd = open("maps/42.fdf", O_RDONLY);
+	printf("fd : %d\n", fd);
 	read_map(fd, map);
 
-	// t_coordinate **coordinate = map->coordinate_map;
 	t_coordinate *head = *map->coordinate_map;
-
 
 	// print_map(map, head);
 
-	// cal appropriate cell width and height in square
+	// WIRE FRAME SIZE
 	int cell_width = (WIDTH - 100) / map->width;
 	int cell_height = (HEIGHT - 100) / map->height;
 	int cell_size = cell_width < cell_height ? cell_width : cell_height;
-	// printf("cell_size : %d\n", cell_size);
+	cell_size = 40;
 
-	cell_size = 50;
-	// draw map just one row
+
+	// DRAW IMAGE
 	int axis = 0;
 	int ordinate = 0;
-	// printf("map->width : %d\n", map->width);
-	// printf("map->height : %d\n", map->height);
-
 	int arr_height[map->width];
 	int prev_height[map->width];
 	while (axis < map->height)
 	{
-		while (ordinate < map->width && head->next != NULL)
-		{
+		int c = 0;
 
-			
+		while (ordinate < map->width && head)
+		{			
 			int x = 700 + (cell_size * ordinate);
-		
 			int y = -50 + (cell_size * axis);
 			int z = (head->z) * 10;
 			t_node start = duplicate_node(x, y, z, 0x00FF0000);
-			// printf("z1 : %d\n", z);
 			arr_height[ordinate] = z;
 
-			// end node of horizontal line
-			head = head->next;
+			if (head->next)
+				head = head->next;
 			x += cell_size;
 			z = (head->z) * 10;
 			arr_height[ordinate + 1] = z;
+
+		
 			t_node end = duplicate_node(x, y, z, 0x00FF0000);
-			// printf("z2 : %d\n", z);
+	
 			arr_height[ordinate + 1] = z;
 
-			// draw horizontal line each
-			draw_algorithm_3(start.x, start.y, end.x, end.y, &canvas, 0x00FF0000);
+		
+			if(ordinate != map->width - 1)
+				draw_algorithm_3(start.x, start.y, end.x, end.y, &canvas, 0x00FF0000);
 
-			// draw back for vertical line to prev row
+			
 			if (axis != 0)
 			{
-			
 
 				x -= cell_size;
 				y -= cell_size;
 				z = prev_height[ordinate];
-				// printf("z3 : %d\n", z);
+				
 				end = duplicate_node(x, y, z, 0x00FF0000);
 				draw_algorithm_3(start.x, start.y, end.x, end.y, &canvas, 0x00FF0000);
 
-				if(ordinate += 1 ==  map->width) 
+				if (ordinate += 1 == map->width)
 				{
 					x += cell_size;
-				// printf("ordinate + 1 : %d\n", ordinate + 1);
-				z = prev_height[ordinate + 1];
-				end = duplicate_node(x, y, z, 0x00FF0000);
-				// draw_algorithm_3(start.x, start.y, end.x, end.y, &canvas, 0x00FF0000);
+					z = prev_height[ordinate + 1];
+					end = duplicate_node(x, y, z, 0x00FF0000);
 
 					y += cell_size;
 					z = arr_height[ordinate + 1];
 					start = duplicate_node(x, y, z, 0x00FF0000);
+				if(ordinate != map->width - 1)
 					draw_algorithm_3(start.x, start.y, end.x, end.y, &canvas, 0x00FF0000);
 				}
-				
-			}	
+			}
 
-		
 			ordinate++;
-
-	
 		}
-		printf("\n");
-		// print array of height
+
 		int i = 0;
 		while (i < map->width)
 		{
@@ -182,7 +171,7 @@ int main(void)
 			prev_height[i] = arr_height[i];
 			i++;
 		}
-		
+
 		ordinate = 0;
 
 		axis++;

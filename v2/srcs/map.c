@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 02:05:22 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 03:14:45 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/03 05:22:54 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,8 +129,8 @@ void read_map (int fd, t_map *map)
 		}
 		if(map->width == 0)
 			map->width = ordinate;
-		else if(map->width != ordinate)
-			terminate(ERR_MAP_INIT);
+		// else if(map->width != ordinate)
+		// 	terminate(ERR_MAP_INIT);
 		free_split_line(axis_array);
 		free(axis_string);
 		axis++;
