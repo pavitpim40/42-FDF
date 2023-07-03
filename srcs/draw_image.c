@@ -23,7 +23,8 @@ int cal_cell_size (t_map *map)
 
 t_node draw_right(t_map *m, t_canvas *c, t_node *t, t_coordinate *h, int *arr_h)
 {
-	t->x = 700 + (m->cell_size * h->x);
+	t->x = (WIDTH/2) + (m->cell_size * h->x);
+	printf("x = %d\n", t->x);
 	t->y = -50 + (m->cell_size * h->y);
 	t->z = (h->z) * 10;
 	int color = get_altitude_color(m, h->z);
@@ -67,15 +68,37 @@ void draw_image (t_fdf *fdf)
 	t = malloc(sizeof(t_node));
 	if (!t)
 		terminate(ERR_MAP_INIT);
-	
+
+	// how to calculate start x and y
+	int W_CONTENT = WIDTH - 800;
+	// int H_CONTENT = HEIGHT - 200;
+	 int cell_w = W_CONTENT / map->width;
+	int start_x = (WIDTH - W_CONTENT) / 2  + cell_size / 2;
+
+	int H_CONTENT = HEIGHT - 600;
+	int cell_h = H_CONTENT / map->height;
+	int start_y = (HEIGHT - H_CONTENT) / 2  + cell_size / 2;
+
+	printf("start_x = %d\n", start_x);
+
+	if(cell_w <	cell_h) {
+	cell_size = cell_w;
+		start_y = (HEIGHT - (cell_size * map->height)) / 2;
+	}
+	else{
+		cell_size = cell_h;
+		start_x = (WIDTH - (cell_size * map->width)) / 2;
+	}
+		
+
 	while (axis < map->height)
 	{
 		while (ordinate < map->width && head)
 		{	
 			// // Draw horizontal line - start 
 			// t_node start = draw_right(map, canvas, t, head, arr_height);
-			t->x = 700 + (cell_size * ordinate);
-			t->y = -50 + (cell_size * axis);
+			t->x = start_x + (cell_size * ordinate);
+			t->y = start_y + (cell_size * axis);
 			t->z = (head->z) * 10;
 			color = get_altitude_color(map, head->z);
 			t_node start = create_render_node(*t,color , t->z/10, map);

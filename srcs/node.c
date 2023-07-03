@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 02:02:02 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 23:34:06 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/04 03:38:29 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@ t_node create_render_node(t_node t,int color,int altitude, t_map *map)
 	new_node.color = color;
 	new_node.altitude = altitude;
 	new_node.percent = (double)(altitude - map->z_min) / map->z_range;
-	iso(&new_node.x, &new_node.y, new_node.z);
+	// iso(&new_node.x, &new_node.y, new_node.z);
 	return new_node;
 }
