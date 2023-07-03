@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/04 01:14:37 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/04 01:29:07 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,17 +94,14 @@ typedef struct s_map
 // fdf detail
 typedef struct s_fdf
 {
-	void		*mlx;
-	void		*win;
+	void			*mlx;
+	void			*win;
+	t_canvas		*canvas;
+	t_map			*map;
 	
-	t_canvas	*canvas;
-	// void		*img;
-	// char		*data_addr;
-	// int			bits_per_pixel;
-	// int			size_line;
-	// int			endian;
-	t_map		*map;
-	t_coordinate	*head;
+	t_coordinate 	*head;
+	t_coordinate 	**coordinate_map;
+	
 	// t_camera	*camera;
 	// t_mouse		*mouse;
 }				t_fdf;
@@ -118,7 +115,7 @@ t_map *init_map();
 t_coordinate *new_coordinate(int x, int y, int z);
 void free_split_line(char **split_line);
 
-t_coordinate *read_map (char *filename, t_map *map);
+t_coordinate *read_map (char *filename,t_fdf *f);
 void print_map(t_map *map, t_coordinate *head);
 
 int cal_abs(int x, int y);
