@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 02:07:13 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/03 12:56:38 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,8 @@ void print_map(t_map *map, t_coordinate *head);
 int cal_abs(int x, int y);
 int cal_max(int x, int y);
 int cal_min(int x, int y);
+int get_altitude_color(t_map *map,int z );
 t_node duplicate_node(int x, int y, int z, int color);
-t_node project_isometric(t_node node);
 t_node project_isometric(t_node node);
 void my_mlx_pixel_put(t_canvas *canvas, int x, int y, int color);
 void draw_algorithm_3(int x0, int y0, int xn, int yn, t_canvas *img, int color);

@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:48:49 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 11:07:55 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/03 12:59:43 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,8 @@ int main(void)
 			int x = 700 + (cell_size * ordinate);
 			int y = -50 + (cell_size * axis);
 			int z = (head->z) * 10;
-			t_node start = duplicate_node(x, y, z, 0x00FF0000);
+			int color = get_altitude_color(map, z);
+			t_node start = duplicate_node(x, y, z, color);
 			arr_height[ordinate] = z;
 
 			if (head->next)
@@ -125,15 +126,15 @@ int main(void)
 			x += cell_size;
 			z = (head->z) * 10;
 			arr_height[ordinate + 1] = z;
-
+			color = get_altitude_color(map, z);
 		
-			t_node end = duplicate_node(x, y, z, 0x00FF0000);
+			t_node end = duplicate_node(x, y, z, color);
 	
 			arr_height[ordinate + 1] = z;
 
 		
 			if(ordinate != map->width - 1)
-				draw_algorithm_3(start.x, start.y, end.x, end.y, &canvas, 0x00FF0000);
+				draw_algorithm_3(start.x, start.y, end.x, end.y, &canvas, color);
 
 			
 			if (axis != 0)
@@ -142,21 +143,25 @@ int main(void)
 				x -= cell_size;
 				y -= cell_size;
 				z = prev_height[ordinate];
-				
-				end = duplicate_node(x, y, z, 0x00FF0000);
-				draw_algorithm_3(start.x, start.y, end.x, end.y, &canvas, 0x00FF0000);
+				color = get_altitude_color(map, z);
+
+				end = duplicate_node(x, y, z, color);
+				draw_algorithm_3(start.x, start.y, end.x, end.y, &canvas, color);
 
 				if (ordinate += 1 == map->width)
 				{
 					x += cell_size;
 					z = prev_height[ordinate + 1];
-					end = duplicate_node(x, y, z, 0x00FF0000);
+					color = get_altitude_color(map, z);
+
+					end = duplicate_node(x, y, z, color);
 
 					y += cell_size;
 					z = arr_height[ordinate + 1];
-					start = duplicate_node(x, y, z, 0x00FF0000);
+					color = get_altitude_color(map, z);
+					start = duplicate_node(x, y, z, color);
 				if(ordinate != map->width - 1)
-					draw_algorithm_3(start.x, start.y, end.x, end.y, &canvas, 0x00FF0000);
+					draw_algorithm_3(start.x, start.y, end.x, end.y, &canvas, color);
 				}
 			}
 

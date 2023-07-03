@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 02:05:22 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 05:22:54 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/03 11:21:17 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ t_map *map_init()
 	map->height = 0;
 	map->coordinate_map = NULL;
 	map->colors_arr = NULL;
-	map->z_min = INT_MAX; // why ?
-	map->z_max = INT_MIN; // why ?
+	map->z_min = INT_MAX; 
+	map->z_max = INT_MIN; 
 	map->z_range = 0;
 	return (map);
 }
@@ -113,18 +113,22 @@ void read_map (int fd, t_map *map)
 	
 		while (axis_array[ordinate])
 		{
+			int altitude = ft_atoi(axis_array[ordinate]);
 			if(axis == 0 && ordinate == 0)
 			{
-				head = new_coordinate(axis, ordinate, ft_atoi(axis_array[ordinate]));
+				head = new_coordinate(axis, ordinate, altitude);
 				coordinate_map = &head;
 				coordinate = head;
 			}
 			else
 			{
-				coordinate->next = new_coordinate(axis, ordinate, ft_atoi(axis_array[ordinate]));
+				coordinate->next = new_coordinate(axis, ordinate, altitude);
 				coordinate = coordinate->next;
 			}
-			
+			if(altitude < map->z_min)
+				map->z_min = altitude;
+			if(altitude > map->z_max)
+				map->z_max = altitude;	
 			ordinate++;
 		}
 		if(map->width == 0)
@@ -137,30 +141,8 @@ void read_map (int fd, t_map *map)
 		axis_string = get_next_line(fd);
 	}
 	map->height = axis;
+	map->z_range = map->z_max - map->z_min;
 	map->coordinate_map = coordinate_map;
-	printf("axis : %d\n", axis);
-	printf("ordinate : %d\n", ordinate);
-	// print_map(coordinate_map, map->width);
-	printf("address of MAP in READ MAP : %p\n", map);
-	printf("address of coordinate_map in READ MAP : %p\n", coordinate_map);
-	printf("address of map->coord in read map  : %p\n", map->coordinate_map);
-	printf("head in read map: %p\n\n", head);
 
-	// print_map(map);
-
-	// t_coordinate *temp;
-	// temp = *coordinate_map;
-	// ordinate = 0;
-	// while(temp)
-	// {
-	// 	while(ordinate < map->width)
-	// 	{
-	// 		// printf("x : %d, y : %d, z : %d\n", temp->x, temp->y, temp->z);
-	// 		temp = temp->next;
-	// 		ordinate++;
-	// 	}
-	// 	ordinate = 0;
-	// 	// printf("\n");
-	// }
 }
 

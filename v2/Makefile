@@ -6,7 +6,7 @@
 #    By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/12 10:34:59 by ppimchan          #+#    #+#              #
-#    Updated: 2023/07/03 02:08:05 by ppimchan         ###   ########.fr        #
+#    Updated: 2023/07/03 13:01:00 by ppimchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ FDF_HEADERS				= $(addprefix $(FDF_HEADERS_DIRECTORY), $(FDF_HEADERS_FILES))
 
 # SOURCE
 SRCS_DIRECTORY			= ./srcs/
-SRCS_FILES				= main.c error.c draw.c math.c image.c map.c projection.c
+SRCS_FILES				= main.c error.c draw.c math.c image.c map.c projection.c color.c
 SRCS					= $(addprefix $(SRCS_DIRECTORY) $(SRCS_FILES))
 
 # OBJECT
