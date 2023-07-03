@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:48:49 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 17:43:23 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/03 17:45:03 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ int main(int ac, char **av)
 			int y = -50 + (cell_size * axis);
 			int z = (head->z) * 10;
 			int color = get_altitude_color(map, head->z);
-			t_node start = duplicate_node(x, y, z, color);
+			// t_node start = duplicate_node(x, y, z, color);
+			t_node start = create_render_node(x, y, z, color , z/10, map);
 			arr_height[ordinate] = z;
 
 			// Draw horizontal line - end
@@ -87,7 +88,8 @@ int main(int ac, char **av)
 			z = (head->z) * 10;
 			arr_height[ordinate + 1] = z;
 			color = get_altitude_color(map, head->z);
-			t_node end = duplicate_node(x, y, z, color);
+			// t_node end = duplicate_node(x, y, z, color);
+			t_node end = create_render_node(x, y, z, color , z/10, map);
 	
 			arr_height[ordinate + 1] = z;
 
@@ -117,12 +119,14 @@ int main(int ac, char **av)
 					z = prev_height[ordinate + 1];
 					color = get_altitude_color(map, z/10);
 
-					end = duplicate_node(x, y, z, color);
+					// end = duplicate_node(x, y, z, color);
+					end = create_render_node(x, y, z, color , z/10, map);
 
 					y += cell_size;
 					z = arr_height[ordinate + 1];
 					color = get_altitude_color(map, z/10);
-					start = duplicate_node(x, y, z, color);
+					// start = duplicate_node(x, y, z, color);
+					start = create_render_node(x, y, z, color , z/10, map);
 				if(ordinate != map->width - 1)
 					// draw_algorithm_3(start.x, start.y, end.x, end.y, &canvas, color);
 					draw_line(start, end, &canvas);
