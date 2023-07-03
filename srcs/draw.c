@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 01:56:30 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 19:13:05 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/03 20:48:56 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ double percent(int start, int end, int current)
 
 int get_light(int start, int end, double percentage)
 {
-	return ((int)((1 - percentage) * start + percentage * end));
+	return ((int)((percentage) * start + (1-percentage) * end));
 }
 
 // get_gradient_color
@@ -60,6 +60,44 @@ int get_gradient_color(t_node start, t_node end, t_node current, int dx, int dy)
 	return ((red << 16) | (green << 8) | blue);
 	// return (blue | (green << 8) | (red << 16));
 }
+
+
+// int	get_light(int start, int end, double percentage)
+// {
+// 	return ((int)((1 - percentage) * start + percentage * end));
+// }
+
+int get_iterate_color(t_node start, t_node end, int pixel_range, int pixel, int start_pixel)
+{
+	double percentage;
+	
+	percentage = (double)(pixel - start_pixel) / pixel_range;
+	// printf("percentage : %f\n", percentage);
+	if(start.altitude == end.altitude)
+		return (start.color);
+	if (start.altitude < end.altitude) {
+		// percentage = (double)pixel / pixel_range;
+		printf("percentage : %f\n", percentage);
+
+		// return color as bit sd
+		int red = get_light((start.color >> 16) & 0xFF, (end.color >> 16) & 0xFF, percentage);
+		int green = get_light((start.color >> 8) & 0xFF, (end.color >> 8) & 0xFF, percentage);
+		int blue = get_light(start.color & 0xFF, end.color & 0xFF, percentage);
+		return ((red << 16) | (green << 8) | blue);
+		
+	}
+		
+	else {
+		printf("percentage : %f\n", percentage);
+		// return color as bit shift
+		int red = get_light((end.color >> 16) & 0xFF, (start.color >> 16) & 0xFF, percentage);
+		int green = get_light((end.color >> 8) & 0xFF, (start.color >> 8) & 0xFF, percentage);
+		int blue = get_light(end.color & 0xFF, start.color & 0xFF, percentage);
+		return ((red << 16) | (green << 8) | blue);
+	}
+		
+}
+
 
 // Generalize Draw line Algorithm
 void draw_line(t_node start, t_node end, t_canvas *img)
@@ -106,6 +144,7 @@ void draw_line(t_node start, t_node end, t_canvas *img)
 	}
 
 	int decision_parameter = 2 * ds - dp;
+	int start_pixel = primary_k;
 
 	while (primary_k <= primary_n)
 	{ // change** yk <= yn
@@ -113,7 +152,8 @@ void draw_line(t_node start, t_node end, t_canvas *img)
 		if (dx >= dy)
 		{
 			// int color = (primary_k / dp )* altitude_range + base_color;
-			int color = get_gradient_color(start, end, duplicate_node(primary_k, secondary_k, 0, 0), dx, dy);
+			// int color = get_gradient_color(start, end, duplicate_node(primary_k, secondary_k, 0, 0), dx, dy);
+			int color = get_iterate_color(start, end, dx, primary_k,start_pixel);
 			my_mlx_pixel_put(img, primary_k, secondary_k, color);
 		}
 
@@ -121,7 +161,8 @@ void draw_line(t_node start, t_node end, t_canvas *img)
 		{
 
 			// int color = (primary_k / dp )* altitude_range + base_color;
-			int color = get_gradient_color(start, end, duplicate_node(secondary_k, primary_k, 0, 0), dx, dy);
+			// int color = get_gradient_color(start, end, duplicate_node(secondary_k, primary_k, 0, 0), dx, dy);
+			int color = get_iterate_color(start, end, dy, primary_k,start_pixel);
 			my_mlx_pixel_put(img, secondary_k, primary_k, color);
 		}
 
