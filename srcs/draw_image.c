@@ -60,106 +60,50 @@ void draw_image (t_fdf *fdf)
 	int ordinate = 0;
 	int arr_height[map->width];
 	int prev_height[map->width];
-	int cell_size = cal_cell_size(map);
-	cell_size = 50;
-	t_node *t; // traverse coordinate
 	int color;
-
-	t = malloc(sizeof(t_node));
-	if (!t)
-		terminate(ERR_MAP_INIT);
-
-	// how to calculate start x and y
-	int W_CONTENT = WIDTH - 800;
-	// int H_CONTENT = HEIGHT - 200;
-	 int cell_w = W_CONTENT / map->width;
-	int start_x = (WIDTH - W_CONTENT) / 2  + cell_size / 2;
-
-	int H_CONTENT = HEIGHT - 600;
-	int cell_h = H_CONTENT / map->height;
-	int start_y = (HEIGHT - H_CONTENT) / 2  + cell_size / 2;
-
-	
-
-	if(cell_w <	cell_h) {
-	cell_size = cell_w;
-		start_y = (HEIGHT - (cell_size * map->height)) / 2;
-	}
-	else{
-		cell_size = cell_h;
-		start_x = (WIDTH - (cell_size * map->width)) / 2;
-	}
-	printf("start_x = %d\n", start_x);
-	printf("start_y = %d\n", start_y);
-	printf("cell_size = %d\n", cell_size);
-	// cal start x and y when isometric
-	
-		
 
 	while (axis < map->height)
 	{
-		// printf("axis = %d\n", axis);
-		// printf("map-> height = %d\n", map->height);
 		while (ordinate < map->width  && head)
 		{	
-			
-			t->x = start_x + (cell_size * ordinate);
-			t->y = start_y + (cell_size * axis);
-			t->z = (head->z) * 10;
 			color = get_altitude_color(map, head->z);
 			t_node start = create_project_node(axis,ordinate,head->z,color,map);
-			// printf("start x:%d y:%d z:%d \n",start.x,start.y,start.z);
 			arr_height[ordinate] = head->z;
 
 			// Draw horizontal line - end
 			if (head->next)
 				head = head->next;
-			// 1st update
-			t->x += cell_size;
-			t->z = (head->z) * 10;
+		
 			arr_height[ordinate + 1] = head->z;
 			color = get_altitude_color(map, head->z);
 			t_node end = create_project_node(axis,ordinate+1,head->z,color,map);
-			// printf("end x:%d y:%d z:%d \n",end.x,end.y,end.z);
 			arr_height[ordinate + 1] = head->z;
-
 			if(ordinate != map->width - 1)
-				draw_line(start, end, canvas);
-			
+				draw_line(start, end, canvas);		
 			// Draw vertical line - BACKWARD
 			if (axis != 0)
 			{
 				// 2nd update
-				t->x -= cell_size;
-				t->y -= cell_size;
-				t->z = prev_height[ordinate];
 				int altitude = prev_height[ordinate];
-				
 				color = get_altitude_color(map, altitude);
-
 				end = create_project_node(axis-1,ordinate,altitude,color,map);
 				draw_line(start, end, canvas);
 
 				// วาดเส้นขอบขวาสุด
 				if (ordinate += 1 == map->width)
 				{
-					// 3rd update
-					t->x += cell_size;
-					t->z = prev_height[ordinate + 1];
+				
 					altitude = prev_height[ordinate + 1];
 					color = get_altitude_color(map, altitude);
 					end = create_project_node(axis,ordinate-1,altitude,color,map);
 
 					// 4th update
-					t->y += cell_size;
-					t->z = arr_height[ordinate + 1];
 					altitude = arr_height[ordinate + 1];
 					color = get_altitude_color(map, altitude);
 					start = create_project_node(axis,ordinate+1,altitude,color,map);
 				// if(ordinate != map->width - 1)
 					// draw_line(start, end, canvas);
 				}
-				
 				}
 			ordinate++;
 		}
