@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/04 17:42:26 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:30:01 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ t_node create_project_node(int axis,int ordinate,int altitude, int color,t_map *
 t_node create_render_node(t_node,int color,int altitude, t_map *map, char *name);
 
 void pixel_put(t_canvas *canvas, int x, int y, int color);
-void draw_line(t_node start,t_node end, t_canvas *img,int count);
+void draw_line(t_node start,t_node end, t_canvas *img);
 // void ft_putendl_fd(char const *msg, int fd);
 
 
