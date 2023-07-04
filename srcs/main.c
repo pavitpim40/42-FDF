@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:48:49 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/04 02:31:24 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/04 21:00:50 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ t_canvas *init_canvas(void *mlx)
 	return (canvas);
 }
 
+
 // NEED TO Review
 void free_fdf(t_fdf *f)
 {
@@ -53,6 +54,19 @@ void free_fdf(t_fdf *f)
 	free(f->win);
 	free(f);
 }
+
+int	key_hook(int keycode, t_fdf *f)
+{
+	printf("Hello from key_hook!\n");
+	printf("keycode: %d\n", keycode);
+	// printf("vars->bits_per_pixel: %d\n", vars->bits_per_pixel);
+	if (keycode == 53) {
+		free_fdf(f);
+		exit(0);
+	}
+	return (0);
+}
+
 void render_image(t_fdf *f)
 {
 	mlx_put_image_to_window(f->mlx, f->win, f->canvas->img, 0, 0);
@@ -70,6 +84,7 @@ int main(int ac, char **av)
 	f->head = process_map(av[1],f);
 	draw_image(f);
 	render_image(f);
+	mlx_key_hook(f->win, key_hook, f);
 	mlx_loop(f->mlx);
 	free_fdf(f);
 }

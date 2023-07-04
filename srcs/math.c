@@ -6,11 +6,11 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 01:58:12 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 01:58:30 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/04 20:50:08 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../includes/fdf.h"
 
 
 int cal_abs(int x, int y)
