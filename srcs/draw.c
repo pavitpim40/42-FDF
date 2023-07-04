@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 01:56:30 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/04 18:30:07 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/04 23:12:12 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,9 @@ void draw_line(t_node start, t_node end, t_canvas *img)
 			p->secondary_k += p->step; // ***change
 		}
 	}
+	int color = get_pixel_color(start, end, p, p->primary_k);
+	if (p->dx >= p->dy)
+			pixel_put(img, p->primary_k, p->secondary_k, color);
+	else
+			pixel_put(img, p->secondary_k, p->primary_k, color);
 }

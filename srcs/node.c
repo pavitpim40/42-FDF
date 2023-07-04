@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 02:02:02 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/04 22:14:29 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/05 00:44:07 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,15 @@ t_node coordinate_to_pixel(t_fdf *f,t_coordinate t,int color)
 	new_node.y = y;
 	new_node.z = t.altitude * zoom_level /5;
 	new_node.color = color;
+	printf("bef (x,y,z) = (%d,%d,%d) \n",new_node.x,new_node.y,new_node.z);
+	
+	// // print angle
+	printf("alpha:%f beta:%f gamma:%f\n",f->camera->alpha,f->camera->beta,f->camera->gamma);
+	rotate_x(&new_node.y, &new_node.z, f->camera->alpha);
+	rotate_y(&new_node.x, &new_node.z, f->camera->beta);
+	rotate_z(&new_node.x, &new_node.y, f->camera->gamma);
+	printf("aft (x,y,z) = (%d,%d,%d) \n\n",new_node.x,new_node.y,new_node.z);
+	if(f->camera->projection == ISOMETRIC)
 		iso(&new_node.x, &new_node.y, new_node.z);
 	new_node.x+= WIDTH / 2;
 	new_node.y+=  HEIGHT / 2;

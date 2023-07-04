@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
+#include "mlx.h"
 
 t_coordinate dup_coordinate(int axis,int ordinate,int altitude, int color)
 {
@@ -46,7 +47,7 @@ t_node new_render_node (t_fdf *fdf,int axis,int ordinate,int altitude)
 	
 	color  = get_altitude_color(fdf->map, altitude);
 	tmp = dup_coordinate(axis,ordinate,altitude,color);
-	printf("x:%d y:%d z:%d color:%d\n",tmp.axis,tmp.ordinate,tmp.altitude,tmp.color);
+	// printf("x:%d y:%d z:%d color:%d\n",tmp.axis,tmp.ordinate,tmp.altitude,tmp.color);
 	t_node start = coordinate_to_pixel(fdf,tmp,color);
 	return (start);
 }
@@ -66,7 +67,7 @@ void draw_image (t_fdf *fdf)
 	{
 		while (tv.ordinate < fdf->map->width  && fdf->head)
 		{	
-
+			printf("new Draw\n");
 			t_node start = new_render_node(fdf,tv.axis,tv.ordinate,fdf->head->z);
 			arr_height[tv.ordinate] = fdf->head->z;
 			// Draw horizontal line - end
@@ -92,5 +93,8 @@ void draw_image (t_fdf *fdf)
 		}
 		tv.ordinate = 0;
 		tv.axis +=1;
+	
 	}
+	// mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->canvas->img, 0, 0);
+	printf("draw image done\n");
 }

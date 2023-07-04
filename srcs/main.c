@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:48:49 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/04 21:14:49 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/05 01:00:18 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,44 @@ void free_fdf(t_fdf *f)
 	free(f);
 }
 
+void render_image(t_fdf *f)
+{
+	mlx_put_image_to_window(f->mlx, f->win, f->canvas->img, 0, 0);
+}
+
 int	key_hook(int keycode, t_fdf *f)
 {
-	printf("Hello from key_hook!\n");
+	// printf("Hello from key_hook!\n");
 	printf("keycode: %d\n", keycode);
 	// printf("vars->bits_per_pixel: %d\n", vars->bits_per_pixel);
 	if (keycode == 53) {
 		free_fdf(f);
 		exit(0);
 	}
+	if(keycode == 34) {
+		f->camera->projection = ISOMETRIC;
+		f->camera->alpha = 0;
+		f->camera->beta = 0;
+		f->camera->gamma = 0;
+		f->canvas = init_canvas(f->mlx);
+		
+		draw_image(f);
+		render_image(f);
+		
+		printf("isometric projection\n");
+	}
+	// P = 35
 	if (keycode == 35) {
+		f->camera->projection = PARALLEL;
+		f->camera->alpha = 0;
+		f->camera->beta = 0;
+		f->camera->gamma =0;
+		f->canvas = init_canvas(f->mlx);
+		
+		draw_image(f);
+		render_image(f);
+		
+		
 		printf("parallel projection\n");
 	}
 	return (0);
@@ -88,10 +116,7 @@ t_camera *init_camera()
 	return (camera);
 }
 
-void render_image(t_fdf *f)
-{
-	mlx_put_image_to_window(f->mlx, f->win, f->canvas->img, 0, 0);
-}
+
 
 int main(int ac, char **av)
 {
