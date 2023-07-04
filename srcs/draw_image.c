@@ -21,27 +21,27 @@ int cal_cell_size (t_map *map)
 	return (cell_height);
 }
 
-t_node draw_right(t_map *m, t_canvas *c, t_node *t, t_coordinate *h, int *arr_h)
-{
-	t->x = (WIDTH/2) + (m->cell_size * h->x);
-	printf("x = %d\n", t->x);
-	t->y = -50 + (m->cell_size * h->y);
-	t->z = (h->z) * 10;
-	int color = get_altitude_color(m, h->z);
-	t_node start = create_render_node(*t,color , t->z/10, m);
+// t_node draw_right(t_map *m, t_canvas *c, t_node *t, t_coordinate *h, int *arr_h)
+// {
+// 	t->x = (WIDTH/2) + (m->cell_size * h->x);
+// 	printf("x = %d\n", t->x);
+// 	t->y = -50 + (m->cell_size * h->y);
+// 	t->z = (h->z) * 10;
+// 	int color = get_altitude_color(m, h->z);
+// 	t_node start = create_render_node(*t,color , t->z/10, m);
 
-	if(h->next)
-		h = h->next;
-	t->x += m->cell_size;
-	t->z = (h->z) * 10;
-	arr_h[h->x + 1] = t->z;
-	color = get_altitude_color(m, h->z);
-	t_node end = create_render_node(*t, color , t->z/10, m);
-	arr_h[h->x + 1] = t->z;
-	if(h->x != m->width - 1)
-		draw_line(start, end, c);
-	return (start);
-}
+// 	if(h->next)
+// 		h = h->next;
+// 	t->x += m->cell_size;
+// 	t->z = (h->z) * 10;
+// 	arr_h[h->x + 1] = t->z;
+// 	color = get_altitude_color(m, h->z);
+// 	t_node end = create_render_node(*t, color , t->z/10, m);
+// 	arr_h[h->x + 1] = t->z;
+// 	if(h->x != m->width - 1)
+// 		draw_line(start, end, c);
+// 	return (start);
+// }
 
 /*
 ** my draw image strategy
@@ -79,7 +79,7 @@ void draw_image (t_fdf *fdf)
 	int cell_h = H_CONTENT / map->height;
 	int start_y = (HEIGHT - H_CONTENT) / 2  + cell_size / 2;
 
-	printf("start_x = %d\n", start_x);
+	
 
 	if(cell_w <	cell_h) {
 	cell_size = cell_w;
@@ -89,20 +89,27 @@ void draw_image (t_fdf *fdf)
 		cell_size = cell_h;
 		start_x = (WIDTH - (cell_size * map->width)) / 2;
 	}
+	printf("start_x = %d\n", start_x);
+	printf("start_y = %d\n", start_y);
+	printf("cell_size = %d\n", cell_size);
+	// cal start x and y when isometric
+	
 		
 
 	while (axis < map->height)
 	{
-		while (ordinate < map->width && head)
+		// printf("axis = %d\n", axis);
+		// printf("map-> height = %d\n", map->height);
+		while (ordinate < map->width  && head)
 		{	
-			// // Draw horizontal line - start 
-			// t_node start = draw_right(map, canvas, t, head, arr_height);
+			
 			t->x = start_x + (cell_size * ordinate);
 			t->y = start_y + (cell_size * axis);
 			t->z = (head->z) * 10;
 			color = get_altitude_color(map, head->z);
-			t_node start = create_render_node(*t,color , t->z/10, map);
-			arr_height[ordinate] = t->z;
+			t_node start = create_project_node(axis,ordinate,head->z,color,map);
+			// printf("start x:%d y:%d z:%d \n",start.x,start.y,start.z);
+			arr_height[ordinate] = head->z;
 
 			// Draw horizontal line - end
 			if (head->next)
@@ -110,23 +117,27 @@ void draw_image (t_fdf *fdf)
 			// 1st update
 			t->x += cell_size;
 			t->z = (head->z) * 10;
-			arr_height[ordinate + 1] = t->z;
+			arr_height[ordinate + 1] = head->z;
 			color = get_altitude_color(map, head->z);
-			t_node end = create_render_node(*t, color , t->z/10, map);
-			arr_height[ordinate + 1] = t->z;
+			t_node end = create_project_node(axis,ordinate+1,head->z,color,map);
+			// printf("end x:%d y:%d z:%d \n",end.x,end.y,end.z);
+			arr_height[ordinate + 1] = head->z;
 
 			if(ordinate != map->width - 1)
 				draw_line(start, end, canvas);
+			
+			// Draw vertical line - BACKWARD
 			if (axis != 0)
 			{
 				// 2nd update
 				t->x -= cell_size;
 				t->y -= cell_size;
 				t->z = prev_height[ordinate];
+				int altitude = prev_height[ordinate];
 				
-				color = get_altitude_color(map, t->z/10);
+				color = get_altitude_color(map, altitude);
 
-				end = create_render_node(*t, color , t->z/10, map);
+				end = create_project_node(axis-1,ordinate,altitude,color,map);
 				draw_line(start, end, canvas);
 
 				// วาดเส้นขอบขวาสุด
@@ -135,17 +146,20 @@ void draw_image (t_fdf *fdf)
 					// 3rd update
 					t->x += cell_size;
 					t->z = prev_height[ordinate + 1];
-					color = get_altitude_color(map, t->z/10);
-					end = create_render_node(*t ,color , t->z/10, map);
+					altitude = prev_height[ordinate + 1];
+					color = get_altitude_color(map, altitude);
+					end = create_project_node(axis,ordinate-1,altitude,color,map);
 
 					// 4th update
 					t->y += cell_size;
 					t->z = arr_height[ordinate + 1];
-					color = get_altitude_color(map, t->z/10);
-					start = create_render_node(*t, color , t->z/10, map);
-				if(ordinate != map->width - 1)
-					draw_line(start, end, canvas);
+					altitude = arr_height[ordinate + 1];
+					color = get_altitude_color(map, altitude);
+					start = create_project_node(axis,ordinate+1,altitude,color,map);
+				// if(ordinate != map->width - 1)
+					// draw_line(start, end, canvas);
 				}
+				
 				}
 			ordinate++;
 		}
