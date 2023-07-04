@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 02:02:02 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/04 14:07:50 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/04 15:22:47 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,13 @@ t_node create_project_node(int axis,int ordinate,int altitude, int color,t_map *
 	// printf("zoom_level: %d\n", zoom_level);
 	// printf("axis: %d\n", axis);
 	// printf("ordinate: %d\n", ordinate);
-	printf("altitude: %d\n", altitude);
+	// printf("altitude: %d\n", altitude);
 
 	// cal x,y,z
 	int x = ordinate * zoom_level;
 	int y = axis * zoom_level;
 	// int z = altitude * zoom_level;
+	printf("altitude: %d\n", altitude);
 
 	x -= (map->width * zoom_level) / 2;
 	y -= (map->height * zoom_level) / 2;
@@ -75,9 +76,11 @@ t_node create_project_node(int axis,int ordinate,int altitude, int color,t_map *
 	new_node.color = color;
 		iso(&new_node.x, &new_node.y, new_node.z);
 	new_node.x+= WIDTH / 2;
-	new_node.y+=  HEIGHT / 2;
+	new_node.y+=  100+HEIGHT / 2;
+	new_node.altitude = altitude;
 	
-	printf("\n");
+	printf("z = %d\n", new_node.z);
+	// printf("\n");
 	return (new_node);
 
 	

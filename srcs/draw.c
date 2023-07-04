@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 01:56:30 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 22:37:00 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/04 14:55:24 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void cal_diff(t_node start, t_node end, t_bresenham *b)
 
 static void x_dominate(t_node start, t_node end, t_bresenham *b)
 {
+	printf("x_dominate\n");
 	b->primary_k = cal_min(start.x, end.x);
 	b->primary_n = cal_max(start.x, end.x);
 	if(b->primary_k == start.x)
@@ -37,6 +38,7 @@ static void x_dominate(t_node start, t_node end, t_bresenham *b)
 
 static void y_dominate(t_node start, t_node end, t_bresenham *b)
 {
+	printf("y_dominate\n");
 	b->primary_k = cal_min(start.y, end.y);
 	b->primary_n = cal_max(start.y, end.y);
 	if(b->primary_k == start.y)

@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 11:31:07 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 22:36:15 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/04 15:20:51 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,17 @@ int get_pixel_color(t_node start, t_node end, t_bresenham *b, int pixel)
 	int red;
 	int green;
 	int blue;
+	// if(start.altitude < end.altitude)
+	// 	percentage = 1.0 - (double)(pixel - b->start_pixel) / b->dp;
+	// else
+	// draw horizontal line
 	
-	percentage = (double)(pixel - b->start_pixel) / b->dp;
+		percentage = (double)(pixel - b->start_pixel) / b->dp;
+	printf("percentage: %f s->alt : %d , end->alt : %d\n", percentage,start.altitude, end.altitude);
+	// printf("start.color: %X , end.color : %X\n", start.color, end.color);
 	if(start.altitude == end.altitude)
 		return (start.color);
-	if (start.altitude < end.altitude) {
+	if ((start.altitude >= end.altitude && b->dx < b->dy) || (start.altitude < end.altitude && b->dy > b->dx)) {
 		red = cal_avg((start.color >> 16) & 0xFF, (end.color >> 16) & 0xFF, percentage);
 		green = cal_avg((start.color >> 8) & 0xFF, (end.color >> 8) & 0xFF, percentage);
 		blue = cal_avg(start.color & 0xFF, end.color & 0xFF, percentage);
@@ -65,6 +71,7 @@ int get_pixel_color(t_node start, t_node end, t_bresenham *b, int pixel)
 	}
 		
 	else {
+		
 		red = cal_avg((end.color >> 16) & 0xFF, (start.color >> 16) & 0xFF, percentage);
 		green = cal_avg((end.color >> 8) & 0xFF, (start.color >> 8) & 0xFF, percentage);
 		blue = cal_avg(end.color & 0xFF, start.color & 0xFF, percentage);
@@ -72,3 +79,30 @@ int get_pixel_color(t_node start, t_node end, t_bresenham *b, int pixel)
 	}
 }
 
+
+// int get_pixel_color(t_node start, t_node end, t_bresenham *b, int pixel)
+// {
+// 	double percentage;
+// 	int red;
+// 	int green;
+// 	int blue;
+	
+// 	percentage = (double)(pixel - b->start_pixel) / b->dp;
+// 	printf("percentage: %f s->alt : %d , end->alt : %d\n", percentage,start.altitude, end.altitude);
+// 	printf("start.color: %X , end.color : %X\n", start.color, end.color);
+// 	if(start.altitude == end.altitude)
+// 		return (start.color);
+// 	if (start.altitude >= end.altitude) {
+// 		red = cal_avg((start.color >> 16) & 0xFF, (end.color >> 16) & 0xFF, percentage);
+// 		green = cal_avg((start.color >> 8) & 0xFF, (end.color >> 8) & 0xFF, percentage);
+// 		blue = cal_avg(start.color & 0xFF, end.color & 0xFF, percentage);
+// 		return ((red << 16) | (green << 8) | blue);
+// 	}
+		
+// 	else {
+// 		red = cal_avg((end.color >> 16) & 0xFF, (start.color >> 16) & 0xFF, percentage);
+// 		green = cal_avg((end.color >> 8) & 0xFF, (start.color >> 8) & 0xFF, percentage);
+// 		blue = cal_avg(end.color & 0xFF, start.color & 0xFF, percentage);
+// 		return ((red << 16) | (green << 8) | blue);
+// 	}
+// }
