@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:48:49 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/04 21:00:50 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/04 21:14:49 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,28 @@ int	key_hook(int keycode, t_fdf *f)
 		free_fdf(f);
 		exit(0);
 	}
+	if (keycode == 35) {
+		printf("parallel projection\n");
+	}
 	return (0);
+}
+
+t_camera *init_camera()
+{
+	t_camera *camera;
+
+	camera = malloc(sizeof(t_camera));
+	if(!camera)
+		terminate("camera init failed");
+	camera->zoom = 1;
+	camera->alpha = 0;
+	camera->beta = 0;
+	camera->gamma = 0;
+	camera->z_divisor = 1;
+	camera->x_offset = 0;
+	camera->y_offset = 0;
+	camera->projection = ISOMETRIC;
+	return (camera);
 }
 
 void render_image(t_fdf *f)
@@ -81,6 +102,7 @@ int main(int ac, char **av)
 	f = init_mlx_and_window();
 	f->canvas = init_canvas(f->mlx);
 	f->map =  init_map();
+	f->camera = init_camera();
 	f->head = process_map(av[1],f);
 	draw_image(f);
 	render_image(f);

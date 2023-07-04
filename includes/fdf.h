@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/04 18:30:01 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/04 21:18:17 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ typedef struct 			s_coordinate
 	int					x;
 	int					y;
 	int					z;
-	// int  			    axis;
-	// int					ordinate;
-	// int					altitude;
+	int  			    axis;
+	int					ordinate;
+	int					altitude;
 	int					color;
 	struct s_coordinate	*next;
 
@@ -92,6 +92,18 @@ typedef struct s_map
 	int		z_range;
 }		t_map;
 
+typedef struct s_camera {
+	t_projection	projection;
+	int				zoom;
+	double			alpha;
+	double			beta;
+	double			gamma;
+	int				x_offset;
+	int				y_offset;
+	int				z_divisor;
+}		t_camera;
+
+
 // fdf detail
 typedef struct s_fdf
 {
@@ -102,8 +114,7 @@ typedef struct s_fdf
 	
 	t_coordinate 	*head;
 	t_coordinate 	**coordinate_map;
-	
-	// t_camera	*camera;
+	t_camera	*camera;
 	// t_mouse		*mouse;
 }				t_fdf;
 // Coordinate Height

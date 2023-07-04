@@ -25,39 +25,40 @@ void draw_image (t_fdf *fdf)
 	t_map *map = fdf->map;
 	t_coordinate *head = fdf->head;
 	t_canvas *canvas = fdf->canvas;
-	int axis = 0;
-	int ordinate = 0;
+	t_coordinate tv; // tv = traverse
+
+	tv.axis = 0;
+	tv.ordinate = 0;
 	int arr_height[map->width];
 	int prev_height[map->width];
 	int color;
-	while (axis < map->height)
+	while (tv.axis < map->height)
 	{
-		while (ordinate < map->width  && head)
+		while (tv.ordinate < map->width  && head)
 		{	
 			color = get_altitude_color(map, head->z);
-			t_node start = create_project_node(axis,ordinate,head->z,color,map);
-			arr_height[ordinate] = head->z;
-
+			tv.altitude = head->z;
+			t_node start = create_project_node(tv.axis,tv.ordinate,tv.altitude,color,map);
+			arr_height[tv.ordinate] = tv.altitude;
 			// Draw horizontal line - end
 			if (head->next)
 				head = head->next;
-			arr_height[ordinate + 1] = head->z;
+			tv.altitude = head->z;
+			arr_height[tv.ordinate + 1] = tv.altitude;
 			color = get_altitude_color(map, head->z);
-			t_node end = create_project_node(axis,ordinate+1,head->z,color,map);
-			arr_height[ordinate + 1] = head->z;
-			if(ordinate != map->width - 1) 
+			t_node end = create_project_node(tv.axis,tv.ordinate+1,tv.altitude,color,map);
+			arr_height[tv.ordinate + 1] = tv.altitude;
+			if(tv.ordinate != map->width - 1) 
 					draw_line(start, end, canvas);
 			
-					
-			// Draw vertical line - BACKWARD
-			if (axis != 0)
+			if (tv.axis != 0)
 			{
-				int altitude = prev_height[ordinate];
-				color = get_altitude_color(map, altitude);
-				end = create_project_node(axis-1,ordinate,altitude,color,map);
+				tv.altitude = prev_height[tv.ordinate];
+				color = get_altitude_color(map, tv.altitude);
+				end = create_project_node(tv.axis-1,tv.ordinate,tv.altitude,color,map);
 				draw_line(start, end, canvas);
 				}
-			ordinate++;
+			tv.ordinate++;
 		}
 		int i = 0;
 		while (i < map->width)
@@ -65,7 +66,7 @@ void draw_image (t_fdf *fdf)
 			prev_height[i] = arr_height[i];
 			i++;
 		}
-		ordinate = 0;
-		axis++;
+		tv.ordinate = 0;
+		tv.axis +=1;
 	}
 }
