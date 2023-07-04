@@ -69,7 +69,7 @@ void draw_image (t_fdf *fdf)
 	{
 		while (tv.ordinate < fdf->map->width  && fdf->head)
 		{	
-			printf("new Draw\n");
+			// printf("new Draw\n");
 			t_node start = new_render_node(fdf,tv.axis,tv.ordinate,fdf->head->z);
 			arr_height[tv.ordinate] = fdf->head->z;
 			// Draw horizontal line - end
@@ -77,15 +77,15 @@ void draw_image (t_fdf *fdf)
 				fdf->head = fdf->head->next;
 			arr_height[tv.ordinate + 1] = fdf->head->z;;
 			t_node end = new_render_node(fdf,tv.axis,tv.ordinate+1,fdf->head->z);
-			printf("s:(%d,%d) -- สูง:%d\n",start.x,start.y,arr_height[tv.ordinate]);
-			printf("e:(%d,%d) -- สูง:%d\n\n",end.x,end.y,arr_height[tv.ordinate+1]);
+			// printf("s:(%d,%d) -- สูง:%d\n",start.x,start.y,arr_height[tv.ordinate]);
+			// printf("e:(%d,%d) -- สูง:%d\n\n",end.x,end.y,arr_height[tv.ordinate+1]);
 			if(tv.ordinate != fdf->map->width - 1) 
 					draw_line(start, end, fdf->canvas);
 			if (tv.axis != 0)
 			{
 				tv.altitude = prev_height[tv.ordinate];
-				printf("start-in (%d,%d) -- z:%d \n",start.x,start.y,arr_height[tv.ordinate]);
-			printf("end-in (%d,%d) -- z:%d \n",end.x,end.y,prev_height[tv.ordinate]);
+				// printf("start-in (%d,%d) -- z:%d \n",start.x,start.y,arr_height[tv.ordinate]);
+			// printf("end-in (%d,%d) -- z:%d \n",end.x,end.y,prev_height[tv.ordinate]);
 				
 				end = new_render_node(fdf,tv.axis - 1,tv.ordinate,tv.altitude);
 				draw_line(start, end, fdf->canvas);

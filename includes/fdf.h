@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/04 21:50:52 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/05 02:33:32 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ typedef struct s_camera {
 	double			gamma;
 	int				x_offset;
 	int				y_offset;
-	int				z_divisor;
+	float				z_divisor;
 }		t_camera;
 
 

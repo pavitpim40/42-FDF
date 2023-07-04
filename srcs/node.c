@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 02:02:02 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/05 02:20:43 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/05 02:36:20 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ t_node coordinate_to_pixel(t_fdf *f,t_coordinate t,int color)
 	y -= (f->map->height * zoom) / 2;
 	new_node.x = x;
 	new_node.y = y;
-	new_node.z = t.altitude * zoom /10;
+	new_node.z = t.altitude * zoom /f->camera->z_divisor;
 	new_node.color = color;
 	// printf("bef (x,y,z) = (%d,%d,%d) \n",new_node.x,new_node.y,new_node.z);
 	
@@ -85,8 +85,8 @@ t_node coordinate_to_pixel(t_fdf *f,t_coordinate t,int color)
 	// printf("aft (x,y,z) = (%d,%d,%d) \n\n",new_node.x,new_node.y,new_node.z);
 	if(f->camera->projection == ISOMETRIC)
 		iso(&new_node.x, &new_node.y, new_node.z);
-	new_node.x+= f->camera->x_offset+ WIDTH / 2;
-	new_node.y+= f->camera->y_offset+ HEIGHT / 2;
+	new_node.x+= f->camera->x_offset+ WIDTH / 2 + f->camera->zoom / 2;
+	new_node.y+= f->camera->y_offset+ HEIGHT / 2 + f->camera->zoom / 2;
 	new_node.altitude = t.altitude;
 	return (new_node);
 }

@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:48:49 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/05 02:28:59 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/05 03:05:08 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,7 +214,7 @@ int	key_hook(int keycode, t_fdf *f)
 		f->camera->alpha = 0;
 		f->camera->beta = 0;
 		f->camera->gamma = 0;
-		f->camera->z_divisor = 1;
+		f->camera->z_divisor = 3;
 		f->camera->x_offset = 0;
 		f->camera->y_offset = 0;
 		f->camera->projection = ISOMETRIC;
@@ -224,10 +224,68 @@ int	key_hook(int keycode, t_fdf *f)
 		render_image(f);
 		printf("reset\n");
 	}
+	// z_divisor inc 43
+	if(keycode == 43) {
+		printf("z_divisor: %f\n", f->camera->z_divisor);
+		f->camera->z_divisor += 0.1;
+		f->canvas = init_canvas(f->mlx);
+		
+		draw_image(f);
+		render_image(f);
+		printf("z_divisor inc\n");
+	}
+	// z_divisor dec 47
+	if(keycode == 47) {
+		if(f->camera->z_divisor > 1)
+			f->camera->z_divisor -= 0.1;
+		f->canvas = init_canvas(f->mlx);
+		
+		draw_image(f);
+		render_image(f);
+		printf("z_divisor dec\n");
+	}
 
 	return (0);
 }
 
+
+int mouse_hook(int button, int x, int y, t_fdf *f)
+{
+	printf("button: %d\n", button);
+	printf("x: %d\n", x);
+	printf("y: %d\n", y);
+	printf("f->camera->zoom: %d\n", f->camera->zoom);
+	printf("Hello from mouse_hook!\n");
+
+	if(button == 5) {
+		f->camera->zoom += 1;
+		f->canvas = init_canvas(f->mlx);
+		
+		draw_image(f);
+		render_image(f);
+		printf("zoom in\n");
+	}
+	if(button == 4) {
+		if(f->camera->zoom > 1)
+			f->camera->zoom -= 1;
+		f->canvas = init_canvas(f->mlx);
+		
+		draw_image(f);
+		render_image(f);
+		printf("zoom out\n");
+	}
+	return (0);
+}
+
+int mouse_move(int x, int y, t_fdf *f)
+{
+	printf("x: %d\n", x);
+
+	printf("y: %d\n", y);
+	printf("f->camera->zoom: %d\n", f->camera->zoom);
+	printf("Hello from mouse_move!\n");
+	return (0);
+}
 t_camera *init_camera(t_fdf *f)
 {
 	t_camera *camera;
@@ -239,7 +297,7 @@ t_camera *init_camera(t_fdf *f)
 	camera->alpha = 0;
 	camera->beta = 0;
 	camera->gamma = 0;
-	camera->z_divisor = 1;
+	camera->z_divisor = 3;
 	camera->x_offset = 0;
 	camera->y_offset = 0;
 	camera->projection = ISOMETRIC;
@@ -262,6 +320,8 @@ int main(int ac, char **av)
 	draw_image(f);
 	render_image(f);
 	mlx_key_hook(f->win, key_hook, f);
+	mlx_mouse_hook(f->win, mouse_hook, f);
+	mlx_hook(f->win, 6, 0, mouse_move, f);
 	mlx_loop(f->mlx);
 	free_fdf(f);
 }
