@@ -93,7 +93,7 @@ void draw_image (t_fdf *fdf)
 				int altitude = prev_height[ordinate];
 				color = get_altitude_color(map, altitude);
 				end = create_project_node(axis-1,ordinate,altitude,color,map);
-				draw_line(start, end, canvas, count++);
+				draw_line(end, start, canvas, count++);
 
 				// วาดเส้นขอบขวาสุด
 				// if (ordinate += 1 == map->width)

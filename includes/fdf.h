@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/04 17:12:22 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/04 17:42:26 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_bresenham
 	int ds;
 	int decision_parameter;
 	int start_pixel;
+	int	direction;
 } t_bresenham;
 
 typedef struct s_canvas

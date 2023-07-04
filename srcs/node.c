@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 02:02:02 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/04 16:43:53 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/04 17:31:38 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ t_node create_project_node(int axis,int ordinate,int altitude, int color,t_map *
 
 	new_node.x = x;
 	new_node.y = y;
-	new_node.z = altitude * zoom_level /10;
+	new_node.z = altitude * zoom_level /5;
 	new_node.color = color;
-		// iso(&new_node.x, &new_node.y, new_node.z);
+		iso(&new_node.x, &new_node.y, new_node.z);
 	new_node.x+= WIDTH / 2;
 	new_node.y+=  100+HEIGHT / 2;
 	new_node.altitude = altitude;
