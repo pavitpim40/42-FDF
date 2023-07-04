@@ -58,9 +58,11 @@ void draw_image (t_fdf *fdf)
 	t_coordinate tv; // tv = traverse
 	int arr_height[fdf->map->width];
 	int prev_height[fdf->map->width];
+	t_coordinate *tmp;
 
 	tv.axis = 0;
 	tv.ordinate = 0;
+	tmp =  fdf->head;
 	
 	// int color;
 	while (tv.axis < fdf->map->height)
@@ -75,11 +77,16 @@ void draw_image (t_fdf *fdf)
 				fdf->head = fdf->head->next;
 			arr_height[tv.ordinate + 1] = fdf->head->z;;
 			t_node end = new_render_node(fdf,tv.axis,tv.ordinate+1,fdf->head->z);
+			printf("s:(%d,%d) -- สูง:%d\n",start.x,start.y,arr_height[tv.ordinate]);
+			printf("e:(%d,%d) -- สูง:%d\n\n",end.x,end.y,arr_height[tv.ordinate+1]);
 			if(tv.ordinate != fdf->map->width - 1) 
 					draw_line(start, end, fdf->canvas);
 			if (tv.axis != 0)
 			{
 				tv.altitude = prev_height[tv.ordinate];
+				printf("start-in (%d,%d) -- z:%d \n",start.x,start.y,arr_height[tv.ordinate]);
+			printf("end-in (%d,%d) -- z:%d \n",end.x,end.y,prev_height[tv.ordinate]);
+				
 				end = new_render_node(fdf,tv.axis - 1,tv.ordinate,tv.altitude);
 				draw_line(start, end, fdf->canvas);
 			}
@@ -95,6 +102,7 @@ void draw_image (t_fdf *fdf)
 		tv.axis +=1;
 	
 	}
+	fdf->head = tmp;
 	// mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->canvas->img, 0, 0);
 	printf("draw image done\n");
 }
