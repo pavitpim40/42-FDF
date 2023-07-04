@@ -61,6 +61,7 @@ void draw_image (t_fdf *fdf)
 	int arr_height[map->width];
 	int prev_height[map->width];
 	int color;
+	int count = 1;
 
 	while (axis < map->height)
 	{
@@ -78,8 +79,13 @@ void draw_image (t_fdf *fdf)
 			color = get_altitude_color(map, head->z);
 			t_node end = create_project_node(axis,ordinate+1,head->z,color,map);
 			arr_height[ordinate + 1] = head->z;
-			if(ordinate != map->width - 1)
-				draw_line(start, end, canvas);		
+			if(ordinate != map->width - 1) {
+				
+					draw_line(start, end, canvas, count++);
+			
+				// draw_line(start, end, canvas);	
+			}
+					
 			// Draw vertical line - BACKWARD
 			if (axis != 0)
 			{
@@ -87,23 +93,23 @@ void draw_image (t_fdf *fdf)
 				int altitude = prev_height[ordinate];
 				color = get_altitude_color(map, altitude);
 				end = create_project_node(axis-1,ordinate,altitude,color,map);
-				draw_line(start, end, canvas);
+				draw_line(start, end, canvas, count++);
 
 				// วาดเส้นขอบขวาสุด
-				if (ordinate += 1 == map->width)
-				{
+				// if (ordinate += 1 == map->width)
+				// {
 				
-					altitude = prev_height[ordinate + 1];
-					color = get_altitude_color(map, altitude);
-					end = create_project_node(axis,ordinate-1,altitude,color,map);
+				// 	altitude = prev_height[ordinate + 1];
+				// 	color = get_altitude_color(map, altitude);
+				// 	end = create_project_node(axis,ordinate-1,altitude,color,map);
 
-					// 4th update
-					altitude = arr_height[ordinate + 1];
-					color = get_altitude_color(map, altitude);
-					start = create_project_node(axis,ordinate+1,altitude,color,map);
-				// if(ordinate != map->width - 1)
-					// draw_line(start, end, canvas);
-				}
+				// 	// 4th update
+				// 	altitude = arr_height[ordinate + 1];
+				// 	color = get_altitude_color(map, altitude);
+				// 	start = create_project_node(axis,ordinate+1,altitude,color,map);
+				// // if(ordinate != map->width - 1)
+				// 	// draw_line(start, end, canvas);
+				// }
 				}
 			ordinate++;
 		}

@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/04 13:10:38 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/04 17:12:22 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,8 @@ void draw_image (t_fdf *fdf);
 int get_altitude_color(t_map *map,int z );
 // int get_pixel_color(t_node start, t_node end, int pixel_range, int pixel, int start_pixel);
 int get_pixel_color(t_node start, t_node end, t_bresenham *b, int pixel);
+// int get_pixel_color_x(t_node start, t_node end, t_bresenham *b, int pixel);
+// int get_pixel_color_y(t_node start, t_node end, t_bresenham *b, int pixel);
 
 
 // t_node create_render_node(int x, int y,int z,int color,int altitude, t_map *map);
@@ -139,7 +141,7 @@ t_node create_project_node(int axis,int ordinate,int altitude, int color,t_map *
 t_node create_render_node(t_node,int color,int altitude, t_map *map, char *name);
 
 void pixel_put(t_canvas *canvas, int x, int y, int color);
-void draw_line(t_node start,t_node end, t_canvas *img);
+void draw_line(t_node start,t_node end, t_canvas *img,int count);
 // void ft_putendl_fd(char const *msg, int fd);
 
 
