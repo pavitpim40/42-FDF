@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/11 16:36:31 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/11 18:35:57 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@
 #include <math.h>
 #include <limits.h>
 #include <unistd.h>
+#include "mlx.h"
+#include "libft.h"
+#include "color.h"
 
 typedef struct s_bresenham
 {
@@ -135,25 +138,56 @@ void free_split_line(char **split_line);
 t_coordinate *process_map(char *filename, t_fdf *f);
 void print_map(t_map *map, t_coordinate *head);
 
+
+
+// MATH
 int cal_abs(int x, int y);
 int cal_max(int x, int y);
 int cal_min(int x, int y);
-
-// geometry
+int	cal_avg(int start, int end, double percentage);
 void rotate_x(int *y, int *z, double alpha);
 void rotate_y(int *x, int *z, double beta);
 void rotate_z(int *x, int *y, double gamma);
 void iso(int *x, int *y, int z);
 
+// DRAW
 void draw_image(t_fdf *fdf);
+
+t_node new_render_node (t_fdf *fdf,int axis,int ordinate,int altitude);
+t_coordinate dup_coordinate(int axis,int ordinate,int altitude, int color);
 int get_altitude_color(t_map *map, int z);
+
+t_bresenham	*init_bresenham(t_node start, t_node end);
+void draw_line(t_node start, t_node end, t_canvas *img);
+
+void pixel_put(t_canvas *canvas, int x, int y, int color);
 int get_pixel_color(t_node start, t_node end, t_bresenham *b, int pixel);
 
 t_node coordinate_to_pixel(t_fdf *f, t_coordinate t, int color);
 t_node create_project_node(int axis, int ordinate, int altitude, int color, t_map *map);
 t_node create_render_node(t_node, int color, int altitude, t_map *map, char *name);
 
-void pixel_put(t_canvas *canvas, int x, int y, int color);
-void draw_line(t_node start, t_node end, t_canvas *img);
+
+
+// MLX
+t_fdf *init_mlx_and_window();
+
+// Canvas
+t_canvas *init_canvas(void *mlx);
+
+// Render 
+void render_image(t_fdf *f);
+
+// Mouse
+int	mouse_move(int x, int y, t_fdf *f);
+int mouse_press(int button, int x, int y, t_fdf *f);
+int mouse_release(int button, int x, int y, t_fdf *f);
+int mouse_hook(int button, int x, int y, t_fdf *f);
+
+// Keyboard
+int	key_hook(int keycode, t_fdf *f);
+void free_fdf(t_fdf *f);
+
+
 
 #endif

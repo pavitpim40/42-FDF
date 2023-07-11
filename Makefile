@@ -6,7 +6,7 @@
 #    By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/12 10:34:59 by ppimchan          #+#    #+#              #
-#    Updated: 2023/07/11 16:04:06 by ppimchan         ###   ########.fr        #
+#    Updated: 2023/07/11 18:35:03 by ppimchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,14 @@ FDF_HEADERS				= $(addprefix $(FDF_HEADERS_DIRECTORY), $(FDF_HEADERS_FILES))
 
 # SOURCE
 SRCS_DIRECTORY			= ./srcs/
-SRCS_FILES				= main.c error.c draw.c math.c image.c map.c node.c color.c geometric.c draw_image.c
+SRCS_FILES				= main.c \
+							event/mouse.c event/keyboard.c \
+							mlx/int.c error/error.c\
+							math/cal.c math/geometric.c \
+							map/map.c \
+							draw/draw-pixel.c draw/draw-image.c draw/draw-line.c draw/color.c draw/node.c \
+							draw/init-bresenham.c
+						
 SRCS					= $(addprefix $(SRCS_DIRECTORY) $(SRCS_FILES))
 
 # OBJECT
@@ -61,6 +68,12 @@ $(NAME) : $(LIBFT) $(MINI_LIBX) $(OBJECTS_DIRECTORY) $(OBJECTS)
 # create ./object/
 $(OBJECTS_DIRECTORY):
 	mkdir -p $(OBJECTS_DIRECTORY)
+	mkdir -p $(OBJECTS_DIRECTORY)/event
+	mkdir -p $(OBJECTS_DIRECTORY)/mlx
+	mkdir -p $(OBJECTS_DIRECTORY)/map
+	mkdir -p $(OBJECTS_DIRECTORY)/draw
+	mkdir -p $(OBJECTS_DIRECTORY)/math
+		mkdir -p $(OBJECTS_DIRECTORY)/error
 	@echo "$(NAME): $(GREEN)$(OBJECTS_DIRECTORY) was created$(RESET)"
 
 # Compile All .c to .o 
