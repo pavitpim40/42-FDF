@@ -6,13 +6,13 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:43:55 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/11 19:05:24 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/11 19:30:24 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_coordinate	*process_map(char *filename, t_fdf *f)
+t_matrix	*process_map(char *filename, t_fdf *f)
 {
 	int	fd;
 
@@ -26,18 +26,18 @@ t_coordinate	*process_map(char *filename, t_fdf *f)
 
 void	parse_map(int fd, t_fdf *f)
 {
-	t_coordinate	**coordinate;
+	t_matrix	**matrix;
 	char			*axis_string;
 	int				axis;
 
 	axis = 0;
-	coordinate = malloc(sizeof(t_coordinate *));
-	if (!coordinate)
+	matrix = malloc(sizeof(t_matrix *));
+	if (!matrix)
 		terminate(ERR_MAP_INIT);
 	axis_string = get_next_line(fd);
 	while (axis_string)
 	{
-		extract_line(axis_string, f, axis, coordinate);
+		extract_line(axis_string, f, axis, matrix);
 		axis++;
 		axis_string = get_next_line(fd);
 	}
@@ -45,7 +45,7 @@ void	parse_map(int fd, t_fdf *f)
 	f->map->z_range = f->map->z_max - f->map->z_min;
 }
 
-void	extract_line(char *axis_string, t_fdf *f, int axis, t_coordinate **coordinate_map)
+void	extract_line(char *axis_string, t_fdf *f, int axis, t_matrix **matrix)
 {
 	char	**axis_array;
 	int		ordinate;
@@ -57,9 +57,9 @@ void	extract_line(char *axis_string, t_fdf *f, int axis, t_coordinate **coordina
 	{
 		altitude = ft_atoi(axis_array[ordinate]);
 		if (axis == 0 && ordinate == 0)
-			add_head(f, new_coordinate(axis, ordinate, altitude), coordinate_map);
+			add_head(f, new_element(axis, ordinate, altitude), matrix);
 		else
-			add_next(new_coordinate(axis, ordinate, altitude), coordinate_map);
+			add_next(new_element(axis, ordinate, altitude), matrix);
 		// stack_coordinate(axis,ordinate,altitude,coordinate_map);
 		update_altitude(f, altitude);
 		ordinate++;

@@ -16,10 +16,10 @@
 
 void draw_image (t_fdf *fdf)
 {
-	t_coordinate tv; // tv = traverse
+	t_matrix tv; // tv = traverse
 	int arr_height[fdf->map->width];
 	int prev_height[fdf->map->width];
-	t_coordinate *tmp;
+	t_matrix *tmp;
 
 	tv.axis = 0;
 	tv.ordinate = 0;

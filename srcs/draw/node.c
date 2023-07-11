@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 02:02:02 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/11 18:37:22 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/11 19:21:22 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_node new_render_node (t_fdf *fdf,int axis,int ordinate,int altitude)
 {
-	t_coordinate tmp;
+	t_matrix tmp;
 	int color;
 	
 	color  = get_altitude_color(fdf->map, altitude);
@@ -24,9 +24,9 @@ t_node new_render_node (t_fdf *fdf,int axis,int ordinate,int altitude)
 }
 
 
-t_coordinate dup_coordinate(int axis,int ordinate,int altitude, int color)
+t_matrix dup_coordinate(int axis,int ordinate,int altitude, int color)
 {
-	t_coordinate new_node;
+	t_matrix new_node;
 	new_node.axis = axis;
 	new_node.ordinate = ordinate;
 	new_node.altitude = altitude;
@@ -35,7 +35,7 @@ t_coordinate dup_coordinate(int axis,int ordinate,int altitude, int color)
 }
 
 
-t_node	coordinate_to_pixel(t_fdf *f, t_coordinate t, int color)
+t_node	coordinate_to_pixel(t_fdf *f, t_matrix t, int color)
 {
 	t_node		new_node;
 	int			zoom;

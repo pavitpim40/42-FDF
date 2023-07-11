@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/11 19:06:36 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/11 19:29:45 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ typedef enum
 	PARALLEL
 } t_projection;
 
-typedef struct s_coordinate
+typedef struct s_matrix
 {
 	int x;
 	int y;
@@ -80,16 +80,16 @@ typedef struct s_coordinate
 	int ordinate;
 	int altitude;
 	int color;
-	struct s_coordinate *next;
+	struct s_matrix *next;
 
-} t_coordinate;
+} t_matrix;
 
 // MAP Detail
 typedef struct s_map
 {
 	int width;
 	int height;
-	t_coordinate **coordinate_map;
+	t_matrix **matrix;
 	int cell_size;
 	int z_min;
 	int z_max;
@@ -121,8 +121,8 @@ typedef struct s_fdf
 	t_canvas *canvas;
 	t_map *map;
 
-	t_coordinate *head;
-	t_coordinate **coordinate_map;
+	t_matrix *head;
+	t_matrix **matrix;
 	t_camera *camera;
 	// t_mouse		*mouse;
 } t_fdf;
@@ -133,28 +133,28 @@ typedef struct s_fdf
 void terminate(char *msg);
 
 
-t_coordinate *new_coordinate(int x, int y, int z);
+t_matrix *new_coordinate(int x, int y, int z);
 
 
 
 
 // MAP
 t_map 			*init_map();
-void			print_map(t_map *map, t_coordinate *head);
+void			print_map(t_map *map, t_matrix *head);
 
-t_coordinate 	*process_map(char *filename, t_fdf *f);
+t_matrix 	*process_map(char *filename, t_fdf *f);
 void			parse_map(int fd, t_fdf *f);
-void			extract_line(char *axis_string, t_fdf *f, int axis, t_coordinate **coordinate_map);
+void			extract_line(char *axis_string, t_fdf *f, int axis, t_matrix **matrix);
 void 			free_split_line(char **split_line);
 void			update_altitude(t_fdf *f, int altitude);
 
 
 // Coordinate-list : Vector
-t_coordinate	*new_coordinate(int x, int y, int z);
-// void			stack_coordinate(int axis, int ordinate, int altitude, t_coordinate **coordinate_map);
-void			add_head(t_fdf *f, t_coordinate *coordinate, t_coordinate **coordinate_map);
-void			add_next(t_coordinate *coordinate, t_coordinate **coordinate_map);
-int				list_count(t_coordinate *head);
+t_matrix		*new_element(int x, int y, int z);
+// void			stack_coordinate(int axis, int ordinate, int altitude, t_matrix **matrix);
+void			add_head(t_fdf *f, t_matrix *element, t_matrix **matrix_map);
+void			add_next(t_matrix *element, t_matrix **matrix_map);
+int				list_count(t_matrix *head);
 
 
 
@@ -173,7 +173,7 @@ void iso(int *x, int *y, int z);
 void draw_image(t_fdf *fdf);
 
 t_node new_render_node (t_fdf *fdf,int axis,int ordinate,int altitude);
-t_coordinate dup_coordinate(int axis,int ordinate,int altitude, int color);
+t_matrix dup_coordinate(int axis,int ordinate,int altitude, int color);
 int get_altitude_color(t_map *map, int z);
 
 t_bresenham	*init_bresenham(t_node start, t_node end);
@@ -182,7 +182,7 @@ void draw_line(t_node start, t_node end, t_canvas *img);
 void pixel_put(t_canvas *canvas, int x, int y, int color);
 int get_pixel_color(t_node start, t_node end, t_bresenham *b, int pixel);
 
-t_node coordinate_to_pixel(t_fdf *f, t_coordinate t, int color);
+t_node coordinate_to_pixel(t_fdf *f, t_matrix t, int color);
 t_node create_project_node(int axis, int ordinate, int altitude, int color, t_map *map);
 t_node create_render_node(t_node, int color, int altitude, t_map *map, char *name);
 

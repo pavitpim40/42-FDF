@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:45:11 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/11 19:05:34 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/11 19:30:08 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@
 // 		add_next(new_coordinate(axis, ordinate, altitude), coordinate_map);
 // }
 
-t_coordinate	*new_coordinate(int x, int y, int z)
+t_matrix	*new_element(int x, int y, int z)
 {
-	t_coordinate	*new;
+	t_matrix	*new;
 
-	new = (t_coordinate *)malloc(sizeof(t_coordinate));
+	new = (t_matrix *)malloc(sizeof(t_matrix));
 	if (!new)
 		terminate(ERR_MAP_INIT);
 	new->x = x;
@@ -38,23 +38,23 @@ t_coordinate	*new_coordinate(int x, int y, int z)
 
 
 
-void	add_head(t_fdf *f, t_coordinate *coordinate, t_coordinate **coordinate_map)
+void	add_head(t_fdf *f, t_matrix *element, t_matrix **matrix_map)
 {
-	*coordinate_map = coordinate;
-	f->coordinate_map = coordinate_map;
-	f->head = *coordinate_map;
+	*matrix_map = element;
+	f->matrix = matrix_map;
+	f->head = *matrix_map;
 }
 
-void	add_next(t_coordinate *coordinate, t_coordinate **coordinate_map)
+void	add_next(t_matrix *element, t_matrix **matrix_map)
 {
-	(*coordinate_map)->next = coordinate;
-	*coordinate_map = (*coordinate_map)->next;
+	(*matrix_map)->next = element;
+	*matrix_map = (*matrix_map)->next;
 }
 
-int	list_count(t_coordinate *head)
+int	list_count(t_matrix *head)
 {
 	int				count;
-	t_coordinate	*temp;
+	t_matrix	*temp;
 
 	count = 0;
 	temp = head;
