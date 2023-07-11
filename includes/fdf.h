@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/11 18:35:57 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/11 19:06:36 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 #include "mlx.h"
 #include "libft.h"
 #include "color.h"
+#include "get_next_line.h"
 
 typedef struct s_bresenham
 {
@@ -131,12 +132,30 @@ typedef struct s_fdf
 
 void terminate(char *msg);
 
-t_map *init_map();
-t_coordinate *new_coordinate(int x, int y, int z);
-void free_split_line(char **split_line);
 
-t_coordinate *process_map(char *filename, t_fdf *f);
-void print_map(t_map *map, t_coordinate *head);
+t_coordinate *new_coordinate(int x, int y, int z);
+
+
+
+
+// MAP
+t_map 			*init_map();
+void			print_map(t_map *map, t_coordinate *head);
+
+t_coordinate 	*process_map(char *filename, t_fdf *f);
+void			parse_map(int fd, t_fdf *f);
+void			extract_line(char *axis_string, t_fdf *f, int axis, t_coordinate **coordinate_map);
+void 			free_split_line(char **split_line);
+void			update_altitude(t_fdf *f, int altitude);
+
+
+// Coordinate-list : Vector
+t_coordinate	*new_coordinate(int x, int y, int z);
+// void			stack_coordinate(int axis, int ordinate, int altitude, t_coordinate **coordinate_map);
+void			add_head(t_fdf *f, t_coordinate *coordinate, t_coordinate **coordinate_map);
+void			add_next(t_coordinate *coordinate, t_coordinate **coordinate_map);
+int				list_count(t_coordinate *head);
+
 
 
 

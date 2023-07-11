@@ -6,7 +6,7 @@
 #    By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/12 10:34:59 by ppimchan          #+#    #+#              #
-#    Updated: 2023/07/11 18:35:03 by ppimchan         ###   ########.fr        #
+#    Updated: 2023/07/11 18:57:22 by ppimchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,8 +39,8 @@ SRCS_FILES				= main.c \
 							event/mouse.c event/keyboard.c \
 							mlx/int.c error/error.c\
 							math/cal.c math/geometric.c \
-							map/map.c \
-							draw/draw-pixel.c draw/draw-image.c draw/draw-line.c draw/color.c draw/node.c \
+							map/init.c  map/parse-map.c map/stack-coordinate.c\
+							draw/draw-pixel.c draw/draw-image.c draw/draw-line.c  draw/node.c \
 							draw/init-bresenham.c
 						
 SRCS					= $(addprefix $(SRCS_DIRECTORY) $(SRCS_FILES))
