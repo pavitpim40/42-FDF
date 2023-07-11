@@ -6,13 +6,12 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 02:05:22 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/11 17:05:52 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/11 18:38:43 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 #include "../libft/get_next_line.h"
-#include "../libft/libft.h"
 
 int	list_count(t_coordinate *head)
 {
