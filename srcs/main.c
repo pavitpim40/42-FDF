@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:48:49 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/05 04:21:58 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/05 04:25:06 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,32 +287,32 @@ int mouse_move(int x, int y, t_fdf *f)
 	if(f->camera->is_press == 1) {
 		printf("change angle\n");
 		int prev_x = f->camera->x;
-		int prev_y = f->camera->y;
+		// int prev_y = f->camera->y;
 	
 		f->camera->x = x;
 		f->camera->y = y;
 		if(x-prev_x >= 0) {
-			f->camera->beta += 0.02;
-			// f->camera->gamma -= 0.02;
+			// f->camera->beta += 0.02;
+			f->camera->gamma -= 0.02;
 		} else if (x-prev_x < 0) {
-			f->camera->beta -= 0.02;
-			// f->camera->gamma += 0.02;
+			// f->camera->beta -= 0.02;
+			f->camera->gamma += 0.02;
 		}
-		if(y-prev_y > 0) {
-			f->camera->alpha += 0.02;
-			// f->camera->gamma -= 0.02;
-		} else if (y-prev_y < 0) {
-			f->camera->alpha -= 0.02;
-			// f->camera->gamma += 0.02;
-		}
-		int cos_alpha = cos(f->camera->alpha)*cos(f->camera->alpha);
-		int cos_beta = cos(f->camera->beta)*cos(f->camera->beta);
-		int gamma = 1 - cos_alpha - cos_beta;
-		gamma = sqrt(gamma);
-	if((x-prev_x )*(y-prev_y) >= 0)
-		f->camera->gamma += sqrt(f->camera->gamma);
-	else if((x-prev_x)*(y-prev_y) < 0)
-		f->camera->gamma -= sqrt(f->camera->gamma);
+	// 	if(y-prev_y > 0) {
+	// 		f->camera->alpha += 0.02;
+	// 		// f->camera->gamma -= 0.02;
+	// 	} else if (y-prev_y < 0) {
+	// 		f->camera->alpha -= 0.02;
+	// 		// f->camera->gamma += 0.02;
+	// 	}
+	// 	int cos_alpha = cos(f->camera->alpha)*cos(f->camera->alpha);
+	// 	int cos_beta = cos(f->camera->beta)*cos(f->camera->beta);
+	// 	int gamma = 1 - cos_alpha - cos_beta;
+	// 	gamma = sqrt(gamma);
+	// if((x-prev_x )*(y-prev_y) >= 0)
+	// 	f->camera->gamma += sqrt(f->camera->gamma);
+	// else if((x-prev_x)*(y-prev_y) < 0)
+	// 	f->camera->gamma -= sqrt(f->camera->gamma);
 	
 		f->canvas = init_canvas(f->mlx);
 
