@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 11:31:07 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/04 18:28:31 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/11 16:24:06 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 #include "../includes/color.h"
 #include "libft.h"
 
-static int cal_avg(int start, int end, double percentage)
+static int	cal_avg(int start, int end, double percentage)
 {
-	return ((int)((percentage)*start + (1 - percentage) * end));
+	return ((int)((percentage) * start + (1 - percentage) * end));
 }
 
-int get_altitude_color(t_map *map, int z)
+int	get_altitude_color(t_map *map, int z)
 {
-	int color;
-	double percentage;
+	int		color;
+	double	percentage;
 
 	percentage = (double)(z - map->z_min) / map->z_range;
 	if (percentage < 0.2)
@@ -35,29 +35,25 @@ int get_altitude_color(t_map *map, int z)
 		color = COLOR_JAFFA;
 	else
 		color = COLOR_SAFFRON;
-
 	return (color);
 }
 
-int get_pixel_color(t_node start, t_node end, t_bresenham *b, int pixel)
+int	get_pixel_color(t_node start, t_node end, t_bresenham *b, int pixel)
 {
-	double percentage;
-	int red;
-	int green;
-	int blue;
-	
-	double diff;
+	double	p;
+	int		red;
+	int		green;
+	int		blue;
+	double	diff;
+
 	diff = (double)(pixel - b->start_pixel);
-	if(diff < 0)
+	if (diff < 0)
 		diff *= -1;
-	percentage = diff / b->dp;
-	
+	p = diff / b->dp;
 	if (start.altitude == end.altitude)
 		return (start.color);
-
-	red = cal_avg((end.color >> 16) & 0xFF, (start.color >> 16) & 0xFF, percentage); // 0->100 end จะมีน้ำหนักขึ้น (สว่างขึ้น)
-	green = cal_avg((end.color >> 8) & 0xFF, (start.color >> 8) & 0xFF, percentage);
-	blue = cal_avg(end.color & 0xFF, start.color & 0xFF, percentage);
+	red = cal_avg((end.color >> 16) & 0xFF, (start.color >> 16) & 0xFF, p);
+	green = cal_avg((end.color >> 8) & 0xFF, (start.color >> 8) & 0xFF, p);
+	blue = cal_avg(end.color & 0xFF, start.color & 0xFF, p);
 	return ((red << 16) | (green << 8) | blue);
-
 }

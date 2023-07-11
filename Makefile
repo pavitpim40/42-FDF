@@ -6,14 +6,15 @@
 #    By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/12 10:34:59 by ppimchan          #+#    #+#              #
-#    Updated: 2023/07/03 22:59:57 by ppimchan         ###   ########.fr        #
+#    Updated: 2023/07/11 16:04:06 by ppimchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME					= fdf
 CC						= gcc
-FLAGS					= -Wall -Wextra -Werror -O3
+# FLAGS					= -Wall -Wextra -Werror -fsanitize=address -g
+FLAGS					= -Wall -Wextra -Werror 
 ALL_HEADERS				= -I$(FDF_HEADERS_DIRECTORY)  -I$(LIBFT_DIRECTORY) -I$(MINI_LIBX_DIRECTORY)
 ALL_LIBS 				= -lmlx -lm -lft -L$(LIBFT_DIRECTORY) -L$(MINI_LIBX_DIRECTORY) -framework OpenGL -framework AppKit
 

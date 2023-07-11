@@ -6,33 +6,32 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 01:58:12 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/04 20:50:08 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/11 16:47:37 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-
-int cal_abs(int x, int y)
+int	cal_abs(int x, int y)
 {
 	if (y > x)
-		return y - x;
+		return (y - x);
 	else
-		return x - y;
+		return (x - y);
 }
 
-int cal_max(int x, int y)
+int	cal_max(int x, int y)
 {
 	if (x > y)
-		return x;
+		return (x);
 	else
-		return y;
+		return (y);
 }
 
-int cal_min(int x, int y)
+int	cal_min(int x, int y)
 {
 	if (x < y)
-		return x;
+		return (x);
 	else
-		return y;
+		return (y);
 }

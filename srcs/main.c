@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:48:49 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/05 04:25:06 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/11 16:37:02 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_canvas *init_canvas(void *mlx)
 	if(!canvas)
 		terminate("canvas init failed");
 	canvas->img = mlx_new_image(mlx, 1920, 1080);
-	canvas->addr = mlx_get_data_addr(canvas->img, &(canvas->bits_per_pixel), &(canvas->line_length),
+	canvas->addr = mlx_get_data_addr(canvas->img, &(canvas->bbp), &(canvas->line_length),
 									&(canvas->endian));
 	return (canvas);
 }

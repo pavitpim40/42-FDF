@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 02:05:22 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/04 02:40:10 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/11 16:46:37 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 #include "../libft/get_next_line.h"
 #include "../libft/libft.h"
 
-int list_count(t_coordinate *head)
+int	list_count(t_coordinate *head)
 {
-	int count = 0;
-	t_coordinate *temp = head;
+	int				count;
+	t_coordinate	*temp;
+
+	count = 0;
+	temp = head;
 	while (temp)
 	{
 		count++;
@@ -26,10 +29,9 @@ int list_count(t_coordinate *head)
 	return (count);
 }
 
-// less than 25 lines
-t_map *init_map()
+t_map	*init_map(void)
 {
-	t_map *map;
+	t_map	*map;
 
 	map = (t_map *)malloc(sizeof(t_map));
 	if (!map)
@@ -45,10 +47,9 @@ t_map *init_map()
 	return (map);
 }
 
-// less than 25 lines
-t_coordinate *new_coordinate(int x, int y, int z)
+t_coordinate	*new_coordinate(int x, int y, int z)
 {
-	t_coordinate *new;
+	t_coordinate	*new;
 
 	new = (t_coordinate *)malloc(sizeof(t_coordinate));
 	if (!new)
@@ -57,14 +58,12 @@ t_coordinate *new_coordinate(int x, int y, int z)
 	new->y = y;
 	new->z = z;
 	new->next = NULL;
-
-	return new;
+	return (new);
 }
 
-// less than 25 lines
-void free_split_line(char **split_line)
+void	free_split_line(char **split_line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (split_line[i])
@@ -75,26 +74,25 @@ void free_split_line(char **split_line)
 	free(split_line);
 }
 
-// less than 25 lines
-void print_map(t_map *map, t_coordinate *head)
+void	print_map(t_map *map, t_coordinate *head)
 {
+	t_coordinate	*temp;
+	int				ordinate;
 
-	t_coordinate *temp = head;
-	int ordinate = 0;
+	*temp = head;
+	ordinate = 0;
 	while (temp)
 	{
 		while (ordinate < map->width)
 		{
-			printf("x : %d, y : %d, z : %d\n", temp->x, temp->y, temp->z);
 			temp = temp->next;
 			ordinate++;
 		}
 		ordinate = 0;
-		printf("\n");
 	}
 }
 
-void update_altitude(t_fdf *f, int altitude)
+void	update_altitude(t_fdf *f, int altitude)
 {
 	if (altitude < f->map->z_min)
 		f->map->z_min = altitude;
@@ -102,24 +100,24 @@ void update_altitude(t_fdf *f, int altitude)
 		f->map->z_max = altitude;
 }
 
-void add_head(t_fdf *f, t_coordinate *coordinate,t_coordinate **coordinate_map)
+void	add_head(t_fdf *f, t_coordinate *coordinate, t_coordinate **coordinate_map)
 {
 	*coordinate_map = coordinate;
 	f->coordinate_map = coordinate_map;
 	f->head = *coordinate_map;
 }
 
-void add_next(t_coordinate *coordinate, t_coordinate **coordinate_map)
+void	add_next(t_coordinate *coordinate, t_coordinate **coordinate_map)
 {
 	(*coordinate_map)->next = coordinate;
 	*coordinate_map = (*coordinate_map)->next;
 }
 
-void extract_line(char *axis_string, t_fdf *f, int axis,t_coordinate **coordinate_map)
+void	extract_line(char *axis_string, t_fdf *f, int axis, t_coordinate **coordinate_map)
 {
-	char **axis_array;
-	int ordinate;
-	int altitude;
+	char	**axis_array;
+	int		ordinate;
+	int		altitude;
 
 	axis_array = ft_split(axis_string, ' ');
 	ordinate = 0;
@@ -135,37 +133,37 @@ void extract_line(char *axis_string, t_fdf *f, int axis,t_coordinate **coordinat
 	}
 	if (f->map->width == 0)
 		f->map->width = ordinate;
-	else if(f->map->width != ordinate)
+	else if (f->map->width != ordinate)
 		terminate(ERR_MAP_INIT);
 	free_split_line(axis_array);
 	free(axis_string);
 }
 
-void parse_map(int fd, t_fdf *f)
+void	parse_map(int fd, t_fdf *f)
 {
-	t_coordinate 	**coordinate;
-	
+	t_coordinate	**coordinate;
+	char			*axis_string;
+	int				axis;
+
+	axis = 0;
 	coordinate = malloc(sizeof(t_coordinate *));
 	if (!coordinate)
 		terminate(ERR_MAP_INIT);
-
-	char *axis_string;
-	int axis = 0;
 	axis_string = get_next_line(fd);
 	while (axis_string)
 	{
-		extract_line(axis_string,f, axis, coordinate);
+		extract_line(axis_string, f, axis, coordinate);
 		axis++;
 		axis_string = get_next_line(fd);
 	}
 	f->map->height = axis;
 	f->map->z_range = f->map->z_max - f->map->z_min;
-	printf("list count : %d\n", list_count(f->head));
 }
 
-t_coordinate *process_map(char *filename, t_fdf *f)
+t_coordinate	*process_map(char *filename, t_fdf *f)
 {
-	int				fd;
+	int	fd;
+
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		terminate(ERR_MAP_INIT);
