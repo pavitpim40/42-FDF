@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:43:55 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/11 19:30:24 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/11 19:32:10 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_matrix	*process_map(char *filename, t_fdf *f)
 
 void	parse_map(int fd, t_fdf *f)
 {
-	t_matrix	**matrix;
+	t_matrix		**matrix;
 	char			*axis_string;
 	int				axis;
 
@@ -60,7 +60,6 @@ void	extract_line(char *axis_string, t_fdf *f, int axis, t_matrix **matrix)
 			add_head(f, new_element(axis, ordinate, altitude), matrix);
 		else
 			add_next(new_element(axis, ordinate, altitude), matrix);
-		// stack_coordinate(axis,ordinate,altitude,coordinate_map);
 		update_altitude(f, altitude);
 		ordinate++;
 	}
