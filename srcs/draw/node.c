@@ -6,34 +6,34 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 02:02:02 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/11 19:21:22 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/11 19:44:45 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-t_node new_render_node (t_fdf *fdf,int axis,int ordinate,int altitude)
+t_node	new_pixel(t_fdf *fdf, int axis, int ordinate, int altitude)
 {
-	t_matrix tmp;
-	int color;
-	
-	color  = get_altitude_color(fdf->map, altitude);
-	tmp = dup_coordinate(axis,ordinate,altitude,color);
-	t_node start = coordinate_to_pixel(fdf,tmp,color);
+	t_matrix	tmp;
+	t_node		start;
+	int			color;
+
+	color = get_altitude_color(fdf->map, altitude);
+	tmp = dup_coordinate(axis, ordinate, altitude, color);
+	start = coordinate_to_pixel(fdf, tmp, color);
 	return (start);
 }
 
-
-t_matrix dup_coordinate(int axis,int ordinate,int altitude, int color)
+t_matrix	dup_coordinate(int axis, int ordinate, int altitude, int color)
 {
-	t_matrix new_node;
+	t_matrix	new_node;
+
 	new_node.axis = axis;
 	new_node.ordinate = ordinate;
 	new_node.altitude = altitude;
 	new_node.color = color;
 	return (new_node);
 }
-
 
 t_node	coordinate_to_pixel(t_fdf *f, t_matrix t, int color)
 {
@@ -80,10 +80,3 @@ int	get_altitude_color(t_map *map, int z)
 		color = COLOR_SAFFRON;
 	return (color);
 }
-
-
-
-
-
-
-

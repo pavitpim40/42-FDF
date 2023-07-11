@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/11 19:29:45 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/11 19:45:07 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,7 @@ void iso(int *x, int *y, int z);
 // DRAW
 void draw_image(t_fdf *fdf);
 
-t_node new_render_node (t_fdf *fdf,int axis,int ordinate,int altitude);
+t_node new_pixel (t_fdf *fdf,int axis,int ordinate,int altitude);
 t_matrix dup_coordinate(int axis,int ordinate,int altitude, int color);
 int get_altitude_color(t_map *map, int z);
 

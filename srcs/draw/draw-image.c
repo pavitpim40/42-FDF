@@ -1,62 +1,87 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_image.c                                       :+:      :+:    :+:   */
+/*   draw-image.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ppimchan <ppimchan@student->42.fr>          +#+  +:+       +#+        */
+/*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:57:52 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/03 23:41:00 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/11 21:40:55 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-
-
-void draw_image (t_fdf *fdf)
+void	draw_each_row(t_fdf *fdf, t_matrix *tv, int *arr_h, int *prev_arr_h)
 {
-	t_matrix tv; // tv = traverse
-	int arr_height[fdf->map->width];
-	int prev_height[fdf->map->width];
-	t_matrix *tmp;
+	t_node		start;
+	t_node		end;
 
-	tv.axis = 0;
-	tv.ordinate = 0;
-	tmp =  fdf->head;
-	
-	// int color;
-	while (tv.axis < fdf->map->height)
+	while (tv->ordinate < fdf->map->width && fdf->head)
 	{
-		while (tv.ordinate < fdf->map->width  && fdf->head)
-		{	
-			// printf("new Draw\n");
-			t_node start = new_render_node(fdf,tv.axis,tv.ordinate,fdf->head->z);
-			arr_height[tv.ordinate] = fdf->head->z;
-			// Draw horizontal line - end
-			if (fdf->head->next)
-				fdf->head = fdf->head->next;
-			arr_height[tv.ordinate + 1] = fdf->head->z;;
-			t_node end = new_render_node(fdf,tv.axis,tv.ordinate+1,fdf->head->z);
-		
-			if(tv.ordinate != fdf->map->width - 1) 
-					draw_line(start, end, fdf->canvas);
-			if (tv.axis != 0)
-			{
-				tv.altitude = prev_height[tv.ordinate];
-				end = new_render_node(fdf,tv.axis - 1,tv.ordinate,tv.altitude);
-				draw_line(start, end, fdf->canvas);
-			}
-			tv.ordinate++;
+		arr_h[tv->ordinate] = fdf->head->z;
+		start = new_pixel(fdf, tv->axis, tv->ordinate, fdf->head->z);
+		if (fdf->head->next)
+			fdf->head = fdf->head->next;
+		arr_h[tv->ordinate + 1] = fdf->head->z;
+		end = new_pixel(fdf, tv->axis, tv->ordinate + 1, fdf->head->z);
+		if (tv->ordinate != fdf->map->width - 1) 
+			draw_line(start, end, fdf->canvas);
+		if (tv->axis != 0)
+		{
+			tv->altitude = prev_arr_h[tv->ordinate];
+			end = new_pixel(fdf, tv->axis - 1, tv->ordinate, tv->altitude);
+			draw_line(start, end, fdf->canvas);
 		}
-		int i = 0;
+		tv->ordinate++;
+	}
+}
+
+void	free_meta_data(t_matrix *tv, int *arr_h, int *prev_h)
+{
+	if (tv)
+		free(tv);
+	if (arr_h)
+		free(arr_h);
+	if (prev_h)
+		free(prev_h);
+}
+
+void	init_meta_data( t_matrix *tv, int *arr_h, int *prev_h)
+{
+	if (!tv || !arr_h || !prev_h)
+	{
+		free_meta_data(tv, arr_h, prev_h);
+		return ;
+	}
+	tv->axis = 0;
+	tv->ordinate = 0;
+}
+
+void	draw_image(t_fdf *fdf)
+{
+	t_matrix	*tv;
+	int			*arr_height;
+	int			*prev_height;
+	t_matrix	*tmp;
+	int			i;
+
+	tv = (t_matrix *)malloc(sizeof(t_matrix));
+	arr_height = malloc(sizeof(int) * fdf->map->width);
+	prev_height = malloc(sizeof(int) * fdf->map->width);
+	init_meta_data(tv, arr_height, prev_height);
+	tmp = fdf->head;
+	while (tv->axis < fdf->map->height)
+	{
+		draw_each_row(fdf, tv, arr_height, prev_height);
+		i = 0;
 		while (i < fdf->map->width)
 		{
 			prev_height[i] = arr_height[i];
 			i++;
 		}
-		tv.ordinate = 0;
-		tv.axis +=1;
+		tv->ordinate = 0;
+		tv->axis += 1;
 	}
 	fdf->head = tmp;
 }

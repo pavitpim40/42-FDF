@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 01:59:15 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/11 18:18:21 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/11 19:34:36 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,3 @@ void	pixel_put(t_canvas *canvas, int x, int y, int color)
 		*(unsigned int *)(++pos) = 0;
 	}
 }
-
