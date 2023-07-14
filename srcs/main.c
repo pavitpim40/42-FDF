@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:48:49 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/14 14:11:48 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/14 15:13:29 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ int	main(int ac, char **av)
 {
 	t_fdf	*f;
 
-	if (ac != 2)
-		terminate("usage: ./fdf <map>");
+	if (ac != 2 || !isFDF(av[1]))
+		terminate("usage: ./fdf <map>.fdf");
 	f = init_mlx_and_window();
 	f->canvas = init_canvas(f->mlx);
 	f->map = init_map();

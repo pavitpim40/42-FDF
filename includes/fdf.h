@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/14 13:56:52 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/14 15:14:12 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ typedef struct s_fdf
 void terminate(char *msg);
 
 
-t_matrix *new_coordinate(int x, int y, int z);
+int	isFDF(char *filename);
 // void	int_image(void *mlx);
 
 
