@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/14 15:14:12 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/14 16:51:02 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,8 +142,11 @@ int	isFDF(char *filename);
 t_map 			*init_map();
 void			print_map(t_map *map, t_matrix *head);
 
-t_matrix 	*process_map(char *filename, t_fdf *f);
-void			parse_map(int fd, t_fdf *f);
+t_matrix 		*parse_map(char *filename, t_fdf *f);
+
+void			get_matrix(int fd, t_fdf *f);
+void 			free_matrix(t_fdf *fdf);
+int				is_map_in_range(int map_width, int current_width);
 void			extract_line(char *axis_string, t_fdf *f, int axis, t_matrix **matrix);
 void 			free_split_line(char **split_line);
 void			update_altitude(t_fdf *f, int altitude);

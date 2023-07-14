@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:43:55 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/14 15:13:39 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/14 16:50:17 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,23 @@ int	isFDF(char *filename)
 	return (0);
 }
 
-t_matrix	*process_map(char *filename, t_fdf *f)
+t_matrix	*parse_map(char *filename, t_fdf *f)
 {
 	int	fd;
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
+	{
+		free_fdf(f);
 		terminate(ERR_MAP_INIT);
-	parse_map(fd, f);
+	}
+	get_matrix(fd, f);
 	close(fd);
 	return (f->head);
 }
 
-void	parse_map(int fd, t_fdf *f)
+// Generate MATRIX from map #M
+void	get_matrix(int fd, t_fdf *f)
 {
 	t_matrix		**matrix;
 	char			*axis_string;
@@ -43,7 +47,10 @@ void	parse_map(int fd, t_fdf *f)
 	axis = 0;
 	matrix = malloc(sizeof(t_matrix *));
 	if (!matrix)
+	{
+		free_fdf(f);
 		terminate(ERR_MAP_INIT);
+	}
 	axis_string = get_next_line(fd);
 	while (axis_string)
 	{
@@ -73,12 +80,25 @@ void	extract_line(char *axis_string, t_fdf *f, int axis, t_matrix **matrix)
 		update_altitude(f, altitude);
 		ordinate++;
 	}
+	printf("width = %d",  f->map->width);
+	printf("ordinate = %d\n", ordinate);
 	if (f->map->width == 0)
 		f->map->width = ordinate;
-	else if (f->map->width != ordinate)
+	else if (!is_map_in_range(f->map->width, ordinate))
 		terminate(ERR_MAP_INIT);
 	free_split_line(axis_array);
 	free(axis_string);
+}
+
+int	is_map_in_range(int map_width, int current_width)
+{
+	if(current_width == map_width)
+		return (1);
+	else if(current_width == map_width -1)
+		return (1);
+	else if (current_width == map_width + 1)
+		return (1);
+	return (0);
 }
 
 void	free_split_line(char **split_line)

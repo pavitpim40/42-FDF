@@ -6,7 +6,7 @@
 #    By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/12 10:34:59 by ppimchan          #+#    #+#              #
-#    Updated: 2023/07/11 22:49:01 by ppimchan         ###   ########.fr        #
+#    Updated: 2023/07/14 16:37:32 by ppimchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ SRCS_FILES				= main.c \
 							visual/projection.c visual/shift.c  visual/zoom.c\
 							visual/alpha.c visual/beta.c  visual/gamma.c visual/reset.c \
 							math/cal.c math/geometric.c \
-							map/init.c  map/parse-map.c map/stack-coordinate.c\
+							map/init.c  map/parse-map.c map/stack-coordinate.c map/free-matrix.c\
 							draw/draw-pixel.c draw/draw-image.c draw/draw-line.c  draw/node.c \
 							draw/init-bresenham.c
 						

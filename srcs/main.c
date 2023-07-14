@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:48:49 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/14 15:13:29 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/14 16:31:55 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	free_fdf(t_fdf *f)
 	free(f->head);
 	free(f->mlx);
 	free(f->win);
+	free_matrix(f);
 	free(f);
 }
 
@@ -61,7 +62,7 @@ int	main(int ac, char **av)
 	f = init_mlx_and_window();
 	f->canvas = init_canvas(f->mlx);
 	f->map = init_map();
-	f->head = process_map(av[1], f);
+	f->head = parse_map(av[1], f);
 	f->camera = init_camera(f);
 	draw_image(f);
 	render_image(f);
