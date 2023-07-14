@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:43:55 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/14 18:37:12 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/14 18:41:32 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ void	get_matrix(int fd, t_fdf *f)
 		axis++;
 		axis_string = get_next_line(fd);
 	}
-	free(axis_string);
+	if(axis_string)
+		free(axis_string);
 	f->map->height = axis;
 	f->map->z_range = f->map->z_max - f->map->z_min;
 }
