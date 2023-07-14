@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/14 18:01:41 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/14 18:36:08 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ typedef struct s_fdf
 	t_matrix *head;
 	t_matrix **matrix;
 	t_camera *camera;
+	int		add_status;
 	// t_mouse		*mouse;
 } t_fdf;
 // Coordinate Height
@@ -138,6 +139,7 @@ int	isFDF(char *filename);
 // Free
 void	free_fdf(t_fdf *f);
 void	free_all(t_fdf *f);
+void	free_extract_line(char *axis_string, char **axis_array);
 
 
 // MAP
@@ -155,7 +157,8 @@ void			update_altitude(t_fdf *f, int altitude);
 
 
 // Coordinate-list : Vector
-t_matrix		*new_element(int x, int y, int z);
+// t_matrix		*new_element(int x, int y, int z);
+t_matrix	*new_element(int x, int y, int z, t_fdf *f);
 // void			stack_coordinate(int axis, int ordinate, int altitude, t_matrix **matrix);
 void			add_head(t_fdf *f, t_matrix *element, t_matrix **matrix_map);
 void			add_next(t_matrix *element, t_matrix **matrix_map);

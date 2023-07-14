@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:43:55 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/14 18:01:56 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/14 18:37:12 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,12 @@ void	get_matrix(int fd, t_fdf *f)
 		axis++;
 		axis_string = get_next_line(fd);
 	}
+	free(axis_string);
 	f->map->height = axis;
 	f->map->z_range = f->map->z_max - f->map->z_min;
 }
 
+// #M 
 void	extract_line(char *axis_string, t_fdf *f, int axis, t_matrix **matrix)
 {
 	char	**axis_array;
@@ -74,9 +76,15 @@ void	extract_line(char *axis_string, t_fdf *f, int axis, t_matrix **matrix)
 	{
 		altitude = ft_atoi(axis_array[ordinate]);
 		if (axis == 0 && ordinate == 0)
-			add_head(f, new_element(axis, ordinate, altitude), matrix);
+			add_head(f, new_element(axis, ordinate, altitude, f), matrix);
 		else
-			add_next(new_element(axis, ordinate, altitude), matrix);
+			add_next(new_element(axis, ordinate, altitude, f), matrix);
+		if(f->add_status == -1)
+		{
+			free_extract_line(axis_string, axis_array);
+			free_all(f);
+			terminate("map is not valid");
+		}
 		update_altitude(f, altitude);
 		ordinate++;
 	}
@@ -84,13 +92,17 @@ void	extract_line(char *axis_string, t_fdf *f, int axis, t_matrix **matrix)
 		f->map->width = ordinate;
 	else if (!is_map_in_range(f->map->width, ordinate))
 	{
-		free_split_line(axis_array);
-		free(axis_string);
+		free_extract_line(axis_string, axis_array);
 		free_all(f);
 		terminate("map is not valid in range");
 	}
-	free_split_line(axis_array);
+	free_extract_line(axis_string, axis_array);
+}
+
+void	free_extract_line(char *axis_string, char **axis_array)
+{
 	free(axis_string);
+	free_split_line(axis_array);
 }
 
 int	is_map_in_range(int map_width, int current_width)
