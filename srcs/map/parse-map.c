@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:43:55 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/14 19:22:33 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/14 19:32:09 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	extract_line(char *axis_string, t_fdf *f, int axis, t_matrix **matrix)
 	int		altitude;
 
 	axis_array = ft_split(axis_string, ' ');
+	printf("axis_array: %s\n", axis_array[0]);
 	ordinate = 0;
 	while (axis_array[ordinate])
 	{
