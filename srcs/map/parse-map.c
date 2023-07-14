@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:43:55 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/14 18:41:32 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/14 19:22:33 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,14 +89,26 @@ void	extract_line(char *axis_string, t_fdf *f, int axis, t_matrix **matrix)
 		update_altitude(f, altitude);
 		ordinate++;
 	}
+	printf("f->map->width: %d\n", f->map->width);
 	if (f->map->width == 0)
 		f->map->width = ordinate;
-	else if (!is_map_in_range(f->map->width, ordinate))
+	else if(ordinate != f->map->width)
 	{
 		free_extract_line(axis_string, axis_array);
 		free_all(f);
-		terminate("map is not valid in range");
+		terminate("map is not valid");
 	}
+	// else if (!is_map_in_range(f->map->width, ordinate))
+	// {
+	// 	free_extract_line(axis_string, axis_array);
+	// 	free_all(f);
+	// 	terminate("map is not valid in range");
+	// }
+	// else if(is_map_in_range(f->map->width, ordinate))
+	// {
+	// 	if(ordinate > f->map->width)
+	// 		f->map->width = ordinate;
+	// }
 	free_extract_line(axis_string, axis_array);
 }
 

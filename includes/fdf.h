@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/14 18:36:08 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/14 19:00:58 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,12 @@ typedef struct s_matrix
 
 } t_matrix;
 
+// typedef struct s_width
+// {
+// 	int width;
+// 	struct s_width *next;
+// } t_width;
+
 // MAP Detail
 typedef struct s_map
 {
@@ -94,6 +100,7 @@ typedef struct s_map
 	int z_min;
 	int z_max;
 	int z_range;
+	// t_width *width_arr;
 } t_map;
 
 typedef struct s_camera
@@ -145,6 +152,8 @@ void	free_extract_line(char *axis_string, char **axis_array);
 // MAP
 t_map 			*init_map();
 void			print_map(t_map *map, t_matrix *head);
+void	init_meta_data( t_matrix *tv, int *arr_h, int *prev_h);
+void	draw_each_row(t_fdf *fdf, t_matrix *tv, int *arr_h, int *prev_arr_h);
 
 t_matrix 		*parse_map(char *filename, t_fdf *f);
 

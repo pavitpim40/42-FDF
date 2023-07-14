@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 17:06:44 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/11 17:23:55 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/14 19:20:31 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 
 int	mouse_move(int x, int y, t_fdf *f)
 {
-	printf("x: %d\n", x);
+	// printf("x: %d\n", x);
 
-	printf("y: %d\n", y);
+	// printf("y: %d\n", y);
 
-	printf("Hello from mouse_move!\n");
+	// printf("Hello from mouse_move!\n");
 	if(f->camera->is_press == 1) {
-		printf("change angle\n");
+		// printf("change angle\n");
 		int prev_x = f->camera->x;
 		// int prev_y = f->camera->y;
 	
@@ -72,7 +72,7 @@ int mouse_press(int button, int x, int y, t_fdf *f)
 		
 		draw_image(f);
 		render_image(f);
-		printf("zoom in\n");
+		// printf("zoom in\n");
 	}
 	if(button == 4) {
 		if(f->camera->zoom > 1)
@@ -81,7 +81,7 @@ int mouse_press(int button, int x, int y, t_fdf *f)
 		
 		draw_image(f);
 		render_image(f);
-		printf("zoom out\n");
+		// printf("zoom out\n");
 	}
 
 	if(button == 1) {
@@ -115,7 +115,7 @@ int mouse_hook(int button, int x, int y, t_fdf *f)
 		
 		draw_image(f);
 		render_image(f);
-		printf("zoom in\n");
+		// printf("zoom in\n");
 	}
 	if(button == 4) {
 		if(f->camera->zoom > 1)
@@ -124,7 +124,7 @@ int mouse_hook(int button, int x, int y, t_fdf *f)
 		
 		draw_image(f);
 		render_image(f);
-		printf("zoom out\n");
+		// printf("zoom out\n");
 	}
 	return (0);
 }
