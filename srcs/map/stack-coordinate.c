@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:45:11 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/14 18:36:51 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/14 19:58:35 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ t_matrix	*new_element(int x, int y, int z, t_fdf *f)
 	new->x = x;
 	new->y = y;
 	new->z = z;
+	new->axis = x;
+	new->ordinate = y;
+	new->altitude = z;
 	new->next = NULL;
 	return (new);
 }

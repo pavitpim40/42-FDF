@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/14 19:00:58 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/14 20:03:51 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,13 @@ typedef struct s_bresenham
 	int direction;
 } t_bresenham;
 
+
+typedef enum
+{
+	ISOMETRIC,
+	PARALLEL
+} t_projection;
+
 typedef struct s_canvas
 {
 	void *img;
@@ -60,16 +67,13 @@ typedef struct s_node
 	int x;
 	int y;
 	int z;
-	int color;
+	int axis;
+	int ordinate;
 	int altitude;
+	int color;
+	int default_color;
 	double percent;
 } t_node;
-
-typedef enum
-{
-	ISOMETRIC,
-	PARALLEL
-} t_projection;
 
 typedef struct s_matrix
 {
@@ -80,6 +84,7 @@ typedef struct s_matrix
 	int ordinate;
 	int altitude;
 	int color;
+	int default_color;
 	struct s_matrix *next;
 
 } t_matrix;
@@ -152,8 +157,8 @@ void	free_extract_line(char *axis_string, char **axis_array);
 // MAP
 t_map 			*init_map();
 void			print_map(t_map *map, t_matrix *head);
-void	init_meta_data( t_matrix *tv, int *arr_h, int *prev_h);
-void	draw_each_row(t_fdf *fdf, t_matrix *tv, int *arr_h, int *prev_arr_h);
+void			init_meta_data( t_matrix *tv, int *arr_h, int *prev_h);
+void			draw_each_row(t_fdf *fdf, t_matrix *tv, int *arr_h, int *prev_arr_h);
 
 t_matrix 		*parse_map(char *filename, t_fdf *f);
 

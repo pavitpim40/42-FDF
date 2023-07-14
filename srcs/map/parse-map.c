@@ -6,11 +6,12 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:43:55 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/14 19:32:09 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/14 19:52:31 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
 
 int	isFDF(char *filename)
 {
@@ -64,23 +65,53 @@ void	get_matrix(int fd, t_fdf *f)
 	f->map->z_range = f->map->z_max - f->map->z_min;
 }
 
+// create node
+t_matrix	*create_node(int axis, int ordinate, int altitude, int default_color)
+{
+	t_matrix	*node;
+
+	node = malloc(sizeof(t_matrix));
+	if (!node)
+		return (NULL);
+	node->x = axis;
+	node->y = ordinate;
+	node->z = altitude;
+	node->default_color = default_color;
+	node->next = NULL;
+	return (node);
+}
 // #M 
 void	extract_line(char *axis_string, t_fdf *f, int axis, t_matrix **matrix)
 {
 	char	**axis_array;
 	int		ordinate;
 	int		altitude;
+	int 	default_color;
 
 	axis_array = ft_split(axis_string, ' ');
-	printf("axis_array: %s\n", axis_array[0]);
+	// printf("axis_array: %s\n", axis_array[0]);
 	ordinate = 0;
+	default_color = 0;
 	while (axis_array[ordinate])
 	{
-		altitude = ft_atoi(axis_array[ordinate]);
+		// printf("axis_array[ordinate]: %s\n", axis_array[ordinate]);
+		// if comma in str
+		if (ft_strchr(axis_array[ordinate], ','))
+		{
+			char **comma_array = ft_split(axis_array[ordinate], ',');
+			altitude = ft_atoi(comma_array[0]);
+			printf("arrar[1]: %s\n", comma_array[1]);
+			// int color = ft_atoi_base(comma_array[1], "0123456789ABCDEF");
+			// printf("color: %x\n", color);
+			free_split_line(comma_array);
+		}
+		else 
+			altitude = ft_atoi(axis_array[ordinate]);
+		t_matrix *node = create_node(axis, ordinate, altitude, default_color);
 		if (axis == 0 && ordinate == 0)
-			add_head(f, new_element(axis, ordinate, altitude, f), matrix);
+			add_head(f, node, matrix);
 		else
-			add_next(new_element(axis, ordinate, altitude, f), matrix);
+			add_next(node, matrix);
 		if(f->add_status == -1)
 		{
 			free_extract_line(axis_string, axis_array);
