@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:57:52 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/11 21:40:55 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/14 17:37:03 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,19 @@ void	draw_each_row(t_fdf *fdf, t_matrix *tv, int *arr_h, int *prev_arr_h)
 	t_node		start;
 	t_node		end;
 
+	printf("width: %d\n", fdf->map->width);
 	while (tv->ordinate < fdf->map->width && fdf->head)
 	{
 		arr_h[tv->ordinate] = fdf->head->z;
 		start = new_pixel(fdf, tv->axis, tv->ordinate, fdf->head->z);
 		if (fdf->head->next)
 			fdf->head = fdf->head->next;
-		arr_h[tv->ordinate + 1] = fdf->head->z;
+		printf("ordinate: %d\n", tv->ordinate);
+		
+		// printf("fdf->head->z: %d\n", fdf->head->z);
+		if(tv->ordinate != fdf->map->width - 1)
+			arr_h[tv->ordinate + 1] = fdf->head->z;
+		printf("debug\n");
 		end = new_pixel(fdf, tv->axis, tv->ordinate + 1, fdf->head->z);
 		if (tv->ordinate != fdf->map->width - 1) 
 			draw_line(start, end, fdf->canvas);
@@ -67,12 +73,14 @@ void	draw_image(t_fdf *fdf)
 	int			i;
 
 	tv = (t_matrix *)malloc(sizeof(t_matrix));
-	arr_height = malloc(sizeof(int) * fdf->map->width);
-	prev_height = malloc(sizeof(int) * fdf->map->width);
+	arr_height = malloc(sizeof(int) * fdf->map->width + 1);
+	prev_height = malloc(sizeof(int) * fdf->map->width + 1);
 	init_meta_data(tv, arr_height, prev_height);
 	tmp = fdf->head;
 	while (tv->axis < fdf->map->height)
 	{
+		printf("axis: %d\n", tv->axis);
+		printf("fdf->map->height: %d\n", fdf->map->height);
 		draw_each_row(fdf, tv, arr_height, prev_height);
 		i = 0;
 		while (i < fdf->map->width)
