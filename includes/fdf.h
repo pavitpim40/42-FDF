@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/14 16:51:02 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/14 18:01:41 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,9 @@ void terminate(char *msg);
 
 int	isFDF(char *filename);
 // void	int_image(void *mlx);
-
+// Free
+void	free_fdf(t_fdf *f);
+void	free_all(t_fdf *f);
 
 
 // MAP

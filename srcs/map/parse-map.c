@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:43:55 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/14 17:08:58 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/14 18:01:56 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	extract_line(char *axis_string, t_fdf *f, int axis, t_matrix **matrix)
 	{
 		free_split_line(axis_array);
 		free(axis_string);
-		free_matrix(f);
+		free_all(f);
 		terminate("map is not valid in range");
 	}
 	free_split_line(axis_array);

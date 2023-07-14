@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:48:49 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/14 16:31:55 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/14 17:55:45 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,7 @@
 #include <errno.h>
 #include <stdio.h>
 
-// NEED TO Review
-void	free_fdf(t_fdf *f)
-{
-	free(f->canvas);
-	free(f->map);
-	free(f->head);
-	free(f->mlx);
-	free(f->win);
-	free_matrix(f);
-	free(f);
-}
+
 
 void	render_image(t_fdf *f)
 {
