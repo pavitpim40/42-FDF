@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:16:32 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/15 23:48:50 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 00:15:53 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,10 @@ void free_all_point(t_point *point)
 {
 	t_point	*tmp;
 	printf("free_all_point\n");
+	printf("point: %p\n", point);
 	while (point)
 	{
+		printf("point: %p\n", point);
 		tmp = point->next;
 		free(point);
 		point = tmp;
