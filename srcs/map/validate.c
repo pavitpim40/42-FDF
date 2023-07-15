@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 18:50:39 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/15 19:04:43 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/15 20:03:18 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ int	ft_isdigit_base(char c, int base)
 	return (0);
 }
 
-int	ft_isnumber_inbase(char *str, int base)
+int	ft_isnum_base(char *str, int base)
 {
 	int i;
-
+	
 	i = 0;
 	while(ft_whitespace(str[i]))
 		i++;
@@ -61,8 +61,10 @@ int	ft_isnumber_inbase(char *str, int base)
 		i++;
 	else if (base == 10 && (str[i] == '-' || str[i] == '+'))
 		i++;
-	while (str[i])
+	// printf("strlen: %zu\n", ft_strlen(str));
+	while (str[i] && !ft_whitespace(str[i]))
 	{
+		// printf("str[i]: %c\n", str[i]);
 		if (!ft_isdigit_base(str[i], base))
 			return (0);
 		i++;
