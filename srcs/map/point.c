@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:16:32 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/15 20:03:30 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/15 20:15:14 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_point *new_point(char *point_str)
 	}	
 	else
 		point->default_color = -1;
-	
+	point->next = NULL;
 
 	return (point);
 }
