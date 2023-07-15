@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/15 19:34:40 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/15 23:18:36 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ typedef struct s_fdf
 	t_map *map;
 
 	t_matrix *head;
+	t_point *start;
 	t_matrix **matrix;
 	t_camera *camera;
 	int		add_status;
@@ -165,9 +166,11 @@ void	free_extract_line(char *axis_string, char **axis_array);
 
 
 // MAP
+void print_all_point(t_point *head);
 t_map 			*init_map();
 void			print_map(t_map *map, t_matrix *head);
-void	parse_map_new(char *filename);
+void	parse_map_new(char *filename, t_fdf *f);
+void 	free_all_point(t_point *point);
 void			init_meta_data( t_matrix *tv, int *arr_h, int *prev_h);
 void			draw_each_row(t_fdf *fdf, t_matrix *tv, int *arr_h, int *prev_arr_h);
 

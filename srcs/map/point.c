@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:16:32 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/15 20:32:44 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/15 23:19:31 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,39 +44,77 @@ int ft_atoi_base(char *str, int base)
 }
 
 
+void print_all_point(t_point *head)
+{
+	t_point *current;
+
+	current = head;
+	while (current)
+	{
+		printf("altitude: %d, color: %x\n", current->altitude, current->default_color);
+		current = current->next;
+	}
+}
+void free_all_point(t_point *point)
+{
+	t_point	*tmp;
+	printf("free_all_point\n");
+	while (point)
+	{
+		tmp = point->next;
+		free(point);
+		point = tmp;
+	}
+}
+
+void free_str_split(char **arr)
+{
+	size_t i;
+
+	i = 0;
+	while (arr[i])
+		free(arr[i++]);
+	free(arr);
+}
+
+void free_indeed(char **arr, t_point *point)
+{
+	size_t i;
+
+	i = 0;
+	while (arr[i])
+		free(arr[i++]);
+	free(arr);
+	if(point)
+		free(point);
+}
+
 t_point *new_point(char *point_str)
 {
 	t_point *point;
 	char **point_arr;
 	
-
 	point = (t_point *)malloc(sizeof(t_point));
 	if (!point)
-		terminate("ERR_POINT_INIT-1");
+		return (NULL);
 	point_arr = ft_split(point_str, ',');
-	
-	// checkpoint arr size
-	
-	// For altitude
 	if(ft_isnum_base(point_arr[0], 10))
 		point->altitude = ft_atoi(point_arr[0]);
 	else
-		terminate("ERR_POINT_INIT-2");
-
-	// For Color
-	// printf("point_arr[1]: %s\n", point_arr[1]);
+	{
+		free_indeed(point_arr, point);
+		return (NULL);
+	}
 	if (point_arr[1] && !ft_isnum_base(point_arr[1], 16))
-		terminate("ERR_POINT_INIT-3");
+		{
+			free_indeed(point_arr, point);
+			return (NULL);
+		}
 	if (point_arr[1])
 		point->default_color = ft_atoi_base(point_arr[1], 16);
 	else
 		point->default_color = -1;
 	point->next = NULL;
-
-	// need to free
-	free(point_arr[0]);
-	if(point_arr[1])
-		free(point_arr[1]);
-
+	free_indeed(point_arr,NULL);
 	return (point);
 }

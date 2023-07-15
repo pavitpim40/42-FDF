@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:48:49 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/15 10:55:37 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/15 20:37:32 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	main(int ac, char **av)
 	f = init_mlx_and_window();
 	f->canvas = init_canvas(f->mlx);
 	f->map = init_map();
-	parse_map_new(av[1]);
+	parse_map_new(av[1], f);
 	// f->head = parse_map(av[1], f);
 	// f->camera = init_camera(f);
 	// draw_image(f);
