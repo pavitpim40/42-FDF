@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 00:39:52 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 04:37:37 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 05:05:07 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,20 @@ void	draw_image_new(t_fdf *fdf)
 
 	axis = 0;
 	// ordinate = 0;
+	int i = 0;
+	int j = 0;
+	// draw-background
+
+	while(i < HEIGHT)
+	{
+		j = 0;
+		while(j < WIDTH)
+		{
+			pixel_put(fdf->canvas, j, i, BACKGROUND);
+			j++;
+		}
+		i++;
+	}
 
 	while(axis < fdf->map->height)
 	{
