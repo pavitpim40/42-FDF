@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:48:49 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 03:42:58 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 04:47:37 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ t_camera	*init_camera(t_fdf *f)
 	// printf("MAP HEIGHT: %d\n", f->map->height);
 	camera->zoom = cal_min(WIDTH / (f->map->width * 2), \
 		HEIGHT / (f->map->height * 2));
-	// camera->zoom *= 5;
+	// camera->zoom *= 2;
 	camera->alpha = 0;
 	camera->beta = 0;
 	camera->gamma = 0;
-	camera->z_divisor = 3;
+	camera->z_divisor = 1;
 	camera->x_offset = 0;
 	camera->y_offset = 0;
 	camera->projection = ISOMETRIC;

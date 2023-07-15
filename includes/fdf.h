@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 03:41:24 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 04:12:40 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,6 +223,8 @@ int get_altitude_color(t_map *map, int z);
 
 t_bresenham	*init_bresenham(t_node start, t_node end);
 void draw_line(t_node start, t_node end, t_canvas *img);
+void	draw_line_new(t_node start, t_node end, t_canvas *img, int line_number);
+// void	draw_line(t_node start, t_node end, t_canvas *img, int line_number);
 
 void pixel_put(t_canvas *canvas, int x, int y, int color);
 int get_pixel_color(t_node start, t_node end, t_bresenham *b, int pixel);
@@ -232,6 +234,7 @@ t_node create_project_node(int axis, int ordinate, int altitude, int color, t_ma
 t_node create_render_node(t_node, int color, int altitude, t_map *map, char *name);
 
 // Projection
+int	ft_whitespace(char c);
 void	isometric_projection (t_fdf *f);
 void	topview_projection (t_fdf *f);
 

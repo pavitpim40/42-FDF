@@ -6,11 +6,28 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:16:32 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 03:37:50 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 04:37:21 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+
+static int		ft_isdigit_base(char c, int base)
+{
+	const char	*digits = "0123456789ABCDEF";
+	int			i;
+
+	i = 0;
+	while (i < base)
+	{
+		if (digits[i] == ft_toupper(c))
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
 
 int ft_atoi_base(char *str, int base)
 {
@@ -34,9 +51,11 @@ int ft_atoi_base(char *str, int base)
 	// printf("str_atoi_base: %s\n", str);
 	// printf("str[i]: %c\n", str[i]);
 
-	while (str[i])
+	while (str[i] && !ft_whitespace(str[i]))
 	{
-		result = result * base + str[i] - '0';
+		// printf("str[i]: %c\n", str[i]);
+		// printf("str[i]- '0': %d\n\n", str[i] - '0');
+		result = result * base + ft_isdigit_base(str[i], base);
 		i++;
 	}
 	return (result * sign);
@@ -119,7 +138,7 @@ t_point *new_point(char *point_str, t_fdf *f)
 	if (point_arr[1])
 	{
 		// printf("point_arr[1]: %s\n", point_arr[1]);
-		// printf("atoi_base: %d\n", ft_atoi_base(point_arr[1], 16));
+		// printf("atoi_base: %d\n\n", ft_atoi_base(point_arr[1], 16));
 		// if(ft_isprefix(point_arr[1], 16))
 		// 	point->default_color = ft_atoi_base(point_arr[1], 16);
 		// else
@@ -130,9 +149,8 @@ t_point *new_point(char *point_str, t_fdf *f)
 		f->have_default_color = 1;
 		point->default_color = ft_atoi_base(point_arr[1], 16);
 	}
-	
 	else
-		point->default_color = 0xFFFFFF;
+		point->default_color = -1;
 	point->next = NULL;
 	free_indeed(point_arr,NULL);
 	return (point);
