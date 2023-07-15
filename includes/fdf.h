@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/15 23:18:36 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 00:34:12 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,8 @@ typedef struct s_fdf
 
 	t_matrix *head;
 	t_point *start;
+	int	*h_mtx;
+	int	*c_mtx;
 	t_matrix **matrix;
 	t_camera *camera;
 	int		add_status;
@@ -155,6 +157,7 @@ t_point *new_point(char *point_str);
 int	ft_isnum_base(char *str, int base);
 
 void terminate(char *msg);
+void create_matrix(t_fdf *f);
 
 
 int	isFDF(char *filename);

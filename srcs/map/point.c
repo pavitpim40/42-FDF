@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:16:32 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 00:15:53 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 00:28:33 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int ft_atoi_base(char *str, int base)
 	}
 	return (result * sign);
 }
+
 
 
 void print_all_point(t_point *head)
