@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:16:32 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 00:28:33 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 03:37:50 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,7 @@ int ft_atoi_base(char *str, int base)
 	i = 0;
 	sign = 1;
 	result = 0;
-	// if (str[i] == '-')
-	// {
-	// 	sign = -1;
-	// 	i++;
-	// }
+
 	if(base == 16 || base == 2)
 		i += 2;
 	else if(base == 8)
@@ -35,7 +31,10 @@ int ft_atoi_base(char *str, int base)
 		if(str[i] == '-')
 			sign = -1;
 	}
-	while (str[i] && ft_isdigit(str[i]))
+	// printf("str_atoi_base: %s\n", str);
+	// printf("str[i]: %c\n", str[i]);
+
+	while (str[i])
 	{
 		result = result * base + str[i] - '0';
 		i++;
@@ -96,7 +95,7 @@ void free_indeed(char **arr, t_point *point)
 		free(point);
 }
 
-t_point *new_point(char *point_str)
+t_point *new_point(char *point_str, t_fdf *f)
 {
 	t_point *point;
 	char **point_arr;
@@ -118,9 +117,22 @@ t_point *new_point(char *point_str)
 			return (NULL);
 		}
 	if (point_arr[1])
+	{
+		// printf("point_arr[1]: %s\n", point_arr[1]);
+		// printf("atoi_base: %d\n", ft_atoi_base(point_arr[1], 16));
+		// if(ft_isprefix(point_arr[1], 16))
+		// 	point->default_color = ft_atoi_base(point_arr[1], 16);
+		// else
+		// {
+		// 	free_indeed(point_arr, point);
+		// 	return (NULL);
+		// }
+		f->have_default_color = 1;
 		point->default_color = ft_atoi_base(point_arr[1], 16);
+	}
+	
 	else
-		point->default_color = -1;
+		point->default_color = 0xFFFFFF;
 	point->next = NULL;
 	free_indeed(point_arr,NULL);
 	return (point);

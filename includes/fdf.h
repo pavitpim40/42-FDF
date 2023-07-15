@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 00:34:12 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 03:41:24 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,6 @@ typedef struct s_node
 	int x;
 	int y;
 	int z;
-	int axis;
-	int ordinate;
 	int altitude;
 	int color;
 	int default_color;
@@ -148,12 +146,14 @@ typedef struct s_fdf
 	t_matrix **matrix;
 	t_camera *camera;
 	int		add_status;
+	int		have_default_color;
 	// t_mouse		*mouse;
 } t_fdf;
 // Coordinate Height
 
 // 
-t_point *new_point(char *point_str);
+// t_point *new_point(char *point_str);
+t_point *new_point(char *point_str, t_fdf *f);
 int	ft_isnum_base(char *str, int base);
 
 void terminate(char *msg);
@@ -166,6 +166,9 @@ int	isFDF(char *filename);
 void	free_fdf(t_fdf *f);
 void	free_all(t_fdf *f);
 void	free_extract_line(char *axis_string, char **axis_array);
+void	draw_image_new(t_fdf *fdf);
+void	draw_each_row_new(t_fdf *fdf, int axis);
+t_node	get_pixel(t_fdf *f, int axis, int ordinate, int altitude);
 
 
 // MAP

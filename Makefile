@@ -6,7 +6,7 @@
 #    By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/12 10:34:59 by ppimchan          #+#    #+#              #
-#    Updated: 2023/07/16 00:33:43 by ppimchan         ###   ########.fr        #
+#    Updated: 2023/07/16 00:58:14 by ppimchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ SRCS_FILES				= main.c \
 							map/validate.c map/point.c \
 							matrix/create-matrix.c \
 							draw/draw-pixel.c draw/draw-image.c draw/draw-line.c  draw/node.c \
-							draw/init-bresenham.c
+							draw/init-bresenham.c draw/draw-image-new.c
 						
 SRCS					= $(addprefix $(SRCS_DIRECTORY) $(SRCS_FILES))
 

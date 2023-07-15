@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 10:24:42 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 00:22:25 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 03:31:52 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,15 @@ void	process_line(char *line, t_fdf *f,t_point **head,t_point **current)
 	int width = 0;
 	while (*point_arr)
 	{
-		t_point *point = new_point(*point_arr);
+		t_point *point = new_point(*point_arr,f);
 		if(!point)
 			free_all_point(*head);
-		printf("head address: %p\n", *head);
+		// printf("head address: %p\n", *head);
 		add_point_back(head,current,point);
+		if(point->altitude >= f->map->z_max)
+			f->map->z_max = point->altitude;
+		if(point->altitude < f->map->z_min)
+			f->map->z_min = point->altitude;
 		free(*point_arr);
 		point_arr++;
 		width++;
@@ -60,6 +64,8 @@ t_point *process_map_new(int fd,t_fdf *f)
 	head = NULL;
 	current = NULL;
 	height = 0;
+	// f->map->z_min = INT_MAX;
+	// f->map->z_max = INT_MIN;
 	line = get_next_line(fd);
 	while (line)
 	{
@@ -81,7 +87,9 @@ void parse_map_new(char *filename, t_fdf *f)
 		terminate(ERR_MAP_INIT);
 	f->start = process_map_new(fd,f);
 	close(fd);
-	print_all_point(f->start);
-	printf("height: %d\n", f->map->height);
-	printf("width: %d\n", f->map->width);
+	// print_all_point(f->start);
+	f->map->z_range = f->map->z_max - f->map->z_min;
+	// printf("height: %d\n", f->map->height);
+	// printf("width: %d\n", f->map->width);
+	
 }

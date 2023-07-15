@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:13:50 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/11 19:34:52 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 02:07:34 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,9 @@ static void	y_dominate(t_node start, t_node end, t_bresenham *b)
 t_bresenham	*init_bresenham(t_node start, t_node end)
 {
 	t_bresenham	*b;
+	// printf("in bresenham\n");
+	// printf("start: %d, %d\n", start.x, start.y);
+	// printf("end: %d, %d\n\n", end.x, end.y);
 
 	b = malloc(sizeof(t_bresenham));
 	if (!b)
