@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:48:49 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 04:47:37 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 04:55:49 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_camera	*init_camera(t_fdf *f)
 	camera->alpha = 0;
 	camera->beta = 0;
 	camera->gamma = 0;
-	camera->z_divisor = 1;
+	camera->z_divisor = 2;
 	camera->x_offset = 0;
 	camera->y_offset = 0;
 	camera->projection = ISOMETRIC;
@@ -74,11 +74,11 @@ int	main(int ac, char **av)
 	printf("z_max: %d\n", f->map->z_max);
 	printf("width: %d\n", f->map->width);
 	printf("height: %d\n", f->map->height);
-	// mlx_key_hook(f->win, key_hook, f);
-	// mlx_mouse_hook(f->win, mouse_hook, f);
-	// mlx_hook(f->win, 4, 0, mouse_press, f);
-	// mlx_hook(f->win, 5, 0, mouse_release, f);
-	// mlx_hook(f->win, 6, 0, mouse_move, f);
+	mlx_key_hook(f->win, key_hook, f);
+	mlx_mouse_hook(f->win, mouse_hook, f);
+	mlx_hook(f->win, 4, 0, mouse_press, f);
+	mlx_hook(f->win, 5, 0, mouse_release, f);
+	mlx_hook(f->win, 6, 0, mouse_move, f);
 	mlx_loop(f->mlx);
 	// free_fdf(f);
 }

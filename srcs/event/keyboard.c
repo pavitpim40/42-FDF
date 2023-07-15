@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 17:17:11 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/14 19:19:14 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 04:56:23 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 int	key_hook(int keycode, t_fdf *f)
 {
-	// printf("keycode: %d\n", keycode);
+	printf("keycode: %d\n", keycode);
 	if (keycode == 53) {
 		free_fdf(f);
 		exit(0);
@@ -70,8 +70,9 @@ int	key_hook(int keycode, t_fdf *f)
 		f->camera->z_divisor += 0.1;
 		f->canvas = init_canvas(f->mlx);
 		
-		draw_image(f);
-		render_image(f);
+		// draw_image(f);
+		// render_image(f);
+		rerender(f);
 		// printf("z_divisor inc\n");
 	}
 	// z_divisor dec 47
@@ -80,8 +81,9 @@ int	key_hook(int keycode, t_fdf *f)
 			f->camera->z_divisor -= 0.1;
 		f->canvas = init_canvas(f->mlx);
 		
-		draw_image(f);
-		render_image(f);
+		rerender(f);
+		// draw_image(f);
+		// render_image(f);
 		// printf("z_divisor dec\n");
 	}
 

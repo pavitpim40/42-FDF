@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 17:06:44 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/14 19:20:31 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 04:56:58 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ int	mouse_move(int x, int y, t_fdf *f)
 	
 		f->canvas = init_canvas(f->mlx);
 
-		draw_image(f);
-		render_image(f);
+		// draw_image(f);
+		rerender(f);
 	}
 	return (0);
 }
@@ -70,8 +70,8 @@ int mouse_press(int button, int x, int y, t_fdf *f)
 		f->camera->zoom += 1;
 		f->canvas = init_canvas(f->mlx);
 		
-		draw_image(f);
-		render_image(f);
+		// draw_image(f);
+		rerender(f);
 		// printf("zoom in\n");
 	}
 	if(button == 4) {
@@ -79,8 +79,8 @@ int mouse_press(int button, int x, int y, t_fdf *f)
 			f->camera->zoom -= 1;
 		f->canvas = init_canvas(f->mlx);
 		
-		draw_image(f);
-		render_image(f);
+		// draw_image(f);
+		rerender(f);
 		// printf("zoom out\n");
 	}
 
@@ -113,8 +113,8 @@ int mouse_hook(int button, int x, int y, t_fdf *f)
 		f->camera->zoom += 1;
 		f->canvas = init_canvas(f->mlx);
 		
-		draw_image(f);
-		render_image(f);
+		// draw_image(f);
+		rerender(f);
 		// printf("zoom in\n");
 	}
 	if(button == 4) {
@@ -122,8 +122,8 @@ int mouse_hook(int button, int x, int y, t_fdf *f)
 			f->camera->zoom -= 1;
 		f->canvas = init_canvas(f->mlx);
 		
-		draw_image(f);
-		render_image(f);
+		// draw_image(f);
+		rerender(f);
 		// printf("zoom out\n");
 	}
 	return (0);
