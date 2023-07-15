@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/14 20:03:51 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/15 18:02:39 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,14 @@ typedef struct s_camera
 	int y;
 } t_camera;
 
+// point
+typedef struct s_point
+{
+	int altitude;
+	int default_color;
+	struct s_point *next;
+} t_point;
+
 // fdf detail
 typedef struct s_fdf
 {
@@ -157,6 +165,7 @@ void	free_extract_line(char *axis_string, char **axis_array);
 // MAP
 t_map 			*init_map();
 void			print_map(t_map *map, t_matrix *head);
+void	parse_map_new(char *filename);
 void			init_meta_data( t_matrix *tv, int *arr_h, int *prev_h);
 void			draw_each_row(t_fdf *fdf, t_matrix *tv, int *arr_h, int *prev_arr_h);
 
