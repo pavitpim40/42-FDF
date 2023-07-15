@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:16:32 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/15 20:15:14 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/15 20:32:44 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,17 +68,15 @@ t_point *new_point(char *point_str)
 	if (point_arr[1] && !ft_isnum_base(point_arr[1], 16))
 		terminate("ERR_POINT_INIT-3");
 	if (point_arr[1])
-	{
-		// printf("inside :point_arr[1]: %s\n", point_arr[1]);
-		// printf("inside :point_arr[1]: %x\n", ft_atoi_base(point_arr[1], 16));
-		// printf("inside :point_arr[1]: %d\n", ft_atoi_base(point_arr[1], 16));
-		// printf("0x810202: %x\n", 0x810202);
-		// printf("0x810202: %d\n", 0x810202);
 		point->default_color = ft_atoi_base(point_arr[1], 16);
-	}	
 	else
 		point->default_color = -1;
 	point->next = NULL;
+
+	// need to free
+	free(point_arr[0]);
+	if(point_arr[1])
+		free(point_arr[1]);
 
 	return (point);
 }
