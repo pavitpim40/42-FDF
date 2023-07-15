@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:16:32 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/15 23:19:31 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/15 23:48:50 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,17 @@ int ft_atoi_base(char *str, int base)
 void print_all_point(t_point *head)
 {
 	t_point *current;
+	int	count; 
 
+	count = 0;
 	current = head;
 	while (current)
 	{
 		printf("altitude: %d, color: %x\n", current->altitude, current->default_color);
 		current = current->next;
+		count++;
 	}
+	printf("count: %d\n", count);
 }
 void free_all_point(t_point *point)
 {
