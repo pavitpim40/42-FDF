@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 01:56:30 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 20:23:59 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 23:09:19 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,3 @@ void	draw_line(t_node start, t_node end, t_canvas *img)
 	else
 		draw_pixel(img, p->secondary_k, p->primary_k, color);
 }
-

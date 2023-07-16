@@ -6,18 +6,11 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:48:49 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 22:13:06 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 23:10:26 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fdf.h"
-#include "get_next_line.h"
-#include "libft.h"
-#include <limits.h>
-#include <errno.h>
-#include <stdio.h>
-
-
+#include "fdf.h"
 
 void	render_image(t_fdf *f)
 {
