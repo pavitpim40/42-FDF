@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 10:24:42 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 22:50:20 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 23:36:19 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_point	*process_map(int fd, t_fdf *f)
 	return (head);
 }
 
-void	process_line(char *line, t_fdf *f, t_point **head, t_point **current)
+void	process_line(char *line, t_fdf *f, t_point **head, t_point **cur)
 {
 	char	**point_arr;
 	int		width;
@@ -58,7 +58,7 @@ void	process_line(char *line, t_fdf *f, t_point **head, t_point **current)
 		point = new_point(*point_arr);
 		if (!point)
 			free_all_point(*head);
-		add_point_back(head, current, point);
+		add_point_back(head, cur, point);
 		update_altitude(f, point->altitude);
 		free(*point_arr);
 		point_arr++;
