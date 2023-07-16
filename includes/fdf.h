@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 12:31:53 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 14:11:16 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ typedef struct s_fdf
 
 // 
 // t_point *new_point(char *point_str);
-t_point *new_point(char *point_str, t_fdf *f);
+
 int	ft_isnum_base(char *str, int base);
 
 void terminate(char *msg);
@@ -139,6 +139,7 @@ void create_matrix(t_fdf *f);
 int				isFDF(char *filename);
 t_map 			*init_map();
 void			parse_map_new(char *filename, t_fdf *f);
+t_point *new_point(char *point_str);
 int				ft_whitespace(char c);
 void 			free_all_point(t_point *point);
 void 			print_all_point(t_point *head);

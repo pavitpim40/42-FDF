@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 12:27:46 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 13:46:28 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 14:08:34 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 t_node	create_node(t_fdf *f, int axis, int ordinate, int altitude)
 {
-
 	t_node px;
 	int			zoom;
 	int			default_color;
@@ -29,10 +28,8 @@ t_node	create_node(t_fdf *f, int axis, int ordinate, int altitude)
 	px.x = ordinate * zoom;
 	px.y = axis * zoom;
 	px.z = altitude *zoom / f->camera->z_divisor;
-
 	px.x -= (f->map->width * zoom) / 2;
 	px.y -= (f->map->height * zoom) / 2;
-
 	rotate_x(&px.y, &px.z, f->camera->alpha);
 	rotate_y(&px.x, &px.z, f->camera->beta);
 	rotate_z(&px.x, &px.y, f->camera->gamma);
@@ -41,10 +38,5 @@ t_node	create_node(t_fdf *f, int axis, int ordinate, int altitude)
 	px.x += f->camera->x_offset + WIDTH / 2 + f->camera->zoom / 2;
 	px.y += f->camera->y_offset + HEIGHT / 2 + f->camera->zoom / 2;
 	px.altitude = altitude;
-
-	// printf("altitude: %d\n", altitude);
-	// printf("gamma: %f\n", f->camera->gamma);
-	// printf("color: %X\n", px.color);
 	return (px);
-
 }

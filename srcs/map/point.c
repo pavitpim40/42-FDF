@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 19:16:32 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 12:05:35 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 14:10:37 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void free_indeed(char **arr, t_point *point)
 		free(point);
 }
 
-t_point *new_point(char *point_str, t_fdf *f)
+t_point *new_point(char *point_str)
 {
 	t_point *point;
 	char **point_arr;
@@ -136,19 +136,7 @@ t_point *new_point(char *point_str, t_fdf *f)
 			return (NULL);
 		}
 	if (point_arr[1])
-	{
-		// printf("point_arr[1]: %s\n", point_arr[1]);
-		// printf("atoi_base: %d\n\n", ft_atoi_base(point_arr[1], 16));
-		// if(ft_isprefix(point_arr[1], 16))
-		// 	point->default_color = ft_atoi_base(point_arr[1], 16);
-		// else
-		// {
-		// 	free_indeed(point_arr, point);
-		// 	return (NULL);
-		// }
-		f->have_default_color = 1;
 		point->default_color = ft_atoi_base(point_arr[1], 16);
-	}
 	else
 		point->default_color = -1;
 	point->next = NULL;

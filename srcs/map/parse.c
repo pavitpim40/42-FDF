@@ -1,16 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse-new.c                                        :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 10:24:42 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 11:49:50 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 14:14:55 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+
+void	update_altitude(t_fdf *f, int altitude)
+{
+	if (altitude < f->map->z_min)
+		f->map->z_min = altitude;
+	if (altitude > f->map->z_max)
+		f->map->z_max = altitude;
+}
+
 
 int	isFDF(char *filename)
 {
@@ -47,15 +57,11 @@ void	process_line(char *line, t_fdf *f,t_point **head,t_point **current)
 	int width = 0;
 	while (*point_arr)
 	{
-		t_point *point = new_point(*point_arr,f);
+		t_point *point = new_point(*point_arr);
 		if(!point)
 			free_all_point(*head);
-		// printf("head address: %p\n", *head);
 		add_point_back(head,current,point);
-		if(point->altitude >= f->map->z_max)
-			f->map->z_max = point->altitude;
-		if(point->altitude < f->map->z_min)
-			f->map->z_min = point->altitude;
+		update_altitude(f,point->altitude);
 		free(*point_arr);
 		point_arr++;
 		width++;
@@ -74,8 +80,6 @@ t_point *process_map_new(int fd,t_fdf *f)
 	head = NULL;
 	current = NULL;
 	height = 0;
-	// f->map->z_min = INT_MAX;
-	// f->map->z_max = INT_MIN;
 	line = get_next_line(fd);
 	while (line)
 	{
@@ -97,48 +101,6 @@ void parse_map_new(char *filename, t_fdf *f)
 		terminate(ERR_MAP_INIT);
 	f->start = process_map_new(fd,f);
 	close(fd);
-	// print_all_point(f->start);
 	f->map->z_range = f->map->z_max - f->map->z_min;
-	// printf("height: %d\n", f->map->height);
-	// printf("width: %d\n", f->map->width);
-	
-}
 
-
-void	free_extract_line(char *axis_string, char **axis_array)
-{
-	free(axis_string);
-	free_split_line(axis_array);
-}
-
-int	is_map_in_range(int map_width, int current_width)
-{
-	if(current_width == map_width)
-		return (1);
-	else if(current_width == map_width -1)
-		return (1);
-	else if (current_width == map_width + 1)
-		return (1);
-	return (0);
-}
-
-void	free_split_line(char **split_line)
-{
-	int	i;
-
-	i = 0;
-	while (split_line[i])
-	{
-		free(split_line[i]);
-		i++;
-	}
-	free(split_line);
-}
-
-void	update_altitude(t_fdf *f, int altitude)
-{
-	if (altitude < f->map->z_min)
-		f->map->z_min = altitude;
-	if (altitude > f->map->z_max)
-		f->map->z_max = altitude;
 }
