@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 17:55:20 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/14 19:15:51 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 11:55:40 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ void	free_fdf(t_fdf *f)
 		free(f->mlx);
 	// if(f->map->width_arr)
 	// 	free(f->map->width_arr);
-	if(f->matrix)
-		free_matrix(f);
 	if(f->map)
 		free(f->map);
 	if(f->camera)
@@ -43,8 +41,7 @@ void	free_all(t_fdf *f)
 		free(f->mlx);
 	// if(f->map->width_arr)
 	// 	free(f->map->width_arr);
-	if(f->matrix)
-		free_matrix(f);
+
 	if(f->map)
 		free(f->map);
 	// Why this line cause error?

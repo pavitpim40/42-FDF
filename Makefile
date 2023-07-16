@@ -6,7 +6,7 @@
 #    By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/12 10:34:59 by ppimchan          #+#    #+#              #
-#    Updated: 2023/07/16 00:58:14 by ppimchan         ###   ########.fr        #
+#    Updated: 2023/07/16 11:56:33 by ppimchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,11 +42,11 @@ SRCS_FILES				= main.c \
 							visual/alpha.c visual/beta.c  visual/gamma.c visual/reset.c \
 							math/cal.c math/geometric.c \
 							free/free-all.c free/free-matrix.c \
-							map/init.c  map/parse-map.c map/stack-coordinate.c map/parse-new.c\
+							map/init.c map/parse.c\
 							map/validate.c map/point.c \
 							matrix/create-matrix.c \
-							draw/draw-pixel.c draw/draw-image.c draw/draw-line.c  draw/node.c \
-							draw/init-bresenham.c draw/draw-image-new.c
+							draw/draw-pixel.c draw/draw-image.c draw/draw-line.c \
+							draw/init-bresenham.c
 						
 SRCS					= $(addprefix $(SRCS_DIRECTORY) $(SRCS_FILES))
 

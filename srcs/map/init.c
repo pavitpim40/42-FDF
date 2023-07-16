@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:41:26 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/11 19:18:02 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 11:51:38 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,4 @@ t_map	*init_map(void)
 	map->z_max = INT_MIN;
 	map->z_range = 0;
 	return (map);
-}
-
-void	print_map(t_map *map, t_matrix *head)
-{
-	t_matrix		*temp;
-	int				ordinate;
-
-	temp = head;
-	ordinate = 0;
-	while (temp)
-	{
-		while (ordinate < map->width)
-		{
-			temp = temp->next;
-			ordinate++;
-		}
-		ordinate = 0;
-	}
 }

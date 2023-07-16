@@ -6,11 +6,21 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 10:24:42 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 04:15:25 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 11:49:50 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+int	isFDF(char *filename)
+{
+	char	*extension;
+
+	extension = ft_strrchr(filename, '.');
+	if (extension && ft_strncmp(extension, ".fdf", ft_strlen(extension)) == 0)
+		return (1);
+	return (0);
+}
 
 void add_point_back(t_point **head,t_point **current, t_point *new)
 {
@@ -92,4 +102,43 @@ void parse_map_new(char *filename, t_fdf *f)
 	// printf("height: %d\n", f->map->height);
 	// printf("width: %d\n", f->map->width);
 	
+}
+
+
+void	free_extract_line(char *axis_string, char **axis_array)
+{
+	free(axis_string);
+	free_split_line(axis_array);
+}
+
+int	is_map_in_range(int map_width, int current_width)
+{
+	if(current_width == map_width)
+		return (1);
+	else if(current_width == map_width -1)
+		return (1);
+	else if (current_width == map_width + 1)
+		return (1);
+	return (0);
+}
+
+void	free_split_line(char **split_line)
+{
+	int	i;
+
+	i = 0;
+	while (split_line[i])
+	{
+		free(split_line[i]);
+		i++;
+	}
+	free(split_line);
+}
+
+void	update_altitude(t_fdf *f, int altitude)
+{
+	if (altitude < f->map->z_min)
+		f->map->z_min = altitude;
+	if (altitude > f->map->z_max)
+		f->map->z_max = altitude;
 }
