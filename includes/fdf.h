@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 20:24:40 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 22:58:53 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,18 +129,56 @@ t_canvas *init_canvas(void *mlx);
 void			render_image(t_fdf *f);
 void			rerender(t_fdf *fdf);
 
-// MAP Init
+// ### MAP
+// map-create.c
 t_map 			*init_map();
-int				isFDF(char *filename);
-void 			terminate(char *msg);
 
-// Parse Map
-void			parse_map_new(char *filename, t_fdf *f);
+// map-parse.c
+void			parse_map(char *filename, t_fdf *f);
+t_point 		*process_map(int fd,t_fdf *f);
+void			process_line(char *line, t_fdf *f,t_point **head,t_point **current);
+
+// map-utils.c
+int				is_fdf(char *filename);
+void			update_altitude(t_fdf *f, int altitude);
+void			validate_mapsize(int width,t_fdf *f, t_point *head);
+
+// ### Point
+// point-create.c
+t_point 		*new_point(char *point_str);
+void 			add_point_back(t_point **head,t_point **current, t_point *new);
+void			push_color(t_point *point, char *default_color);
+
+// point-create-validate.c
 int				ft_isnum_base(char *str, int base);
 int				ft_whitespace(char c);
-t_point 		*new_point(char *point_str);
-void 			free_all_point(t_point *point);
+int				ft_isprefix(char *str, int base);
+int				ft_isdigit_base(char c, int base);
+
+// point-utils.c
+int 			ft_atoi_base(char *str, int base);
+int				digit_base(char c, int base);
 void 			print_all_point(t_point *head);
+
+// point-free.c
+void 			free_str_split(char **arr);
+void 			free_indeed(char **arr, t_point *point);
+void 			free_all_point(t_point *point);
+
+
+void 			terminate(char *msg);
+
+
+
+
+
+
+
+
+
+// int			ft_isdigit_base(char c, int base);
+
+
 
 // Matrix
 void 			create_matrix(t_fdf *f);

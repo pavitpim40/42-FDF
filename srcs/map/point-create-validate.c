@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validate.c                                         :+:      :+:    :+:   */
+/*   point-create-validate.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 18:50:39 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/15 20:03:18 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 22:53:44 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	ft_whitespace(char c)
 {
-	if(c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r')
+	if (c == ' ' || c == '\t' || c == '\n' || c == '\v' || \
+		c == '\f' || c == '\r')
 		return (1);
 	return (0);
 }
@@ -48,12 +49,12 @@ int	ft_isdigit_base(char c, int base)
 
 int	ft_isnum_base(char *str, int base)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
-	while(ft_whitespace(str[i]))
+	while (ft_whitespace(str[i]))
 		i++;
-	if(base != 10 && !ft_isprefix(&str[i], base))
+	if (base != 10 && !ft_isprefix(&str[i], base))
 		return (0);
 	if (base == 2 || base == 16)
 		i += 2;
@@ -61,10 +62,8 @@ int	ft_isnum_base(char *str, int base)
 		i++;
 	else if (base == 10 && (str[i] == '-' || str[i] == '+'))
 		i++;
-	// printf("strlen: %zu\n", ft_strlen(str));
 	while (str[i] && !ft_whitespace(str[i]))
 	{
-		// printf("str[i]: %c\n", str[i]);
 		if (!ft_isdigit_base(str[i], base))
 			return (0);
 		i++;

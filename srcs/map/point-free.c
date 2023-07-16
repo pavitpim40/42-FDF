@@ -1,29 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   point-free.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/11 18:41:26 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 14:09:41 by ppimchan         ###   ########.fr       */
+/*   Created: 2023/07/16 22:19:31 by ppimchan          #+#    #+#             */
+/*   Updated: 2023/07/16 23:00:11 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_map	*init_map(void)
+void	free_str_split(char **arr)
 {
-	t_map	*map;
+	size_t	i;
 
-	map = (t_map *)malloc(sizeof(t_map));
-	if (!map)
-		terminate(ERR_MAP_INIT);
-	ft_bzero(map, sizeof(t_map));
-	map->width = 0;
-	map->height = 0;
-	map->z_min = INT_MAX;
-	map->z_max = INT_MIN;
-	map->z_range = 0;
-	return (map);
+	i = 0;
+	while (arr[i])
+		free(arr[i++]);
+	free(arr);
+}
+
+void	free_indeed(char **arr, t_point *point)
+{
+	size_t	i;
+
+	i = 0;
+	while (arr[i])
+		free(arr[i++]);
+	free(arr);
+	if (point)
+		free(point);
+}
+
+void	free_all_point(t_point *point)
+{
+	t_point	*tmp;
+
+	while (point)
+	{
+		tmp = point->next;
+		free(point);
+		point = tmp;
+	}
 }
