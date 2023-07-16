@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 10:24:42 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 23:36:19 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/17 00:52:35 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,13 @@ t_point	*process_map(int fd, t_fdf *f)
 void	process_line(char *line, t_fdf *f, t_point **head, t_point **cur)
 {
 	char	**point_arr;
+	char	**head_arr;
 	int		width;
 	t_point	*point;
 
 	point_arr = ft_split(line, ' ');
 	width = 0;
+	head_arr = point_arr;
 	while (*point_arr)
 	{
 		point = new_point(*point_arr);
@@ -64,6 +66,7 @@ void	process_line(char *line, t_fdf *f, t_point **head, t_point **cur)
 		point_arr++;
 		width++;
 	}
+	free(head_arr);
 	free(line);
 	validate_mapsize(width, f, *head);
 }

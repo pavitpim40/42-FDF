@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 00:23:43 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 23:04:54 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/17 01:24:50 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,14 @@ void	create_matrix(t_fdf *f)
 
 	altitude_mtx = (int *)malloc(sizeof(int) * f->map->width * f->map->height);
 	color_mtx = (int *)malloc(sizeof(int) * f->map->width * f->map->height);
+	printf("## h_mtx %p\n", altitude_mtx);
+	printf("## c_mtx %p\n", color_mtx);
 	if (!altitude_mtx || !color_mtx)
 	{
 		free(altitude_mtx);
 		if (color_mtx)
 			free(color_mtx);
-		free_all(f);
+		free_fdf(f);
 	}
 	write_matrix(f, altitude_mtx, color_mtx);
 }

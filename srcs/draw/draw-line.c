@@ -6,11 +6,22 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 01:56:30 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 23:39:00 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/17 01:43:17 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
+
+void	draw_last_spot(t_node start, t_node end, t_bsh *p, t_canvas *img)
+{
+	int	color;
+
+	color = get_pixel_color(start, end, p, p->primary_k);
+	if (p->dx >= p->dy)
+		draw_pixel(img, p->primary_k, p->secondary_k, color);
+	else
+		draw_pixel(img, p->secondary_k, p->primary_k, color);
+}
 
 void	draw_line(t_node start, t_node end, t_canvas *img)
 {
@@ -34,9 +45,6 @@ void	draw_line(t_node start, t_node end, t_canvas *img)
 			p->secondary_k += p->step;
 		}
 	}
-	color = get_pixel_color(start, end, p, p->primary_k);
-	if (p->dx >= p->dy)
-		draw_pixel(img, p->primary_k, p->secondary_k, color);
-	else
-		draw_pixel(img, p->secondary_k, p->primary_k, color);
+	draw_last_spot(start, end, p, img);
+	free(p);
 }
