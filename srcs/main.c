@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:48:49 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 14:18:36 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 14:31:43 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,7 @@ int	main(int ac, char **av)
 	create_matrix(f);
 	draw_image_new(f);
 	render_image(f);
-	mlx_key_hook(f->win, key_hook, f);
-	mlx_mouse_hook(f->win, mouse_hook, f);
+	mlx_hook(f->win, 2, 0, key_hook, f);
 	mlx_hook(f->win, 4, 0, mouse_press, f);
 	mlx_hook(f->win, 5, 0, mouse_release, f);
 	mlx_hook(f->win, 6, 0, mouse_move, f);
