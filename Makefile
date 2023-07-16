@@ -6,7 +6,7 @@
 #    By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/12 10:34:59 by ppimchan          #+#    #+#              #
-#    Updated: 2023/07/16 12:34:55 by ppimchan         ###   ########.fr        #
+#    Updated: 2023/07/16 19:37:09 by ppimchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,8 +42,8 @@ SRCS_FILES				= main.c \
 							visual/alpha.c visual/beta.c  visual/gamma.c visual/reset.c \
 							math/cal.c math/geometric.c \
 							free/free-all.c free/free-matrix.c \
-							map/init.c map/parse.c\
-							map/validate.c map/point.c \
+							map/init.c map/parse.c map/free.c\
+							map/point.c map/validate-1.c map/validate-2.c \
 							matrix/create-matrix.c \
 							draw/draw-pixel.c draw/draw-image.c draw/draw-line.c \
 							draw/bresenham.c draw/node.c draw/pixel.c

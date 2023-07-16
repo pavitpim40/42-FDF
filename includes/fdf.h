@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 15:21:40 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 19:37:52 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,24 +131,39 @@ void			rerender(t_fdf *fdf);
 
 // MAP Init
 t_map 			*init_map();
-int				isFDF(char *filename);
+int				is_fdf(char *filename);
 void 			terminate(char *msg);
 
 // Parse Map
-void			parse_map_new(char *filename, t_fdf *f);
-int				ft_isnum_base(char *str, int base);
-int				ft_whitespace(char c);
-t_point 		*new_point(char *point_str);
-void 			free_all_point(t_point *point);
-void 			print_all_point(t_point *head);
+void			parse_map(char *filename, t_fdf *f);
+t_point			*process_map(int fd, t_fdf *f);
+void			process_line(char *line, t_fdf *f, t_point **head, t_point **current);
+void			update_altitude(t_fdf *f, int altitude);
+void			add_point_back(t_point **head, t_point **current, t_point *new);
+void			validate_mapsize(int width, t_fdf *f, t_point *head);
+
+// Point And Validation
+t_point 	*new_point(char *point_str);
+void 		print_all_point(t_point *head);
+
+int			ft_atoi_base(char *str, int base);
+int			ft_whitespace(char c);
+int			ft_isprefix(char *str, int base);
+int			ft_isdigit_base(char c, int base);
+int			ft_isnum_base(char *str, int base);
+
+// void		free_str_split(char **arr);
+void 		free_all_point(t_point *point);
+void		free_indeed(char **arr, t_point *point);
+
 
 // Matrix
 void 			create_matrix(t_fdf *f);
 
 // Draw
-void			draw_image_new(t_fdf *fdf);
+void			draw_image(t_fdf *fdf);
 
-void			draw_each_row_new(t_fdf *fdf, int axis);
+void			draw_each_row(t_fdf *fdf, int axis);
 t_node			create_node(t_fdf *f, int axis, int ordinate, int altitude);
 int 			get_altitude_color(t_map *map, int z);
 
