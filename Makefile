@@ -6,7 +6,7 @@
 #    By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/12 10:34:59 by ppimchan          #+#    #+#              #
-#    Updated: 2023/07/16 12:34:55 by ppimchan         ###   ########.fr        #
+#    Updated: 2023/07/16 20:20:02 by ppimchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ FDF_HEADERS				= $(addprefix $(FDF_HEADERS_DIRECTORY), $(FDF_HEADERS_FILES))
 # SOURCE
 SRCS_DIRECTORY			= ./srcs/
 SRCS_FILES				= main.c \
-							event/mouse.c event/keyboard.c event/rerender.c \
+							event/mouse.c event/keyboard.c draw/rerender.c \
 							mlx/int.c error/error.c\
 							visual/projection.c visual/shift.c  visual/zoom.c\
 							visual/alpha.c visual/beta.c  visual/gamma.c visual/reset.c \

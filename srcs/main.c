@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:48:49 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 14:31:43 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 20:19:30 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	main(int ac, char **av)
 	parse_map_new(av[1], f);
 	f->camera = init_camera(f);
 	create_matrix(f);
-	draw_image_new(f);
+	draw_image(f);
 	render_image(f);
 	mlx_hook(f->win, 2, 0, key_hook, f);
 	mlx_hook(f->win, 4, 0, mouse_press, f);

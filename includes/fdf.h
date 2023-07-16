@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 15:21:40 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 20:24:40 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,9 +146,10 @@ void 			print_all_point(t_point *head);
 void 			create_matrix(t_fdf *f);
 
 // Draw
-void			draw_image_new(t_fdf *fdf);
+void			draw_background(t_fdf *fdf);
+void			draw_image(t_fdf *fdf);
+void			draw_row(t_fdf *fdf, int axis);
 
-void			draw_each_row_new(t_fdf *fdf, int axis);
 t_node			create_node(t_fdf *f, int axis, int ordinate, int altitude);
 int 			get_altitude_color(t_map *map, int z);
 

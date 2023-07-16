@@ -6,12 +6,11 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 01:56:30 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 14:02:47 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 20:23:59 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
-
 
 void	draw_line(t_node start, t_node end, t_canvas *img)
 {
@@ -42,25 +41,3 @@ void	draw_line(t_node start, t_node end, t_canvas *img)
 		draw_pixel(img, p->secondary_k, p->primary_k, color);
 }
 
-
-
-
-
-int	get_altitude_color(t_map *map, int z)
-{
-	int		color;
-	double	percentage;
-
-	percentage = (double)(z - map->z_min) / map->z_range;
-	if (percentage < 0.2)
-		color = COLOR_DISCO;
-	else if (percentage < 0.4)
-		color = COLOR_BRICK_RED;
-	else if (percentage < 0.6)
-		color = COLOR_FLAMINGO;
-	else if (percentage < 0.8)
-		color = COLOR_JAFFA;
-	else
-		color = COLOR_SAFFRON;
-	return (color);
-}
