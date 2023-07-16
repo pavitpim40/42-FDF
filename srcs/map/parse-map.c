@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:43:55 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/14 14:28:19 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 18:48:29 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_matrix	*process_map(char *filename, t_fdf *f)
 	int	fd;
 
 	fd = open(filename, O_RDONLY);
-
+	
 	if (fd < 0)
 		terminate(ERR_MAP_INIT);
 	parse_map(fd, f);
