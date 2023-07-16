@@ -1,16 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rerender.c                                         :+:      :+:    :+:   */
+/*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 22:08:39 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 20:27:30 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 23:12:32 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	render_image(t_fdf *f)
+{
+	mlx_put_image_to_window(f->mlx, f->win, f->canvas->img, 0, 0);
+}
 
 void	rerender(t_fdf *f)
 {

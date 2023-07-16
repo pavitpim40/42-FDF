@@ -6,16 +6,11 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:48:49 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 23:10:26 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 23:15:18 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void	render_image(t_fdf *f)
-{
-	mlx_put_image_to_window(f->mlx, f->win, f->canvas->img, 0, 0);
-}
 
 t_camera	*init_camera(t_fdf *f)
 {

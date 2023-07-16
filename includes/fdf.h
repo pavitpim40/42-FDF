@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 22:58:53 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 23:13:30 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,7 @@ t_bresenham		*init_bresenham(t_node start, t_node end);
 
 void 			draw_pixel(t_canvas *canvas, int x, int y, int color);
 int 			get_pixel_color(t_node start, t_node end, t_bresenham *b, int pixel);
+void	render_image(t_fdf *f);
 
 // Free
 void			free_fdf(t_fdf *f);
