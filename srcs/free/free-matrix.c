@@ -6,14 +6,14 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 16:27:09 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 12:03:45 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 20:35:43 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
 // free metrix
-void free_matrix(t_fdf *fdf)
+void	free_matrix(t_fdf *fdf)
 {
 	t_point	*tmp;
 
