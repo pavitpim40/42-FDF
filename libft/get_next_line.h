@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:39:45 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/02 15:12:23 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 20:06:10 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
+#  define BUFFER_SIZE 512
 # endif
 
 char	*get_next_line(int fd);
