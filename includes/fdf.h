@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 15:16:58 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 15:21:40 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,6 @@ t_canvas *init_canvas(void *mlx);
 void			render_image(t_fdf *f);
 void			rerender(t_fdf *fdf);
 
-
 // MAP Init
 t_map 			*init_map();
 int				isFDF(char *filename);
@@ -145,7 +144,6 @@ void 			print_all_point(t_point *head);
 
 // Matrix
 void 			create_matrix(t_fdf *f);
-
 
 // Draw
 void			draw_image_new(t_fdf *fdf);
@@ -177,7 +175,6 @@ void rotate_x(int *y, int *z, double alpha);
 void rotate_y(int *x, int *z, double beta);
 void rotate_z(int *x, int *y, double gamma);
 void iso(int *x, int *y, int z);
-
 
 
 // ### EVENT
