@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 23:37:03 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 23:37:39 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_bresenham
 	int		decision_param;
 	int		start_pixel;
 	int		direction;
-}	t_bresenham;
+}	t_bsh;
 
 typedef enum s_projection
 {
@@ -171,10 +171,10 @@ t_node		create_node(t_fdf *f, int axis, int ordinate, int altitude);
 int			get_altitude_color(t_map *map, int z);
 
 void		draw_line(t_node start, t_node end, t_canvas *img);
-t_bresenham	*init_bresenham(t_node start, t_node end);
+t_bsh		*init_bsh(t_node start, t_node end);
 
 void		draw_pixel(t_canvas *canvas, int x, int y, int color);
-int			get_pixel_color(t_node start, t_node end, t_bresenham *b, int pixel);
+int			get_pixel_color(t_node start, t_node end, t_bsh *b, int pixel);
 void		render_image(t_fdf *f);
 
 // Free

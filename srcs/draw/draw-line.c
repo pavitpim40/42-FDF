@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 01:56:30 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 23:09:19 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 23:39:00 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	draw_line(t_node start, t_node end, t_canvas *img)
 {
-	t_bresenham	*p;
+	t_bsh		*p;
 	int			color;
 
-	p = init_bresenham(start, end);
+	p = init_bsh(start, end);
 	while (p->primary_k != p->primary_n)
 	{
 		color = get_pixel_color(start, end, p, p->primary_k);
