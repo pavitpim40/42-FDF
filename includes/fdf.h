@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 04:12:40 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 12:31:53 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,41 +69,16 @@ typedef struct s_node
 	int z;
 	int altitude;
 	int color;
-	int default_color;
-	double percent;
 } t_node;
 
-typedef struct s_matrix
-{
-	int x;
-	int y;
-	int z;
-	int axis;
-	int ordinate;
-	int altitude;
-	int color;
-	int default_color;
-	struct s_matrix *next;
 
-} t_matrix;
-
-// typedef struct s_width
-// {
-// 	int width;
-// 	struct s_width *next;
-// } t_width;
-
-// MAP Detail
 typedef struct s_map
 {
 	int width;
 	int height;
-	t_matrix **matrix;
-	int cell_size;
 	int z_min;
 	int z_max;
 	int z_range;
-	// t_width *width_arr;
 } t_map;
 
 typedef struct s_camera
@@ -136,16 +111,15 @@ typedef struct s_fdf
 {
 	void *mlx;
 	void *win;
-	t_canvas *canvas;
-	t_map *map;
-
-	t_matrix *head;
-	t_point *start;
-	int	*h_mtx;
-	int	*c_mtx;
-	t_matrix **matrix;
-	t_camera *camera;
-	int		add_status;
+	t_canvas 	*canvas;
+	t_map 		*map;
+	t_camera 	*camera;
+	
+	// point 
+	t_point 	*start;
+	int			*h_mtx;
+	int			*c_mtx;
+	// int		add_status;
 	int		have_default_color;
 	// t_mouse		*mouse;
 } t_fdf;
@@ -160,48 +134,51 @@ void terminate(char *msg);
 void create_matrix(t_fdf *f);
 
 
-int	isFDF(char *filename);
+
+// MAP to Point
+int				isFDF(char *filename);
+t_map 			*init_map();
+void			parse_map_new(char *filename, t_fdf *f);
+int				ft_whitespace(char c);
+void 			free_all_point(t_point *point);
+void 			print_all_point(t_point *head);
+int				is_map_in_range(int map_width, int current_width);
+void 			free_split_line(char **split_line);
+void			free_extract_line(char *axis_string, char **axis_array);
+void			update_altitude(t_fdf *f, int altitude);
+
+
+// Draw
+void			draw_image_new(t_fdf *fdf);
+
+void			draw_each_row_new(t_fdf *fdf, int axis);
+t_node			create_node(t_fdf *f, int axis, int ordinate, int altitude);
+int 			get_altitude_color(t_map *map, int z);
+
+void 			draw_line(t_node start, t_node end, t_canvas *img);
+t_bresenham		*init_bresenham(t_node start, t_node end);
+
+void 			draw_pixel(t_canvas *canvas, int x, int y, int color);
+int 			get_pixel_color(t_node start, t_node end, t_bresenham *b, int pixel);
+
+
+// Render
+void			render_image(t_fdf *f);
+void			rerender(t_fdf *fdf);
+
+
+
+
+
+
+
+
 // void	int_image(void *mlx);
 // Free
 void	free_fdf(t_fdf *f);
 void	free_all(t_fdf *f);
-void	free_extract_line(char *axis_string, char **axis_array);
-void	draw_image_new(t_fdf *fdf);
-void	draw_each_row_new(t_fdf *fdf, int axis);
-t_node	get_pixel(t_fdf *f, int axis, int ordinate, int altitude);
-
-
-// MAP
-void print_all_point(t_point *head);
-t_map 			*init_map();
-void			print_map(t_map *map, t_matrix *head);
-void	parse_map_new(char *filename, t_fdf *f);
-void 	free_all_point(t_point *point);
-void			init_meta_data( t_matrix *tv, int *arr_h, int *prev_h);
-void			draw_each_row(t_fdf *fdf, t_matrix *tv, int *arr_h, int *prev_arr_h);
-
-t_matrix 		*parse_map(char *filename, t_fdf *f);
-
-void			get_matrix(int fd, t_fdf *f);
 void 			free_matrix(t_fdf *fdf);
-int				is_map_in_range(int map_width, int current_width);
-void			extract_line(char *axis_string, t_fdf *f, int axis, t_matrix **matrix);
-void 			free_split_line(char **split_line);
-void			update_altitude(t_fdf *f, int altitude);
 
-
-// Coordinate-list : Vector
-// t_matrix		*new_element(int x, int y, int z);
-t_matrix	*new_element(int x, int y, int z, t_fdf *f);
-// void			stack_coordinate(int axis, int ordinate, int altitude, t_matrix **matrix);
-void			add_head(t_fdf *f, t_matrix *element, t_matrix **matrix_map);
-void			add_next(t_matrix *element, t_matrix **matrix_map);
-int				list_count(t_matrix *head);
-
-// Render 
-
-void	render_image(t_fdf *f);
-void	rerender(t_fdf *fdf);
 
 
 // MATH
@@ -214,27 +191,9 @@ void rotate_y(int *x, int *z, double beta);
 void rotate_z(int *x, int *y, double gamma);
 void iso(int *x, int *y, int z);
 
-// DRAW
-void draw_image(t_fdf *fdf);
 
-t_node new_pixel (t_fdf *fdf,int axis,int ordinate,int altitude);
-t_matrix dup_coordinate(int axis,int ordinate,int altitude, int color);
-int get_altitude_color(t_map *map, int z);
-
-t_bresenham	*init_bresenham(t_node start, t_node end);
-void draw_line(t_node start, t_node end, t_canvas *img);
-void	draw_line_new(t_node start, t_node end, t_canvas *img, int line_number);
-// void	draw_line(t_node start, t_node end, t_canvas *img, int line_number);
-
-void pixel_put(t_canvas *canvas, int x, int y, int color);
-int get_pixel_color(t_node start, t_node end, t_bresenham *b, int pixel);
-
-t_node coordinate_to_pixel(t_fdf *f, t_matrix t, int color);
-t_node create_project_node(int axis, int ordinate, int altitude, int color, t_map *map);
-t_node create_render_node(t_node, int color, int altitude, t_map *map, char *name);
 
 // Projection
-int	ft_whitespace(char c);
 void	isometric_projection (t_fdf *f);
 void	topview_projection (t_fdf *f);
 

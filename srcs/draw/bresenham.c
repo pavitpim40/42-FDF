@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init-bresenham.c                                   :+:      :+:    :+:   */
+/*   bresenham.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:13:50 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 02:07:34 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 13:49:10 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,17 @@ t_bresenham	*init_bresenham(t_node start, t_node end)
 	if (!b)
 		return (NULL);
 	cal_diff(start, end, b);
-	if (b->dx >= b->dy)
+	if (b->dx >= b->dy) {
+		// printf("x dominate\n");
 		x_dominate(start, end, b);
+	}
+		
 	else
+	{
+		// printf("y dominate\n");
 		y_dominate(start, end, b);
+	}
+		
 	b->decision_param = 2 * b->ds - b->dp;
 	b->start_pixel = b->primary_k;
 	return (b);

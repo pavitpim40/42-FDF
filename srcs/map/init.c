@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:41:26 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 11:51:38 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 12:06:40 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ t_map	*init_map(void)
 	ft_bzero(map, sizeof(t_map));
 	map->width = 0;
 	map->height = 0;
-	map->cell_size = 0;
-	map->matrix = NULL;
+	// map->cell_size = 0;
+	// map->matrix = NULL;
 	map->z_min = INT_MAX;
 	map->z_max = INT_MIN;
 	map->z_range = 0;
