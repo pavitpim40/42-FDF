@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 17:55:20 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 20:35:20 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/17 00:21:11 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ void	free_fdf(t_fdf *f)
 		free(f->mlx);
 	if (f->map)
 		free(f->map);
+	if (f->c_mtx)
+		free(f->c_mtx);
+	if (f->h_mtx)
+		free(f->h_mtx);
 	if (f->camera)
 		free(f->camera);
 	free(f);

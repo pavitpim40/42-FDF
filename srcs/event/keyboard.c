@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 17:17:11 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 20:32:20 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/17 00:17:18 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	key_altitude(int keycode, t_fdf *f)
 	}
 	else if (keycode == 47)
 	{
-		if (f->camera->z_divisor > 1)
+		if (f->camera->z_divisor > 0.3)
 			f->camera->z_divisor -= 0.1;
 		rerender(f);
 	}

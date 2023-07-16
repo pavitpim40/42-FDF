@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 23:37:39 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/17 00:04:02 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,6 @@ void		render_image(t_fdf *f);
 void		free_fdf(t_fdf *f);
 void		free_all(t_fdf *f);
 void		free_matrix(t_fdf *fdf);
-void		free_fdf(t_fdf *f);
 
 // MATH
 int			cal_abs(int x, int y);
