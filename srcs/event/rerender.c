@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 22:08:39 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 04:53:46 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 19:08:31 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@ void	rerender(t_fdf *f)
 	f->canvas->img = mlx_new_image(f->mlx, 1920, 1080);
 	f->canvas->addr = mlx_get_data_addr(canvas->img, &(canvas->bbp), \
 		&(canvas->line_length), &(canvas->endian));
-	draw_image_new(f);
+	draw_image(f);
 	render_image(f);
 }

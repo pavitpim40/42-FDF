@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 12:32:23 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 14:08:56 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 18:59:07 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,8 @@ int	get_pixel_color(t_node start, t_node end, t_bresenham *b, int pixel)
 	if (diff < 0)
 		diff *= -1;
 	p = diff / b->dp;
-
 	if (start.altitude == end.altitude)
 		return (start.color);
-	
 	red = cal_avg((end.color >> 16) & 0xFF, (start.color >> 16) & 0xFF, p);
 	green = cal_avg((end.color >> 8) & 0xFF, (start.color >> 8) & 0xFF, p);
 	blue = cal_avg(end.color & 0xFF, start.color & 0xFF, p);

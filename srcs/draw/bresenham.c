@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:13:50 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 14:09:16 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 18:55:27 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_bresenham	*init_bresenham(t_node start, t_node end)
 	if (b->dx >= b->dy)
 		x_dominate(start, end, b);
 	else
-		y_dominate(start, end, b);	
+		y_dominate(start, end, b);
 	b->decision_param = 2 * b->ds - b->dp;
 	b->start_pixel = b->primary_k;
 	return (b);

@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 01:59:15 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 14:20:25 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 18:57:48 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 void	draw_pixel(t_canvas *canvas, int x, int y, int color)
 {
 	char	*pos;
-	
+
 	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
 	{
 		pos = canvas->addr + (y * canvas->line_length + x * (canvas->bbp / 8));
 		*(pos++) = color & 0xFF;
-        *(pos++) = (color >> 8) & 0xFF;
-        *(pos++) = (color >> 16) & 0xFF;
+		*(pos++) = (color >> 8) & 0xFF;
+		*(pos++) = (color >> 16) & 0xFF;
 	}
 }

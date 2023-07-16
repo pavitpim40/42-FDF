@@ -6,12 +6,11 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 01:56:30 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 14:02:47 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 18:57:27 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
-
 
 void	draw_line(t_node start, t_node end, t_canvas *img)
 {
@@ -41,10 +40,6 @@ void	draw_line(t_node start, t_node end, t_canvas *img)
 	else
 		draw_pixel(img, p->secondary_k, p->primary_k, color);
 }
-
-
-
-
 
 int	get_altitude_color(t_map *map, int z)
 {
