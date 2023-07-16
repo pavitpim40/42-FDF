@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 10:24:42 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/17 00:52:35 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/17 01:57:33 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ void	parse_map(char *filename, t_fdf *f)
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
+	{
+		free_fdf(f);
 		terminate(ERR_MAP_INIT);
+	}
 	f->start = process_map(fd, f);
 	close(fd);
 	f->map->z_range = f->map->z_max - f->map->z_min;
@@ -59,7 +62,10 @@ void	process_line(char *line, t_fdf *f, t_point **head, t_point **cur)
 	{
 		point = new_point(*point_arr);
 		if (!point)
-			free_all_point(*head);
+		{
+			free_all_point(*head, f);
+			terminate("parase map fail");
+		}
 		add_point_back(head, cur, point);
 		update_altitude(f, point->altitude);
 		free(*point_arr);

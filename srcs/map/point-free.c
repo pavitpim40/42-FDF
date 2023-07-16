@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 22:19:31 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/17 01:03:10 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/17 01:58:02 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	free_indeed(char **arr, t_point *point)
 		free(point);
 }
 
-void	free_all_point(t_point *point)
+void	free_all_point(t_point *point, t_fdf *f)
 {
 	t_point	*tmp;
 
@@ -44,4 +44,5 @@ void	free_all_point(t_point *point)
 		free(point);
 		point = tmp;
 	}
+	free_fdf(f);
 }

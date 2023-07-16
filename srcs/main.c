@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:48:49 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/17 01:43:41 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/17 02:04:32 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@ t_camera	*init_camera(t_fdf *f)
 
 	camera = malloc(sizeof(t_camera));
 	if (!camera)
+	{
+		if (f->start)
+			free_all_point(f->start, f);
 		terminate("camera init failed");
+	}
 	camera->zoom = cal_min(WIDTH / (f->map->width * 2), \
 		HEIGHT / (f->map->height * 2));
 	camera->alpha = 0;
@@ -39,7 +43,7 @@ int	main(int ac, char **av)
 		terminate("usage: ./fdf <map>.fdf");
 	f = init_mlx_and_window();
 	f->canvas = init_canvas(f->mlx);
-	f->map = init_map();
+	f->map = init_map(f);
 	parse_map(av[1], f);
 	f->camera = init_camera(f);
 	create_matrix(f);

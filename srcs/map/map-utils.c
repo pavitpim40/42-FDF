@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 22:07:59 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 22:50:48 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/17 01:56:59 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	validate_mapsize(int width, t_fdf *f, t_point *head)
 		f->map->width = width;
 	else if (width != f->map->width)
 	{
-		free_all_point(head);
+		free_all_point(head, f);
 		terminate("Invalid map");
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/17 00:04:02 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/17 01:56:36 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void		rerender(t_fdf *fdf);
 
 // ### MAP
 // map-create.c
-t_map		*init_map(void);
+t_map		*init_map(t_fdf *f);
 
 // map-parse.c
 void		parse_map(char *filename, t_fdf *f);
@@ -155,7 +155,7 @@ void		print_all_point(t_point *head);
 // point-free.c
 void		free_str_split(char **arr);
 void		free_indeed(char **arr, t_point *point);
-void		free_all_point(t_point *point);
+void		free_all_point(t_point *point, t_fdf *f);
 
 void		terminate(char *msg);
 
