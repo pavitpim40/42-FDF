@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:48:49 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/17 02:36:59 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/17 02:57:30 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@ t_camera	*init_camera(t_fdf *f)
 	return (camera);
 }
 
+int	close_window(t_fdf *f)
+{
+	free_fdf(f);
+	exit(0);
+}
+
 int	main(int ac, char **av)
 {
 	t_fdf	*f;
@@ -50,6 +56,7 @@ int	main(int ac, char **av)
 	draw_image(f);
 	render_image(f);
 	mlx_hook(f->win, 2, 0, key_hook, f);
+	mlx_hook(f->win, 17, 0, close_window, f);
 	mlx_hook(f->win, 4, 0, mouse_press, f);
 	mlx_hook(f->win, 5, 0, mouse_release, f);
 	mlx_hook(f->win, 6, 0, mouse_move, f);

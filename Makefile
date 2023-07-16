@@ -6,7 +6,7 @@
 #    By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/12 10:34:59 by ppimchan          #+#    #+#              #
-#    Updated: 2023/07/17 02:34:11 by ppimchan         ###   ########.fr        #
+#    Updated: 2023/07/17 03:04:58 by ppimchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,27 +67,27 @@ RESET = \033[0m
 all: $(NAME)
 
 $(NAME) : $(LIBFT) $(MINI_LIBX) $(OBJECTS_DIRECTORY) $(OBJECTS)
-	$(CC) $(FLAGS) $(ALL_LIBS) $(ALL_HEADERS) $(OBJECTS) -o $(NAME)
+	@$(CC) $(FLAGS) $(ALL_LIBS) $(ALL_HEADERS) $(OBJECTS) -o $(NAME)
 	@echo "\n$(NAME): $(GREEN)object files were created$(RESET)"
 	@echo "$(NAME): $(GREEN)$(NAME) was created$(RESET)"
 
 # create ./object/
 $(OBJECTS_DIRECTORY):
-	mkdir -p $(OBJECTS_DIRECTORY)
-	mkdir -p $(OBJECTS_DIRECTORY)/event
-	mkdir -p $(OBJECTS_DIRECTORY)/mlx
-	mkdir -p $(OBJECTS_DIRECTORY)/map
-	mkdir -p $(OBJECTS_DIRECTORY)/draw
-	mkdir -p $(OBJECTS_DIRECTORY)/math
-	mkdir -p $(OBJECTS_DIRECTORY)/visual
-	mkdir -p $(OBJECTS_DIRECTORY)/error
-	mkdir -p $(OBJECTS_DIRECTORY)/free
-	mkdir -p $(OBJECTS_DIRECTORY)/matrix
+	@mkdir -p $(OBJECTS_DIRECTORY)
+	@mkdir -p $(OBJECTS_DIRECTORY)/event
+	@mkdir -p $(OBJECTS_DIRECTORY)/mlx
+	@mkdir -p $(OBJECTS_DIRECTORY)/map
+	@mkdir -p $(OBJECTS_DIRECTORY)/draw
+	@mkdir -p $(OBJECTS_DIRECTORY)/math
+	@mkdir -p $(OBJECTS_DIRECTORY)/visual
+	@mkdir -p $(OBJECTS_DIRECTORY)/error
+	@mkdir -p $(OBJECTS_DIRECTORY)/free
+	@mkdir -p $(OBJECTS_DIRECTORY)/matrix
 	@echo "$(NAME): $(GREEN)$(OBJECTS_DIRECTORY) was created$(RESET)"
 
 # Compile All .c to .o 
 $(OBJECTS_DIRECTORY)%.o : $(SRCS_DIRECTORY)%.c $(FDF_HEADERS)
-	$(CC) $(FLAGS) -c $(ALL_HEADERS) $< -o $@
+	@$(CC) $(FLAGS) -c $(ALL_HEADERS) $< -o $@
 	@echo "$(GREEN).$(RESET)\c"
 
 $(LIBFT):
