@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   free-matrix.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/17 01:50:56 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/14 15:06:54 by ppimchan         ###   ########.fr       */
+/*   Created: 2023/07/14 16:27:09 by ppimchan          #+#    #+#             */
+/*   Updated: 2023/07/14 16:31:15 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "fdf.h"
 
-size_t	ft_strlen(const char *s)
+// free metrix
+void free_matrix(t_fdf *fdf)
 {
-	int	i;
+	t_matrix	*tmp;
 
-	i = 0;
-	while (s && s[i] != '\0')
-		i++;
-	return (i);
+	tmp = fdf->head;
+	while (tmp)
+	{
+		fdf->head = tmp->next;
+		free(tmp);
+		tmp = fdf->head;
+	}
+	free(fdf->matrix);
 }

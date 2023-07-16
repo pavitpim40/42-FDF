@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/14 13:56:52 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/14 19:00:58 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,12 @@ typedef struct s_matrix
 
 } t_matrix;
 
+// typedef struct s_width
+// {
+// 	int width;
+// 	struct s_width *next;
+// } t_width;
+
 // MAP Detail
 typedef struct s_map
 {
@@ -94,6 +100,7 @@ typedef struct s_map
 	int z_min;
 	int z_max;
 	int z_range;
+	// t_width *width_arr;
 } t_map;
 
 typedef struct s_camera
@@ -124,6 +131,7 @@ typedef struct s_fdf
 	t_matrix *head;
 	t_matrix **matrix;
 	t_camera *camera;
+	int		add_status;
 	// t_mouse		*mouse;
 } t_fdf;
 // Coordinate Height
@@ -133,24 +141,33 @@ typedef struct s_fdf
 void terminate(char *msg);
 
 
-t_matrix *new_coordinate(int x, int y, int z);
+int	isFDF(char *filename);
 // void	int_image(void *mlx);
-
+// Free
+void	free_fdf(t_fdf *f);
+void	free_all(t_fdf *f);
+void	free_extract_line(char *axis_string, char **axis_array);
 
 
 // MAP
 t_map 			*init_map();
 void			print_map(t_map *map, t_matrix *head);
+void	init_meta_data( t_matrix *tv, int *arr_h, int *prev_h);
+void	draw_each_row(t_fdf *fdf, t_matrix *tv, int *arr_h, int *prev_arr_h);
 
-t_matrix 	*process_map(char *filename, t_fdf *f);
-void			parse_map(int fd, t_fdf *f);
+t_matrix 		*parse_map(char *filename, t_fdf *f);
+
+void			get_matrix(int fd, t_fdf *f);
+void 			free_matrix(t_fdf *fdf);
+int				is_map_in_range(int map_width, int current_width);
 void			extract_line(char *axis_string, t_fdf *f, int axis, t_matrix **matrix);
 void 			free_split_line(char **split_line);
 void			update_altitude(t_fdf *f, int altitude);
 
 
 // Coordinate-list : Vector
-t_matrix		*new_element(int x, int y, int z);
+// t_matrix		*new_element(int x, int y, int z);
+t_matrix	*new_element(int x, int y, int z, t_fdf *f);
 // void			stack_coordinate(int axis, int ordinate, int altitude, t_matrix **matrix);
 void			add_head(t_fdf *f, t_matrix *element, t_matrix **matrix_map);
 void			add_next(t_matrix *element, t_matrix **matrix_map);

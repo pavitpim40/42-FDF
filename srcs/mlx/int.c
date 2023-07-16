@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 17:30:26 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/14 14:27:09 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/14 19:15:45 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ t_fdf	*init_mlx_and_window(void)
 	if (!fdf)
 		terminate("fdf init failed");
 	fdf->mlx = mlx_init();
-	fdf->win = mlx_new_window(fdf->mlx, 1920, 1080, "FDF");
+	fdf->win = mlx_new_window(fdf->mlx, WIDTH, HEIGHT, "FDF");
+	fdf->add_status = 0;
+	fdf->camera = NULL;
 	return (fdf);
 }
 
@@ -30,8 +32,11 @@ t_canvas	*init_canvas(void *mlx)
 
 	canvas = malloc(sizeof(t_canvas));
 	if (!canvas)
+	{
+		free_fdf(mlx);
 		terminate("canvas init failed");
-	canvas->img = mlx_new_image(mlx, 1920, 1080);
+	}
+	canvas->img = mlx_new_image(mlx, WIDTH, HEIGHT);
 	canvas->addr = mlx_get_data_addr(canvas->img, &(canvas->bbp), \
 		&(canvas->line_length), &(canvas->endian));
 	return (canvas);

@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:48:49 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/14 14:11:48 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/14 17:55:45 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,7 @@
 #include <errno.h>
 #include <stdio.h>
 
-// NEED TO Review
-void	free_fdf(t_fdf *f)
-{
-	free(f->canvas);
-	free(f->map);
-	free(f->head);
-	free(f->mlx);
-	free(f->win);
-	free(f);
-}
+
 
 void	render_image(t_fdf *f)
 {
@@ -56,12 +47,12 @@ int	main(int ac, char **av)
 {
 	t_fdf	*f;
 
-	if (ac != 2)
-		terminate("usage: ./fdf <map>");
+	if (ac != 2 || !isFDF(av[1]))
+		terminate("usage: ./fdf <map>.fdf");
 	f = init_mlx_and_window();
 	f->canvas = init_canvas(f->mlx);
 	f->map = init_map();
-	f->head = process_map(av[1], f);
+	f->head = parse_map(av[1], f);
 	f->camera = init_camera(f);
 	draw_image(f);
 	render_image(f);
