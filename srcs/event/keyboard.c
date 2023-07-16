@@ -6,28 +6,24 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 17:17:11 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 13:23:04 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/16 15:10:00 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
 
-
-int	key_hook(int keycode, t_fdf *f)
+void key_projection(int keycode, t_fdf *f)
 {
-	printf("keycode: %d\n", keycode);
-	if (keycode == 53) {
-		free_fdf(f);
-		exit(0);
-	}
-	// 34 = I
+	// isometric projection I = 34
 	if(keycode == 34)
 		isometric_projection(f);
-	// 35 = P
+	// topview projection P = 35
 	if (keycode == 35)
 		topview_projection(f);
-	// right = 124
+}
+void key_offset(int keycode, t_fdf *f)
+{
 	if (keycode == 124)
 		shift_rigth(f);
 	// left = 123
@@ -39,6 +35,10 @@ int	key_hook(int keycode, t_fdf *f)
 	// down = 125
 	if (keycode == 125)
 		shift_down(f);
+}
+
+void key_rotate(int keycode, t_fdf *f)
+{
 	// rotate-x
 	if(keycode == 18) 
 		alpha_increase(f);
@@ -54,39 +54,46 @@ int	key_hook(int keycode, t_fdf *f)
 		gamma_increase(f);
 	if(keycode == 23)
 		gamma_decrease(f);
-	// zoom in key 24
-	if(keycode == 24 || keycode == 69)
-		zoom_in(f);
-	if (keycode == 27|| keycode == 78 )
-		zoom_out(f);
+}
 
 
-	// reset R = 15
-	if(keycode == 15)
-		reset(f);
-	// z_divisor inc 43
+void key_altitude(int keycode, t_fdf *f)
+{
+// z_divisor inc 43
 	if(keycode == 43) {
-		// printf("z_divisor: %f\n", f->camera->z_divisor);
 		f->camera->z_divisor += 0.1;
-		f->canvas = init_canvas(f->mlx);
-		
-		// draw_image(f);
-		// render_image(f);
 		rerender(f);
-		// printf("z_divisor inc\n");
 	}
 	// z_divisor dec 47
 	if(keycode == 47) {
 		if(f->camera->z_divisor > 1)
 			f->camera->z_divisor -= 0.1;
-		f->canvas = init_canvas(f->mlx);
-		
 		rerender(f);
-		// draw_image(f);
-		// render_image(f);
-		// printf("z_divisor dec\n");
 	}
-
+}
+int	key_hook(int keycode, t_fdf *f)
+{
+	printf("keycode: %d\n", keycode);
+	if (keycode == 53) {
+		free_fdf(f);
+		exit(0);
+	}
+	if(keycode >= 18 && keycode <= 23)
+		key_rotate(keycode, f);
+	if(keycode == 34 || keycode == 35)
+		key_projection(keycode, f);
+	if(keycode == 43 || keycode == 47)
+		key_altitude(keycode, f);
+	if(keycode >= 123 && keycode <= 126)
+		key_offset(keycode, f);
+	// zoom in key 24
+	if(keycode == 24 || keycode == 69)
+		zoom_in(f);
+	if (keycode == 27|| keycode == 78 )
+		zoom_out(f);
+	// reset R = 15
+	if(keycode == 15)
+		reset(f);
 	return (0);
 }
 
