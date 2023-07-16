@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 10:24:42 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/17 01:57:33 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/17 02:27:51 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	process_line(char *line, t_fdf *f, t_point **head, t_point **cur)
 		point = new_point(*point_arr);
 		if (!point)
 		{
-			free_all_point(*head, f);
+			free_all_point(*head);
 			terminate("parase map fail");
 		}
 		add_point_back(head, cur, point);

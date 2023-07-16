@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 22:32:00 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 23:02:24 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/17 02:32:24 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,20 +52,4 @@ int	ft_atoi_base(char *str, int base)
 		i++;
 	}
 	return (result * sign);
-}
-
-void	print_all_point(t_point *head)
-{
-	t_point	*current;
-	int		count; 
-
-	count = 0;
-	current = head;
-	while (current)
-	{
-		printf("alt: %d,%x\n", current->altitude, current->default_color);
-		current = current->next;
-		count++;
-	}
-	printf("count: %d\n", count);
 }

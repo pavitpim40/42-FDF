@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 00:23:43 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/17 02:04:06 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/17 02:31:01 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,12 @@ void	create_matrix(t_fdf *f)
 	color_mtx = (int *)malloc(sizeof(int) * f->map->width * f->map->height);
 	if (!altitude_mtx || !color_mtx)
 	{
-		free(altitude_mtx);
+		if (altitude_mtx)
+			free(altitude_mtx);
 		if (color_mtx)
 			free(color_mtx);
 		if (f->start)
-			free_all_point(f->start, f);
+			free_all_point(f->start);
 		free_fdf(f);
 		terminate("matrix error");
 	}
