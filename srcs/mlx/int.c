@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 17:30:26 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 23:05:06 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/18 22:23:27 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,12 @@ t_fdf	*init_mlx_and_window(void)
 		terminate("fdf init failed");
 	fdf->mlx = mlx_init();
 	fdf->win = mlx_new_window(fdf->mlx, WIDTH, HEIGHT, "FDF");
+	fdf->canvas = NULL;
+	fdf->map = NULL;
 	fdf->camera = NULL;
+	fdf->start = NULL;
+	fdf->h_mtx = NULL;
+	fdf->c_mtx = NULL;
 	return (fdf);
 }
 

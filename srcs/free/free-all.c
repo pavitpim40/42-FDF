@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 17:55:20 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/17 02:51:55 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/19 00:39:42 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ void	free_fdf(t_fdf *f)
 	if (f->canvas)
 		free(f->canvas);
 	if (f->win)
+	{
+		mlx_clear_window(f->mlx, f->win);
 		mlx_destroy_window(f->mlx, f->win);
+	}
 	if (f->map)
 		free(f->map);
 	if (f->c_mtx)

@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 10:24:42 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/17 02:44:56 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/18 23:54:18 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,6 @@ void	parse_map(char *filename, t_fdf *f)
 	int	fd;
 
 	fd = open(filename, O_RDONLY);
-	if (fd < 0)
-	{
-		free_fdf(f);
-		terminate(ERR_MAP_INIT);
-	}
 	f->start = process_map(fd, f);
 	close(fd);
 	f->map->z_range = f->map->z_max - f->map->z_min;

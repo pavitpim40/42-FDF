@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 22:07:59 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/17 02:42:30 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/18 23:52:58 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,18 @@ int	is_fdf(char *filename)
 	if (extension && ft_strncmp(extension, ".fdf", ft_strlen(extension)) == 0)
 		return (1);
 	return (0);
+}
+
+int	is_exist(char *filename)
+{
+	int	fd;
+
+	fd = open(filename, O_RDONLY);
+	close(fd);
+	if (fd < 0)
+		return (0);
+	else
+		return (1);
 }
 
 void	validate_mapsize(int width, t_fdf *f, t_point *head)

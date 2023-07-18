@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:48:49 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/17 02:57:30 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/18 23:53:26 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	main(int ac, char **av)
 {
 	t_fdf	*f;
 
-	if (ac != 2 || !is_fdf(av[1]))
+	if (ac != 2 || !is_fdf(av[1]) || !is_exist(av[1]))
 		terminate("usage: ./fdf <map>.fdf");
 	f = init_mlx_and_window();
 	f->canvas = init_canvas(f->mlx);

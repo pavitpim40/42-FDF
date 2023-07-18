@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:53:05 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/17 02:27:26 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/18 23:53:13 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ void		process_line(char *line, t_fdf *f, t_point **head, t_point **cur);
 
 // map-utils.c
 int			is_fdf(char *filename);
+int			is_exist(char *filename);
 void		update_altitude(t_fdf *f, int altitude);
 void		validate_mapsize(int width, t_fdf *f, t_point *head);
 
