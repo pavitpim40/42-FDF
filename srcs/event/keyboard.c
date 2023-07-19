@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 17:17:11 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 19:07:24 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/19 15:07:32 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	key_projection(int keycode, t_fdf *f)
 {
 	if (keycode == 34)
 		isometric_projection(f);
-	else if (keycode == 35)
+	if (keycode == 35)
 		topview_projection(f);
 }
 
@@ -57,7 +57,7 @@ void	key_altitude(int keycode, t_fdf *f)
 	}
 	else if (keycode == 47)
 	{
-		if (f->camera->z_divisor > 1)
+		if (f->camera->z_divisor > 0.3)
 			f->camera->z_divisor -= 0.1;
 		rerender(f);
 	}

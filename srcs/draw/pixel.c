@@ -6,13 +6,13 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 12:32:23 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 18:59:07 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/19 15:07:13 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	get_pixel_color(t_node start, t_node end, t_bresenham *b, int pixel)
+int	get_pixel_color(t_node start, t_node end, t_bsh *b, int pixel)
 {
 	double	p;
 	int		red;

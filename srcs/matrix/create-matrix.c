@@ -6,20 +6,19 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 00:23:43 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 14:38:16 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/17 02:31:01 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void write_matrix(t_fdf *f, int *altitude_mtx, int *color_mtx)
+void	write_matrix(t_fdf *f, int *altitude_mtx, int *color_mtx)
 {
-	int i;
+	int		i;
+	t_point	*current;
+	t_point	*tmp;
 
 	i = 0;
-	t_point *current;
-	t_point *tmp;
-
 	current = f->start;
 	tmp = current;
 	while (current)
@@ -35,19 +34,23 @@ void write_matrix(t_fdf *f, int *altitude_mtx, int *color_mtx)
 	f->c_mtx = color_mtx;
 }
 
-void create_matrix(t_fdf *f)
+void	create_matrix(t_fdf *f)
 {
 	int	*altitude_mtx;
 	int	*color_mtx;
 
 	altitude_mtx = (int *)malloc(sizeof(int) * f->map->width * f->map->height);
 	color_mtx = (int *)malloc(sizeof(int) * f->map->width * f->map->height);
-	if(!altitude_mtx || !color_mtx)
+	if (!altitude_mtx || !color_mtx)
 	{
-		free(altitude_mtx);
+		if (altitude_mtx)
+			free(altitude_mtx);
 		if (color_mtx)
 			free(color_mtx);
-		free_all(f);
+		if (f->start)
+			free_all_point(f->start);
+		free_fdf(f);
+		terminate("matrix error");
 	}
 	write_matrix(f, altitude_mtx, color_mtx);
 }

@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 00:39:52 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 18:59:36 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/19 15:06:35 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	draw_background(t_fdf *fdf)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
@@ -39,12 +39,12 @@ void	draw_image(t_fdf *fdf)
 	draw_background(fdf);
 	while (axis < fdf->map->height)
 	{
-		draw_each_row(fdf, axis);
+		draw_row(fdf, axis);
 		axis++;
 	}
 }
 
-void	draw_each_row(t_fdf *fdf, int axis)
+void	draw_row(t_fdf *fdf, int axis)
 {
 	t_node		start;
 	t_node		end;

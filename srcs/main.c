@@ -6,23 +6,11 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:48:49 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 19:20:20 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/07/19 15:06:06 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fdf.h"
-#include "get_next_line.h"
-#include "libft.h"
-#include <limits.h>
-#include <errno.h>
-#include <stdio.h>
-
-
-
-void	render_image(t_fdf *f)
-{
-	mlx_put_image_to_window(f->mlx, f->win, f->canvas->img, 0, 0);
-}
+#include "fdf.h"
 
 t_camera	*init_camera(t_fdf *f)
 {
@@ -30,7 +18,11 @@ t_camera	*init_camera(t_fdf *f)
 
 	camera = malloc(sizeof(t_camera));
 	if (!camera)
+	{
+		if (f->start)
+			free_all_point(f->start);
 		terminate("camera init failed");
+	}
 	camera->zoom = cal_min(WIDTH / (f->map->width * 2), \
 		HEIGHT / (f->map->height * 2));
 	camera->alpha = 0;
@@ -43,21 +35,28 @@ t_camera	*init_camera(t_fdf *f)
 	return (camera);
 }
 
+int	close_window(t_fdf *f)
+{
+	free_fdf(f);
+	exit(0);
+}
+
 int	main(int ac, char **av)
 {
 	t_fdf	*f;
 
-	if (ac != 2 || !is_fdf(av[1]))
+	if (ac != 2 || !is_fdf(av[1]) || !is_exist(av[1]))
 		terminate("usage: ./fdf <map>.fdf");
 	f = init_mlx_and_window();
 	f->canvas = init_canvas(f->mlx);
-	f->map = init_map();
+	f->map = init_map(f);
 	parse_map(av[1], f);
 	f->camera = init_camera(f);
 	create_matrix(f);
 	draw_image(f);
 	render_image(f);
 	mlx_hook(f->win, 2, 0, key_hook, f);
+	mlx_hook(f->win, 17, 0, close_window, f);
 	mlx_hook(f->win, 4, 0, mouse_press, f);
 	mlx_hook(f->win, 5, 0, mouse_release, f);
 	mlx_hook(f->win, 6, 0, mouse_move, f);

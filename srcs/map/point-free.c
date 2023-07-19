@@ -1,26 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rerender.c                                         :+:      :+:    :+:   */
+/*   point-free.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/11 22:08:39 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 19:08:31 by ppimchan         ###   ########.fr       */
+/*   Created: 2023/07/16 22:19:31 by ppimchan          #+#    #+#             */
+/*   Updated: 2023/07/17 02:26:55 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	rerender(t_fdf *f)
+void	free_str_split(char **arr)
 {
-	t_canvas	*canvas;
+	size_t	i;
 
-	canvas = f->canvas;
-	mlx_destroy_image (f->mlx, f->canvas->img);
-	f->canvas->img = mlx_new_image(f->mlx, 1920, 1080);
-	f->canvas->addr = mlx_get_data_addr(canvas->img, &(canvas->bbp), \
-		&(canvas->line_length), &(canvas->endian));
-	draw_image(f);
-	render_image(f);
+	i = 0;
+	while (arr[i])
+		free(arr[i++]);
+	free(arr);
+}
+
+void	free_indeed(char **arr, t_point *point)
+{
+	size_t	i;
+
+	i = 0;
+	while (arr[i])
+		free(arr[i++]);
+	free(arr);
+	if (point)
+		free(point);
+}
+
+void	free_all_point(t_point *point)
+{
+	t_point	*tmp;
+
+	while (point)
+	{
+		tmp = point->next;
+		free(point);
+		point = tmp;
+	}
 }

@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   beta.c                                             :+:      :+:    :+:   */
+/*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/11 22:39:11 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/07/16 23:05:42 by ppimchan         ###   ########.fr       */
+/*   Created: 2023/07/11 22:08:39 by ppimchan          #+#    #+#             */
+/*   Updated: 2023/07/19 15:07:19 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	beta_increase(t_fdf *f)
+void	render_image(t_fdf *f)
 {
-	f->camera->beta += 0.05;
-	rerender(f);
+	mlx_put_image_to_window(f->mlx, f->win, f->canvas->img, 0, 0);
 }
 
-void	beta_decrease(t_fdf *f)
+void	rerender(t_fdf *f)
 {
-	f->camera->beta -= 0.05;
-	rerender(f);
+	t_canvas	*canvas;
+
+	canvas = f->canvas;
+	mlx_destroy_image(f->mlx, f->canvas->img);
+	f->canvas->img = mlx_new_image(f->mlx, 1920, 1080);
+	f->canvas->addr = mlx_get_data_addr(canvas->img, &(canvas->bbp), \
+		&(canvas->line_length), &(canvas->endian));
+	draw_image(f);
+	render_image(f);
 }
